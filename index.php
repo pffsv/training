@@ -20,8 +20,22 @@
 		echo 'Твое сообщение: '.$text;
 	}
 
+	if(
+	   (empty($_REQUEST['name']) or
+	   empty($_REQUEST['age']) or
+	   empty($_REQUEST['text']))
+	   and !empty($_REQUEST)
+	  )
+	{
+		echo 'Поля не могут быть пустые';
+	}	
 
-	if(empty($_REQUEST)){
+
+	if(
+	   empty($_REQUEST['name']) or
+	   empty($_REQUEST['age']) or
+	   empty($_REQUEST['text'])
+		){
 ?>
 
 	<form action="" method="POST">
@@ -34,24 +48,5 @@
 <?php } ?>
 
 
-<!--2-й вариант-->
 
-<?php
-	if (isset($_REQUEST['age'])) {
-		$age = strip_tags($_REQUEST['age']);
-		echo 'Ваш возраст: '.$age;
-	}
-?>
-
-
-<?php
-	if (!isset($_REQUEST['age'])) {
-?>
-		<form action="" method="GET">
-			<input type="text" name="age">
-			<input type="submit">
-		</form>
-<?php
-	}
-?>
 
