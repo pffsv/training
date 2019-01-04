@@ -1,19 +1,17 @@
 
-<!--2.1.Спросите у пользователя имя, возраст, а также попросите его ввести сообщение 
-(его сделайте в textarea). Выведите эти данные на экран в формате, 
-приведенном под данной задачей.-->
+<!--3. Спросите возраст пользователя. Если форма была отправлена и введен возраст, 
+	то выведите его на экран, а форму уберите. Если же форма не была отправлена 
+	(это будет при первом заходе на страницу) - просто покажите ее-->
 
-<form action="" method="POST">
-	<input name="name" placeholder="введите имя"><br><br>
-	<input name="age" placeholder="введите возраст"><br><br>
-	<textarea name="text" placeholder="введите сообщение"></textarea><br><br>
-	<input type="submit" value="отправить">
-</form>
+
 
 <?php
 //    error_reporting(E_ALL);
 
-	if(!empty($_REQUEST['name'])){
+	if(!empty($_REQUEST['name']) and
+	   !empty($_REQUEST['age']) and
+	   !empty($_REQUEST['text'])
+		){
 		$name = $_REQUEST['name'];
 		$text = $_REQUEST['text'];
 		$age = $_REQUEST['age'];
@@ -22,24 +20,38 @@
 		echo 'Твое сообщение: '.$text;
 	}
 
+
+	if(empty($_REQUEST)){
 ?>
-<!--2.1.Спросите у пользователя имя, возраст, а также попросите его ввести сообщение 
-(его сделайте в textarea). Выведите эти данные на экран в формате, 
-приведенном под данной задачей. Позаботьтесь о том, чтобы пользователь не мог 
-вводить теги (просто удаляйте их) и таким образом сломать сайт.-->
-<hr>
-<form action="" method="GET">
-	<input type="text" name="name" placeholder="введите имя"><br><br>
-	<input type="text" name="age" placeholder="возраст"><br><br>
-	<textarea name="message" placeholder="введите сообщение"></textarea><br><br>
-	<input type="submit" name="submit">	
-</form>
+
+	<form action="" method="POST">
+	<input name="name" placeholder="введите имя"><br><br>
+	<input name="age" placeholder="введите возраст"><br><br>
+	<textarea name="text" placeholder="введите сообщение"></textarea><br><br>
+	<input type="submit" value="отправить">
+    </form>
+
+<?php } ?>
+
+
+<!--2-й вариант-->
 
 <?php
-	if (isset($_REQUEST['submit'])) {
+	if (isset($_REQUEST['age'])) {
 		$age = strip_tags($_REQUEST['age']);
-		$name = strip_tags($_REQUEST['name']);
-		$message = strip_tags($_REQUEST['message']);
-		echo "Привет, $name, $age <br> твое сообщение: $message";
+		echo 'Ваш возраст: '.$age;
 	}
 ?>
+
+
+<?php
+	if (!isset($_REQUEST['age'])) {
+?>
+		<form action="" method="GET">
+			<input type="text" name="age">
+			<input type="submit">
+		</form>
+<?php
+	}
+?>
+
