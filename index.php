@@ -1,38 +1,55 @@
 
-<!--4.Спросите у пользователя логин и пароль (в браузере должен быть звездочками). 
-	Сравните их с логином $login и паролем $pass, хранящихся в файле. Если все верно - выведите
-	'Доступ разрешен!', в противном случае - 'Доступ запрещен!'. Сделайте так, чтобы скрипт 
-	обрезал концевые пробелы в строках, которые ввел пользователь.-->
+<!--Спросите город пользователя с помощью формы. Результат запишите в переменную $city. 
+Выведите на экран фразу 'Ваш город: %Город%'.-->
 
-
-
-<?php
-//    error_reporting(E_ALL);
-
-    $loginInFail = 'user';
-    $passInFail = 'qwerty';
-
-	if(!empty($_REQUEST['login']) and !empty($_REQUEST['password'])){ 	   
-		$login = trim($_REQUEST['login']);
-		$password = trim($_REQUEST['password']);
-        if($login==$loginInFail and $password==$passInFail){
-        	echo "Доступ разрешен!";
-        } else {
-        	echo "Доступ запрещен!";
-        }
-	}
-
-?>
-
-<form>
-	<form action="" method="POST">
-	<input name="login" placeholder="введите логин"><br><br>
-	<input type="password" name="password" placeholder="введите пароль"><br><br>
-	<input type="submit" value="отправить">
+<form action="" method="GET">
+	<input type="text" name="city">
+	<input type="submit">
 </form>
 
+<?php
+//Если форма была отправлена и город не пустой:
+	if (!empty($_REQUEST['city'])) {
+		$city = $_REQUEST['city'];
+		echo "Ваш город".$city;
+   }
+?>
+<hr>
 
+<!--Решим предыдущую задачу так, чтобы пользователь не мог вводить теги-->
 
+<form action="" method="GET">
+	<input type="text" name="city">
+	<input type="submit">
+</form>
 
+<?php
+	//Если форма была отправлена и город не пустой:
+	if (isset($_REQUEST['city'])) {
+		$city = strip_tags($_REQUEST['city']);
+		echo 'Ваш город: '.$city;
+	}
+?>
+<hr>
 
+<!--Давайте сделаем так, чтобы форма после отправки скрывалась-->
 
+<?php
+	//Если город пустой - покажем форму
+	if (isset($_REQUEST['city'])) {
+?>
+		<form action="" method="GET">
+			<input type="text" name="name">
+			<input type="submit">
+		</form>
+<?php
+	}
+?>
+
+<?php
+	//Если форма была отправлена и город не пустой:
+	if (isset($_REQUEST['city'])) {
+		$city = strip_tags($_REQUEST['age']);
+		echo 'Ваш город: '.$age;
+	}
+?>
