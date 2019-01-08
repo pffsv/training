@@ -173,4 +173,77 @@ $week = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 	if (isset($_REQUEST['date'])) {
 		echo date('H:i:s d.m.Y', strtotime($_REQUEST['date']));
 	}
+
+	echo '<br><hr>';
+
+
+ /*18.В переменной $date лежит дата в формате '2025-12-31'. 
+ Прибавьте к этой дате 2 дня, 1 месяц и 3 дня, 1 год. Отнимите от этой даты 3 дня. */
+    
+    echo '18.<br>';
+	//2 дня
+	$date =  date_create('2025-12-31');
+	date_modify($date, '2 day');
+	echo date_format($date, 'd.m.Y');
+	echo '<br>';
+
+	//1 месяц и 3 дня
+	$date =  date_create('2025-12-31');
+	date_modify($date, '1 month 3 day');
+	echo date_format($date, 'd.m.Y');
+	echo '<br>';
+
+	//1 год
+	$date =  date_create('2025-12-31');
+	date_modify($date, '1 year');
+	echo date_format($date, 'd.m.Y');
+	echo '<br>';
+
+	//Минус 3 дня
+	$date =  date_create('2025-12-31');
+	date_modify($date, '-3 day');
+	echo date_format($date, 'd.m.Y');
+	echo '<br><hr>';
+
+/*19.Узнайте сколько дней осталось до Нового Года. Скрипт должен работать в любом году.*/
+
+    echo '19.<br>';
+	$time = mktime(23, 59, 59, 12, 31);
+	$time = $time + 1;
+	echo floor(($time - time()) / (60 * 60 * 24));
+    echo '<br><hr>';
+?>	
+
+<!-- 20.Сделайте форму с одним полем ввода, в которое пользователь вводит год. 
+	Найдите все пятницы 13-е в этом году. Результат выведите в виде массива дат.-->
+
+	<form action="" method="GET">
+	<input type="text" name="year">
+	<input type="submit">
+    </form>
+
+<?php
+	if (isset($_REQUEST['year'])) {
+		$year = $_REQUEST['year'];
+		$arr = [];
+		for($i = 1; $i <= 12; $i++) {
+			$timestamp = mktime(0, 0, 0, $i, 13, $year);
+			if (date('w', $timestamp) == 5) {
+				$arr[] = date('d-m-Y', $timestamp);
+			}
+		}
+		var_dump($arr);
+	}
+	echo '<br><hr>';
+
+/*21. Узнайте какой день недели был 100 дней назад.*/
+
+	$date = date_create();
+	date_modify($date, '-100 day');
+	$num = date_format($date, 'w');
+
+	$week = ['вс', 'пн', 'вт', 'ср','чт', 'пт', 'сб'];
+	echo $week[$num];
+
 ?>
+
