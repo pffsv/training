@@ -1,28 +1,50 @@
 <?php
-  //Устанавливаем доступы к базе данных:
-    $host = 'localhost'; //имя хоста, на локальном компьютере это localhost
-    $user = 'root'; //имя пользователя, по умолчанию это root
-    $password = ''; //пароль, по умолчанию пустой
-    $db_name = 'yii2_loc'; //имя базы данных
+//Приемы работы с циклами на PHP
+//выведем на экран строку '111222333444555666777888999'.
 
-  //Соединяемся с базой данных используя наши доступы:
-    $link = mysqli_connect($host, $user, $password, $db_name);
+	for ($i=1; $i < 10; $i++) { 
+	    for ($j=1; $j < 3; $j++) { 
+	        echo $i;    
+	    }
+	}
 
-  //Устанавливаем кодировку (не обязательно, но поможет избежать проблем):
-    mysqli_query($link, "SET NAMES 'utf8'");
+	echo "<br>";
 
-  //Формируем тестовый запрос:
-//    $query = "SELECT * FROM category WHERE name LIKE 'NikeNike'";
+//сделаем строку, заполненную десятью иксами 'x'
 
+	$str = ''; //начальное значение - пустые кавычки
+	for ($i = 0; $i < 10; $i++) {
+		$str .= 'x';
+	}
+	
+	echo $str; //выведет 'xxxxxxxxxx'
 
-//    $result = mysqli_query($link, $query) or die(mysqli_error($link));
+	echo '<br>';
 
-  //Преобразуем то, что отдала нам база в нормальный массив PHP $data:
-//    for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+//выведем на экран пирамидку:
 
-//    $data = array_replace($data, ['name'=>"Nike Nike"]);
+	$str = '';
+	for ($i = 0; $i < 10; $i++) {
+		$str .= 'x';
+		echo $str.'<br>';
+	}
 
-    $query = "UPDATE category SET name='Nike Nike' WHERE name='NikeNike'";
-    $result = mysqli_query($link, $query) or die( mysqli_error($link) );
+	echo '<br>';
+
+	for ($i = 1; $i <= 9; $i++) {
+		for ($j = 1; $j <= $i; $j++) {
+			echo $i;
+		}
+		echo '<br>';
+	}
+
+	for ($i = 1; $i <= 9; $i++) {
+		$str = ''; //каждый раз зачищаем строку
+	
+		for ($j = 1; $j <= $i; $j++) {
+			$str .= $i;
+		}
+		echo $str.'<br>';
+	}	
 
 ?>
