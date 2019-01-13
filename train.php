@@ -179,7 +179,7 @@ html, css, php, javascript. Выведите на экран те языки, к
 
 <?php
 	$strc = 'Вы знаете: ';
-	foreach ($_REQUEST["lg"] as $elem) {
+	foreach ($_CET['lg'] as $elem) {
 		if($elem == 1) {
 			$str .= 'html, ';
 		}
@@ -194,4 +194,53 @@ html, css, php, javascript. Выведите на экран те языки, к
 		}
 	}
 	echo $strc;
+	echo'<br>';
+
+//7.Сделайте функцию, которая создает обычный текстовый инпут. Функция должна иметь следующие параметры: type, name, value.
+
+	function inputSeven($type, $name, $value)
+	{
+		return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'">';
+	}
+	echo inputSeven('text', 'input', '1');
+	echo'<br>';
+
+//8.Модифицируйте функцию из предыдущей задачи так, чтобы она сохраняла значение инпута после отправки.
+
+		function inputEight($type, $name, $value)
+	{
+		if(isset($_REQUEST[$name])) {
+			$value = $_REQUEST[$name];
+		}
+
+		return '<input type="text" name="'.$name.'" value="'.$value.'">';
+	}
+	echo inputEight('text', 'input', '1');
+	echo'<br>';
+
+/*9.Сделайте функцию, которая создает чекбокс. Если чекбокс не отмечен - 
+функция должна отправлять 0 (то есть нужно сделать hidden инпут), если отмечен - 1.*/
+
+	function inputNine($name)
+	{
+		return '<input type="hidden" name="'.$name.'" value="0">
+		<input type="checkbox" name="'.$name.'" value="1">';
+	}
+	echo inputNine('checkbox');
+	echo'<br>';	
+
+//10.Напишите функцию, которая создает чекбокс и сохраняет его значение после отправки
+
+	function inputTen($name)
+	{
+		if(isset($_REQUEST[$name]) and $_REQUEST[$name] == 1) {
+			$value = 'checked';
+		} else {
+			$value = '';
+		}
+		return '<input type="hidden" name="'.$name.'" value="0">
+		<input type="checkbox" name="'.$name.'" value="1" '.$value.'>';
+	}
+	echo inputTen('checkbox');
+
 ?>
