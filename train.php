@@ -1,246 +1,85 @@
-
-<!--20.Задачи на продвинутую работу с формами в PHP
-1.Сделайте чекбокс: если он отмечен, то выведите 'отмечен', если не отмечен - то выведите 'не отмечен'.-->
-
-<form action="" method="GET">
-	<input type="hidden" name="hello" value="0">
-	<input type="checkbox" name="hello" value="1">
-	<input type="submit">
-</form>
-
 <?php
-	if (isset($_REQUEST['hello']) and $_REQUEST['hello'] == 0) {
-		echo 'не отмечен';
+//21.Задачи на отработку циклов и функций PHP
+//1.Выведите с помощью цикла столбец чисел от 1 до 100.
+
+	for ($i = 1; $i <= 100; $i++) { 
+//		echo $i.'<br>';
 	}
 
-	if (isset($_REQUEST['hello']) and $_REQUEST['hello'] == 1) {
-		echo 'отмечен';
+//2.Выведите с помощью цикла столбец четных чисел от 1 до 100.
+
+	for ($i = 0; $i < 100; $i+=2) { 
+//		echo $i . '<br>';
 	}
 
-//2.Сделайте функцию input, которая создает инпут с типом text. Функция должна иметь следующие параметры: name, value.
+//3.Найдите с помощью цикла сумму чисел от 1 до 100.
 
-	function input($name, $value)
-	{
-		return '<input type="text" name="'.$name.'" value="'.$value.'">';
+    $sum = 0;
+	for ($i = 1; $i <= 100; $i++) { 
+		$sum += $i;
 	}
+	echo $sum . '<br>';
 
-	echo input('age', 25); //выведет <input type="text" name="age" value="25">
+//4.Найдите с помощью цикла сумму квадратов чисел от 1 до 15.
 
-//3.Задача. Модифицируйте функцию из предыдущей задачи так, чтобы она сохраняла значение инпута после отправки.
-
-	function inputMod($name, $value)
-	{
-		if(isset($_REQUEST[$name])) {
-			$value = $_REQUEST[$name];
-		}
-
-		return '<input type="text" name="'.$name.'" value="'.$value.'">';
+	$sum = 0;
+	for ($i = 1; $i <= 15; $i++) { 
+		$sum += $i*$i;
 	}
+	echo $sum . '<br>';
 
-?>
+//5.Найдите с помощью цикла сумму корней чисел от 1 до 15. Результат округлите до двух знаков после дробной части.
 
-<!--Работа с checkbox
-1.Спросите у пользователя имя с помощью формы. Сделайте чекбокс: если он отмечен, 
-то поприветствуйте пользователя, если не отмечен - попрощайтесь с пользователем.-->
-
-<form action="" method="GET">
-	<input type="text" name="name">
-	<input type="hidden" name="hello" value="0">
-	<input type="checkbox" name="hello" value="1">
-	<input type="submit">
-</form>
-
-<?php
-	if (isset($_REQUEST['hello']) and $_REQUEST['hello'] == 0) {
-		echo 'Прощай '.$_REQUEST['name'];
+	$sum = 0;
+	for ($i = 1; $i <= 15; $i++) { 
+		$sum += sqrt($i);
 	}
+	echo round($sum, 2) . '<br>';
 
-	if (isset($_REQUEST['hello']) and $_REQUEST['hello'] == 1) {
-		echo 'Привет '.$_REQUEST['name'];
-	}
-?>
+//6.Найдите с помощью цикла сумму тех чисел от 1 до 100, которые делятся на 7
 
-<!--Работа с checkbox
-2.Спросите у пользователя имя с помощью формы. Сделайте чекбокс: если он отмечен, 
-то поприветствуйте пользователя, если не отмечен - попрощайтесь с пользователем.-->
-
-<form action="" method="GET">
-	<p>html<input type="checkbox" name="lang[]" value="html"></p>
-	<p>css<input type="checkbox" name="lang[]" value="css"></p>
-	<p>php<input type="checkbox" name="lang[]" value="php"></p>
-	<p>javascript<input type="checkbox" name="lang[]" value="javascript"></p>
-	<input type="submit">
-</form>
-
-<?php
-	if(isset($_REQUEST['lang']))
-	{
-		echo 'Вы знаете: ' . implode(',', $_REQUEST['lang']);
-	}
-?>
-
-<!--Работа с radio переключателями
-3.Спросите у пользователя знает ли он PHP с помощью двух radio-кнопок. 
-Выведите результат на экран. Сделайте так, чтобы по умолчанию один из вариантов был уже отмечен.-->
-
-<form action="" method="GET">
-	<p>Вы знаете PHP?</p>
-	<p>да<input type="radio" name="php" value="1"></p>
-	<p>нет<input type="radio" name="php" value="0"></p>
-	<input type="submit">
-</form>
-
-<?php
-	if (isset($_REQUEST['php']) and $_REQUEST['php'] == 0) {
-		echo 'Вы не знаете PHP';
-	}
-
-	if (isset($_REQUEST['php']) and $_REQUEST['php'] == 1) {
-		echo 'Вы  знаете PHP!';
-	}
-?>
-
-<!--4.Спросите у пользователя его возраст с помощью нескольких radio-кнопок. 
-Варианты ответа сделайте такими: менее 20 лет, 20-25, 26-30, более 30-->
-
-<form action="" method="GET">
-	<p>Сколько вам лет?</p>
-	<p>менее 20 лет<input type="radio" name="age" value="1"></p>
-	<p>20-25<input type="radio" name="age" value="2"></p>
-	<p>26-30<input type="radio" name="age" value="3"></p>
-	<p>более 30<input type="radio" name="age" value="4"></p>
-	<input type="submit">
-</form>
-
-<?php
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 1) {
-		echo 'Вам менее 20 лет';
-	}
-
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 2) {
-		echo 'Вам 20-25 лет';
-	}
-
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 3) {
-		echo 'Вам 26-30 лет';
-	}
-
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 4) {
-		echo 'Вам более 30 лет';
-	}
-
-?>
-
-<!--Select и multi-select
-5.Спросите у пользователя его возраст с помощью select. 
-Варианты ответа сделайте такими: менее 20 лет, 20-25, 26-30, более 30. -->
-
-<form action="" method="GET">
-	<select size="5"  name="age">
-	<option disabled>Сколько вам лет?</option>
-	<option value="1">менее 20 лет</option>
-	<option value="2">20-25</option>
-	<option value="3">26-30</option>
-	<option value="4">более 30</option>
- 	</select>
-	<input type="submit">
-</form>
-
-<?php
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 1) {
-		echo 'Вам менее 20 лет';
-	}
-
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 2) {
-		echo 'Вам 20-25 лет';
-	}
-
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 3) {
-		echo 'Вам 26-30 лет';
-	}
-
-	if (isset($_REQUEST['age']) and $_REQUEST['age'] == 4) {
-		echo 'Вам более 30 лет';
-	}
-?>
-
-<!--6.Спросите у пользователя с помощью мультиселекта, какие из языков он знает: 
-html, css, php, javascript. Выведите на экран те языки, которые знает пользователь.-->
-
-<form action="" method="GET">
-	<select size="4" multiple name="lg">
-	<option value="1">html</option>
-	<option value="2">css</option>
-	<option value="3">php</option>
-	<option value="4">javascript</option>
- 	</select>
-	<input type="submit">
-</form>
-
-<?php
-	$strc = 'Вы знаете: ';
-	foreach ($_CET['lg'] as $elem) {
-		if($elem == 1) {
-			$str .= 'html, ';
-		}
-		if($elem == 2) {
-			$str .= 'css, ';
-		}
-		if($elem == 3) {
-			$str .= 'php, ';
-		}
-		if($elem == 4) {
-			$str .= 'javascript.';
+	$sum = 0;
+	for ($i = 1; $i <= 100; $i++) { 
+		if ($i % 7 == 0 ) {
+			$sum +=$i;
 		}
 	}
-	echo $strc;
-	echo'<br>';
+	echo $sum . '<br>';
 
-//7.Сделайте функцию, которая создает обычный текстовый инпут. Функция должна иметь следующие параметры: type, name, value.
+//7. Заполните массив 10-ю иксами с помощью цикла
 
-	function inputSeven($type, $name, $value)
-	{
-		return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'">';
+	$arr = [];
+	for ($i = 1; $i <= 10; $i++) { 
+		$arr[] = 'x';
 	}
-	echo inputSeven('text', 'input', '1');
-	echo'<br>';
+    var_dump($arr);
+    echo '<br>';
 
-//8.Модифицируйте функцию из предыдущей задачи так, чтобы она сохраняла значение инпута после отправки.
+ //8.Заполните массив числами от 1 до 10 с помощью цикла.
 
-		function inputEight($type, $name, $value)
-	{
-		if(isset($_REQUEST[$name])) {
-			$value = $_REQUEST[$name];
-		}
-
-		return '<input type="text" name="'.$name.'" value="'.$value.'">';
+    $arr = [];
+	for ($i = 1; $i <= 10; $i++) { 
+		$arr[] = $i;
 	}
-	echo inputEight('text', 'input', '1');
-	echo'<br>';
+    var_dump($arr);
+    echo '<br>';
 
-/*9.Сделайте функцию, которая создает чекбокс. Если чекбокс не отмечен - 
-функция должна отправлять 0 (то есть нужно сделать hidden инпут), если отмечен - 1.*/
+//9.Заполните массив числами от 10 до 1 с помощью цикла.
 
-	function inputNine($name)
-	{
-		return '<input type="hidden" name="'.$name.'" value="0">
-		<input type="checkbox" name="'.$name.'" value="1">';
+    $arr = [];
+	for ($i = 10; $i > 0; $i--) { 
+		$arr[] = $i;
 	}
-	echo inputNine('checkbox');
-	echo'<br>';	
+    var_dump($arr);
+    echo '<br>';
 
-//10.Напишите функцию, которая создает чекбокс и сохраняет его значение после отправки
+//10.Заполните массив 10-ю случайными числами от 1 до 10 с помощью цикла.
 
-	function inputTen($name)
-	{
-		if(isset($_REQUEST[$name]) and $_REQUEST[$name] == 1) {
-			$value = 'checked';
-		} else {
-			$value = '';
-		}
-		return '<input type="hidden" name="'.$name.'" value="0">
-		<input type="checkbox" name="'.$name.'" value="1" '.$value.'>';
+    $arr = [];
+	for ($i = 1; $i <= 10; $i++) {  
+		$arr[] = mt_rand(1, 10);
 	}
-	echo inputTen('checkbox');
+    var_dump($arr);
+    echo '<br>';
 
 ?>
