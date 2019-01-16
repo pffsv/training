@@ -42,4 +42,65 @@
 		echo "<p>$value</p>";
 	}
 
+//6.Дан массив. Выведите каждый элемент этого массива в отдельной li в теге ul.
+
+	$arr = [1, 2, 3, 4, 5];
+	echo "<ul>";
+	foreach ($arr as $value) {
+		echo "<li>$value</li>";
+	}
+	echo "</ul>";
+
+	$arr = [1, 2, 3, 4, 5];
 ?>
+
+    <ul>
+<?php foreach ($arr as $value): ?>
+	<li><?= $value; ?></li>
+<?php endforeach; ?>
+    </ul>
+
+<?php
+
+//7.Дан массив:
+
+	$arr = [
+		['href'=>'1.html', 'text'=>'ссылка 1'],
+		['href'=>'2.html', 'text'=>'ссылка 2'],
+		['href'=>'3.html', 'text'=>'ссылка 3'],
+	];
+
+	echo "<ul>";
+	foreach ($arr as $value) {
+		echo "<li><a href= \"{$value['href']}\">{$value['text']}</a></li>";
+	}
+	echo "</ul>";
+
+	$arr = [
+		['href'=>'1.html', 'text'=>'ссылка 1'],
+		['href'=>'2.html', 'text'=>'ссылка 2'],
+		['href'=>'3.html', 'text'=>'ссылка 3'],
+	];
+
+	echo "<ul>";
+	foreach ($arr as $value) {
+		echo "<li><a href= \"$value[href]\">$value[text]</a></li>";
+	}
+	echo "</ul>";
+
+	$arr = [
+		['href'=>'1.html', 'text'=>'ссылка 1'],
+		['href'=>'2.html', 'text'=>'ссылка 2'],
+		['href'=>'3.html', 'text'=>'ссылка 3'],
+	];
+
+	echo "<ul>";
+	foreach ($arr as $value) {
+		$href = $value['href'];
+		$text = $value['text'];
+		echo "<li><a href= \"$value\">$text</a></li>";
+	}
+	echo "</ul>";
+
+?>
+
