@@ -1,194 +1,59 @@
 <?php
-//21.Задачи на отработку циклов и функций PHP
-//Практика.
-//20.Напишите свой аналог функции ucfirst.
+//26.Задачи на регулярные выражения PHP
+//На '.', символы
+//1.Дана строка 'ahb acb aeb aeeb adcb axeb'. Напишите регулярку, которая найдет строки ahb, acb, aeb по шаблону: буква 'a', любой символ, буква 'b'.
 
-	$str = 'apple';
-	$first = substr($str, 0, 1);
-	$str = strtoupper($first).substr($str, 1, strlen($str));
-	echo $str.'<br>';
+	echo preg_replace('#a.b#', '!', 'ahb acb aeb aeeb adcb axeb').'<br>';
 
-//21.Напишите свой аналог функции strrev. Решите задачу двумя способами.
+//2.Дана строка 'aba aca aea abba adca abea'. Напишите регулярку, которая найдет строки abba adca abea по шаблону: буква 'a', 2 любых символа, буква 'a'. 
 
-    $str = 'apple';
-    $arr = str_split($str, 1);
-	$arr = array_reverse($arr);
-	$str = implode($arr);
-	var_dump($arr);
-	echo'<br>';
+	echo preg_replace('#a..a#', '!', 'aba aca aea abba adca abea').'<br>';
 
-	$str ='apple';
-	$str2 = '';
-	$numStr = strlen($str);;
-	for ($i = $numStr; $i >= 1; $i--) {
-		$str2 .= substr($str, $i-1, 1);
-	}
-	echo $str2.'<br>';
+//3.Дана строка 'aba aca aea abba adca abea'. Напишите регулярку, которая найдет строки abba и abea, не захватив adca.
 
-//22.Напишите свой аналог функции strlen.
+	echo preg_replace('#ab.a#', '!', 'aba aca aea abba adca abea').'<br>'; 
 
-	$str = 'apple';
-	$numStr = count(str_split($str, 1));
-	echo $numStr.'<br>';
+//На '+', '*', '?', ()
+/*4.Дана строка 'aa aba abba abbba abca abea'. Напишите регулярку, которая найдет строки 
+aba, abba, abbba по шаблону: буква 'a', буква 'b' любое количество раз, буква 'a'.*/
 
-//23.Поменяйте в строке большие буквы на маленькие и наоборот.
-	$str = 'apple';
-	echo strtoupper($str).'<br>';
-/*	$str1 = str_split($str);
-	$str2 = '';
-	foreach ($str1 as $elem) {
-		if(ord($elem) >= 97 && ord($elem) <= 122) {
-			$str2 .= strtoupper($elem);
-		} else {
-			$str2 .= strtolower($elem);
-		}
-	}
-	echo $str2;*/
+	echo preg_replace('#ab+a#', '!', 'aa aba abba abbba abca abea').'<br>';	
 
-//23.Преобразуйте строку 'var_text_hello' в 'varTextHello'. Скрипт должен работать с любыми стоками такого рода.
+/*5.Дана строка 'aa aba abba abbba abca abea'. Напишите регулярку, которая найдет строки 
+aa, aba, abba, abbba по шаблону: буква 'a', буква 'b' любое количество раз (в том числе ниодного раза), буква 'a'.*/
 
-	$arr = explode('_', 'var_test_hello');
-	$str = '';
-	foreach ($arr as $elem) {
-		if($elem == $arr[0]) {
-			$str .= $elem;
-		} else {
-			$str .= ucfirst($elem);
-		}
-	}
-	echo $str.'<br>';
+	echo preg_replace('#ab*a#', '!', 'aa aba abba abbba abca abea').'<br>';
 
-//24.С помощью только одного цикла нарисуйте следующую пирамидку:
+/*6.Дана строка 'aa aba abba abbba abca abea'. Напишите регулярку, которая найдет строки 
+aa, aba по шаблону: буква 'a', буква 'b' один раз или ниодного, буква 'a'.*/
 
-	for ($i = 1; $i <= 9; $i++) {
-		echo str_repeat($i , $i) . '<br>';
-	}
+	echo preg_replace('#ab?a#', '!', 'aa aba abba abbba abca abea').'<br>';
 
-/*26.Нарисуйте пирамиду, как показано на рисунке, только у вашей пирамиды должно быть не 5 рядов, 
-а произвольное количество, оно задается так: $str = 'xxxxxxxx'; - это первый ряд пирамиды.*/
+//7.Дана строка 'ab abab abab abababab abea'. Напишите регулярку, которая найдет строки по шаблону: строка 'ab' повторяется 1 или более раз.
 
-//	$str = 'xxxxxxxxxx';	
-    $str = '';
-	for ($i = 10; $i > 1; $i--) {
-		$str .= 'x';
-		echo $str.'<br>';
-	}
+	echo preg_replace('#(ab)+#', '!', 'aa aba abba abbba abca abea').'<br>';
 
-	$str = 'xxxxxxxxxx';
-	$strNum = strlen($str);
-	$str2 = '';
-	for ($i = 10; $i > 0; $i--) {
-		$str2 .= substr($str, 0, $i) . '<br>';
-	}
-	echo $str2;
+//На экранировку
+//8.Дана строка 'a.a aba aea'. Напишите регулярку, которая найдет строку a.a, не захватив остальные.
 
-/*27.Дан массив с произвольными числами. Сделайте так, чтобы элемент повторился в массиве 
-количество раз, соответствующее его числу. Пример: [1, 3, 2, 4] превратится в [1, 3, 3, 3, 2, 2, 4, 4, 4, 4].*/
+	echo preg_replace('#a\.a#', '!', 'a.a aba aea').'<br>';
 
-	$arr = [1, 2, 3, 4];
-	$newArr = [];
-	foreach ($arr as $elem) {
-		for ($i = 1; $i <= $elem; $i++) {
-			$newArr[] = $elem;
-		}
-	}
-	var_dump($newArr);
-	echo '<br>';
+//9.Дана строка '2+3 223 2223'. Напишите регулярку, которая найдет строку 2+3, не захватив остальные.
 
-/*28.Дан массив с произвольными целыми числами. Сделайте так, чтобы первый элемент стал ключом 
-второго элемента, третий элемент - ключом четвертого и так далее. Пример: [1, 2, 3, 4, 5, 6] превратится в [1=>2, 3=>4, 5=>6].*/
+	echo preg_replace('#2\+3#', '!', '2+3 223 2223').'<br>';
 
-	$arr = [1, 2, 3, 4, 5, 6];
-	$newArr = [];
-	$key = [];
-	$num = count($arr);
-	for ($i = 1; $i <= $num -1; $i+= 2) {
-		$key = $arr[$i];
-		$newArr[$key] = $arr[$i + 1];
-	}
-	var_dump($newArr);
-	echo '<br>';	
+/*10.Дана строка '23 2+3 2++3 2+++3 345 567'. Напишите регулярку, которая найдет строки 
+2+3, 2++3, 2+++3, не захватив остальные (+ может быть любое количество).*/
 
-//29.Дана строка. Удалите из этой строки четные символы.
+	echo preg_replace('#2\++3#', '!', '23 2+3 2++3 2+++3 345 567').'<br>';
 
-	$str = 'aazzqqq';
-	$i = 0;
-	$res = '';
-	while ($i <= strlen($str)) {
-		$res .= substr($str, $i, 1);
-		$i += 2;
-	}
-	echo $res;
-	echo '<br>';
+//11.Дана строка '23 2+3 2++3 2+++3 445 677'. Напишите регулярку, которая найдет строки 23, 2+3, 2++3, 2+++3, не захватив остальные
 
-/*30.Дана строка. Поменяйте ее первый символ на второй и наоборот, 
-третий на четвертый и наоборот, пятый на шестой и наоборот и так далее. 
-То есть из строки '12345678' нужно сделать '21436587'.*/
+	echo preg_replace('#2\+*3#', '!', '23 2+3 2++3 2+++3 445 667').'<br>';
 
-	$str = '12345678';
-	$newStr = array_reverse(str_split(strrev($str), 2));
-	echo implode('', $newStr);
-	echo '<br>';
+//12.Дана строка '*+ *q+ *qq+ *qqq+ *qqq qqq+'. Напишите регулярку, которая найдет строки *q+, *qq+, *qqq+, не захватив остальные.
 
-//31.Сделайте аналог функции array_unique
+	echo preg_replace('#\*q+\+#', '!', '*+ *q+ *qq+ *qqq+ *qqq qqq+').'<br>';
 
-	function getArrUnique ($arr)
-	{
-		$result = [];
-		foreach ($arr as $elem) {
-			if (in_array($elem, $result) == false) {
-				$result[] = $elem;
-			}
-		}
-		return $result;
-	}
-
-//32.Сделайте функцию, противоположную функции array_unique. Ваша функция должна оставлять дубли и удалять элементы, не имеющие дублей. 
-
-	$arr = [1, 1, 1, 2, 3, 3, 4 ,5, 1, 6, 1, 3];
-	$newArr = [];
-	$elems = count($arr);
-	for ($i = 0; $i < $elems; $i++) {
-		$value = $arr[$i];
-		unset($arr[$i]);
-		if (in_array($value, $arr)) {
-			$newArr[] = $value;
-		}
-		$arr[$i] = $value;
-	}
-	$arr = $newArr;
-	echo var_dump($arr);
-	echo '<br>';
-
-//33.Напишите скрипт, который проверяет, является ли данное число простым (простое число - это то, которое делится только на 1 и на само себя).
-
-	$num = 31;
-	$flag = false;
-	for ($i = 2; $i < $num; $i++) {
-		if ($num % $i == 0) {
-			$flag = true;
-			break;
-		}
-	}
-
-	if ($flag == true) {
-		echo'Простое число';
-	} else {
-		echo 'Сложное число';
-	}
-	echo '<br>';
-
-//33.Дан массив со строками. Запишите в новый массив только те строки, которые начинаются с 'http://'
-
-	$arr = ['http://google.com', 'https://youtube.com', 'https://vk.com'];
-	$newArr = [];
-	foreach ($arr as $elem) {
-		$pos = strpos($elem, 'http://');
-		if ($pos !== false) {
-			$newArr[] = $elem;
-		}
-	}
-	
-	var_dump($newArr);
 
 ?>
