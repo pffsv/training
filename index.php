@@ -14,11 +14,19 @@
 		mysqli_query($link, "SET NAMES 'utf8'");
 
 	//Формируем тестовый запрос:
-		$query = "SELECT * FROM users WHERE id > 0";
+		$query = "SELECT * FROM workers WHERE id > 0";
+
+	//Делаем запрос к БД, результат запроса пишем в $result:
+//		$result = mysqli_query($link, $query) or die(mysqli_error($link));
+
+	//Проверяем что же нам отдала база данных, если null – то какие-то проблемы:
+//		var_dump($result);
 
 	//Делаем запрос к БД, результат запроса пишем в $result:
 		$result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-	//Проверяем что же нам отдала база данных, если null – то какие-то проблемы:
-		var_dump($result);
+	//Преобразуем то, что отдала нам база в нормальный массив PHP $data:
+		for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+
+		var_dump($data);
 ?>
