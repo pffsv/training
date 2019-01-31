@@ -1,6 +1,6 @@
 <?php
 //35.Команды SELECT, INSERT, DELETE, UPDATE
-
+//Задачи для решения
 	//Устанавливаем доступы к базе данных:
 		$host = 'localhost'; //имя хоста, на локальном компьютере это localhost
 		$user = 'root'; //имя пользователя, по умолчанию это root
@@ -13,44 +13,67 @@
 	//Устанавливаем кодировку (не обязательно, но поможет избежать проблем):
 		mysqli_query($link, "SET NAMES 'utf8'");
 	//ВЫБРАТЬ все_столбцы ИЗ workers ГДЕ ад_ди_больше_нуля (т.е. все)
-		$query = "UPDATE workers SET salary=1000, age=20 WHERE name='Дима'";
+		$query = "SELECT * FROM workers WHERE age = 27 OR salary != 400";
 
 	//Делаем запрос к БД, результат запроса пишем в $result:
 		$result = mysqli_query($link, $query) or die( mysqli_error($link) );
 
 	//Преобразуем то, что отдала нам база в нормальный массив PHP $data:
-//		for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+		for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
 	//Массив результата лежит в $data, выведем его на экран:
-//		var_dump($data);
+		var_dump($data);
 
+//На SELECT
+//Для решения задач данного блока вам понадобятся следующие SQL команды: SELECT, WHERE.
+ //1.Выбрать работника с id = 3.
+	$query = "SELECT name FROM workers WHERE id = 3";
 
-//1.Выбрать работника с id=10.
-	$query = "SELECT * FROM workers WHERE id=1";
+//2.Выбрать работников с зарплатой 1000$.
+	$query = "SELECT * FROM workers WHERE salary = 1000";
 
-//2.Выбрать работников с зарплатой 500$.
-	$query = "SELECT * FROM workers WHERE salary=500";
+//3.Выбрать работников в возрасте 23 года.
+	$query = "SELECT * FROM workers WHERE age = 23"; 
 
-//3.Выбрать работников с зарплатой 500$ и id больше 3.
-	$query = "SELECT * FROM workers WHERE salary=500 AND id>3";	
+//4.Выбрать работников с зарплатой более 400$.
+	$query = "SELECT * FROM workers WHERE salary > 400";
 
-//4.Добавьте нового работника Джона, 20 лет, зарплата 700$.
-//Воспользуемся первым синтаксисом:
-	$query = "INSERT INTO workers SET name='Джон', age=20, salary=700";
+//5.Выбрать работников с зарплатой равной или большей 500$.
+	$query = "SELECT * FROM workers WHERE salary >= 500";
 
-//Воспользуемся вторым синтаксисом:
-	$query = "INSERT INTO workers (name, age, salary) VALUES ('Джон', 20, 700)";
+//6.Выбрать работников с зарплатой НЕ равной 500$.
+	$query = "SELECT * FROM workers WHERE salary != 500";
 
-//5.Добавьте одним запросом трех новых работников: Катю, 20 лет, зарплата 500$, Юлю, 25 лет, зарплата 600$, Женю, 30 лет, зарплата 900$.
-	$query = "INSERT INTO workers (name, age, salary)
-			VALUES ('Катя', 20, 500), ('Юля', 25, 600), ('Женя', 30, 900)";
+//7.Выбрать работников с зарплатой равной или меньшей 900$.
+	$query = "SELECT * FROM workers WHERE salary <= 900";
 
-//6.Удалите работника Джона.
-	$query = "DELETE FROM workers WHERE name='Джон'";
+//8.Узнайте зарплату и возраст Васи.
+	$query = "SELECT salary FROM workers WHERE name = 'Вася'";
 
-//7.Поставьте Диме зарплату в 1000$.
-	$query = "UPDATE workers SET salary=1000 WHERE name='Дима'";
+//На OR и AND
+//Для решения задач данного блока вам понадобятся следующие SQL команды: SELECT, WHERE, OR, AND.
+//9.Выбрать работников в возрасте от 25 (не включительно) до 28 лет (включительно).
+	$query = "SELECT * FROM workers WHERE age > 25 AND age <= 28";
 
-//8.Поставьте Диме зарплату в 1000$ и возраст 20 лет.
-	$query = "UPDATE workers SET salary=1000, age=20 WHERE name='Дима'";		
+//10.Выбрать работника Петю.
+	$query = "SELECT * FROM workers WHERE name = 'Петя'";
+
+//11.Выбрать работников Петю и Васю.
+	$query = "SELECT * FROM workers WHERE name = 'Петя' OR name = 'Вася'";
+
+//12.Выбрать всех, кроме работника Петя.
+	$query = "SELECT * FROM workers WHERE name != 'Петя'";
+
+//13.Выбрать всех работников в возрасте 27 лет или с зарплатой 1000$.
+	$query = "SELECT * FROM workers WHERE age = 27 OR salary = 1000";
+
+//14.Выбрать всех работников в возрасте от 23 лет (включительно) до 27 лет (не включительно) или с зарплатой 1000$. 
+	$query = "SELECT * FROM workers WHERE (age >= 23 AND age < 27) OR salary = 1000";
+
+//15.Выбрать всех работников в возрасте от 23 лет до 27 лет или с зарплатой от 400$ до 1000$.
+	$query = "SELECT * FROM workers WHERE (age >= 23 AND age < 27) OR (salary > 400 AND salary < 1000)";
+
+//16.Выбрать всех работников в возрасте 27 лет или с зарплатой не равной 400$.
+	$query = "SELECT * FROM workers WHERE age = 27 OR salary != 400";
+
 ?>
