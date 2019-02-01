@@ -13,16 +13,16 @@
 	//Устанавливаем кодировку (не обязательно, но поможет избежать проблем):
 		mysqli_query($link, "SET NAMES 'utf8'");
 	//ВЫБРАТЬ все_столбцы ИЗ workers ГДЕ ад_ди_больше_нуля (т.е. все)
-		$query = "SELECT * FROM workers WHERE age = 27 OR salary != 400";
+		$query = "UPDATE workers SET name = 'Женя', salary = 900 WHERE name = 'Вася'";
 
 	//Делаем запрос к БД, результат запроса пишем в $result:
 		$result = mysqli_query($link, $query) or die( mysqli_error($link) );
 
 	//Преобразуем то, что отдала нам база в нормальный массив PHP $data:
-		for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+//		for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
 
 	//Массив результата лежит в $data, выведем его на экран:
-		var_dump($data);
+//		var_dump($data);
 
 //На SELECT
 //Для решения задач данного блока вам понадобятся следующие SQL команды: SELECT, WHERE.
@@ -76,4 +76,43 @@
 //16.Выбрать всех работников в возрасте 27 лет или с зарплатой не равной 400$.
 	$query = "SELECT * FROM workers WHERE age = 27 OR salary != 400";
 
+//На INSERT
+//Для решения задач данного блока вам понадобятся следующие SQL команды: INSERT.
+//17.Добавьте нового работника Никиту, 26 лет, зарплата 300$. Воспользуйтесь первым синтаксисом.
+	$query = "INSERT INTO workers SET name='Никита', age=26, salary=300";
+
+//18.Добавьте нового работника Светлану с зарплатой 1200$. Воспользуйтесь вторым синтаксисом.
+	$query = "INSERT INTO workers (name, age, salary) VALUES ('Светлана', 20, 1200)";
+
+//19.Добавьте двух новых работников одним запросом: Ярослава с зарплатой 1200$ и возрастом 30, Петра с зарплатой 1000$ и возрастом 31.
+	$query = "INSERT INTO workers (name, age, salary) VALUES ('Ярослав', 30, 1200), ('Петя', 31, 1000)";
+
+//На DELETE
+//Для решения задач данного блока вам понадобятся следующие SQL команды: DELETE.
+//20.Удалите работника с id=7. Показать решение.
+	$query = "DELETE FROM workers WHERE id = 7";
+
+//21.Удалите Колю. Показать решение.
+	$query = "DELETE FROM workers WHERE name = 'Коля'";
+
+//22.Удалите всех работников, у которых возраст 23 года. Показать решение.
+	$query = "DELETE FROM workers WHERE age = 23";
+
+//Верните таблицу workers в исходное состояние.
+//На UPDATE
+//Для решения задач данного блока вам понадобятся следующие SQL команды: UPDATE.
+//23.Поставьте Васе зарплату в 200$.
+	$query = "UPDATE workers SET salary = 200 WHERE name = 'Вася'";
+
+//24.Работнику с id=4 поставьте возраст 35 лет.
+	$query = "UPDATE workers SET age = 35 WHERE id = 4";
+
+//25.Всем, у кого зарплата 500$ сделайте ее 700$.
+	$query = "UPDATE workers SET salary = 700 WHERE salary = 500";
+
+//26. Работникам с id больше 2 и меньше 5 включительно поставьте возраст 23.
+	$query = "UPDATE workers SET age = 23 WHERE id > 2 AND id <= 5";
+
+//27.Поменяйте Васю на Женю и прибавьте ему зарплату до 900$.
+	$query = "UPDATE workers SET name = 'Женя', salary = 900 WHERE name = 'Вася'";
 ?>
