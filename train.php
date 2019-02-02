@@ -12,7 +12,7 @@
 	//Устанавливаем кодировку (не обязательно, но поможет избежать проблем):
 		mysqli_query($link, "SET NAMES 'utf8'");
 	//ВЫБРАТЬ все_столбцы ИЗ workers ГДЕ ад_ди_больше_нуля (т.е. все)
-		$query = "SELECT COUNT(*) as count FROM workers WHERE salary = 500";
+		$query = "SELECT * FROM workers WHERE name LIKE '%я'";
 
 	//Делаем запрос к БД, результат запроса пишем в $result:
 		$result = mysqli_query($link, $query) or die( mysqli_error($link) );
@@ -48,4 +48,19 @@
 
 //7.В таблице workers подсчитайте всех работников c зарплатой 300$.
 	$query = "SELECT COUNT(*) as count FROM workers WHERE salary = 300";
+
+//На LIKE
+//Для решения задач данного блока вам понадобятся следующие SQL команды: LIKE.	
+//8.В таблице pages найти строки, в которых фамилия автора заканчивается на "ов".
+	$query = "SELECT * FROM pages WHERE athor LIKE '%ов'";
+
+//9.В таблице pages найти строки, в которых есть слово "элемент" (искать только по колонке article).
+	$query = "SELECT * FROM pages WHERE article LIKE 'элемент'";
+
+//10.В таблице workers найти строки, в которых возраст работника начинается с числа 3, а далее идет только одна цифра.
+	$query = "SELECT * FROM workers WHERE age LIKE '3_'";
+
+//11.В таблице workers найти строки, в которых имя работника заканчивается на "я".
+	$query = "SELECT * FROM workers WHERE name LIKE '%я'";	
+	
 ?>
