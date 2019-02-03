@@ -1,7 +1,7 @@
 <?php
 //43.Практика PHP
 /* 
-1. Дана таблица с работниками. Реализуйте ее вывод на экран в следующем виде: 
+2. Сделайте в таблице всех работников ссылку 'удалить'. По нажатию на эту ссылку из БД должна удаляться запись с этим id (его следует передавать через GET-параметр del_id). 
 */ 
 $host = 'localhost'; 
 $user = 'root'; 
@@ -27,6 +27,9 @@ echo '<tr>';
 foreach($data[0] as $key => $val) { 
 echo '<th>'.$key.'</th>'; 
 } 
+
+echo '<th>удаление</th>'; 
+
 echo '</tr>'; 
 
 foreach($data as $arr) { 
@@ -35,9 +38,18 @@ foreach($arr as $k => $v) {
 echo '<td>'.$v.'</td>'; 
 } 
 
+echo '<td><a href="?del='.$arr['id'].'">удалить</a></td>'; 
+
 echo '</tr>'; 
 } 
 
-echo '</table>' 
-		
+echo '</table>'; 
+
+if(!empty($_GET['del'])) { 
+$queryDelUser = "DELETE FROM `workers` WHERE id = ".$_GET['del']; 
+
+mysqli_query($link, $queryDelUser) or die(mysqli_error($link)); 
+
+header('Location: '.$_SERVER['PHP_SELF']); 
+}
 ?>
