@@ -13,7 +13,7 @@
 		mysqli_query($link, "SET NAMES 'utf8'");
 
 	//Формируем тестовый запрос:
-		$query = "SELECT MIN(salary) FROM workers";
+		$query = "INSERT INTO workers SET id=5, date=NOW()";
 
 	//Делаем запрос к БД, результат запроса пишем в $result:
 		$result = mysqli_query($link, $query) or die(mysqli_error($link));
@@ -65,5 +65,38 @@ $query = "SELECT MIN(salary) FROM workers";
 
 //10.Найдите в таблице workers максимальную зарплату.
 $query = "SELECT MAX(salary) FROM workers";
+
+//На SUM
+//Для решения задач данного блока вам понадобятся следующие SQL команды и функции: SUM.
+//11.Найдите в таблице workers суммарную зарплату.
+$query = "SELECT SUM(salary) FROM workers";
+
+//12.Найдите в таблице workers суммарную зарплату для людей в возрасте от 21 до 25.
+$query = "SELECT SUM(salary) FROM workers WHERE age BETWEEN 21 AND 25";
+
+//13.Найдите в таблице workers суммарную зарплату для id, равного 1, 2, 3 и 5.
+$query = "SELECT SUM(salary) FROM workers WHERE id IN(1,2,3,5)";
+
+//На AVG
+//Для решения задач данного блока вам понадобятся следующие SQL команды и функции: AVG.
+//14.Найдите в таблице workers среднюю зарплату.
+$query = "SELECT AVG(salary) FROM workers";
+
+//15.Найдите в таблице workers средний возраст.
+$query = "SELECT AVG(age) FROM workers";
+
+//На NOW, CURRENT_DATE, CURRENT_TIME
+//Для решения задач данного блока вам понадобятся следующие SQL команды и функции: NOW, CURRENT_DATE, CURRENT_TIME.
+//16.Выберите из таблицы workers все записи, у которых дата больше текущей.
+$query = "SELECT * FROM workers WHERE date>CURRENT_DATE()";
+
+//17.Вставьте в таблицу workers запись с полем date с текущим моментом времени в формате 'год-месяц-день часы:минуты:секунды'.
+$query = "INSERT INTO workers ('name', 'date') VALUES ('Вася', NOW())";
+
+//18.Вставьте в таблицу workers запись с полем date с текущей датой в формате 'год-месяц-день'.
+$query = "INSERT INTO workers ('name', 'date') VALUES ('Петя', CURDATE())";
+
+//19.Вставьте в таблицу workers запись с полем time с текущим моментом времени в формате 'часы:минуты:секунды'.
+$query = "INSERT INTO workers ('name', 'time') VALUES ('Коля', CURTIME())";
 
  ?>
