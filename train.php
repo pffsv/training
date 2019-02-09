@@ -1,403 +1,585 @@
 
-46.Задачи на продвинутые SQL запросы
-На IN
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: IN.
+47.Правильная организация 
+баз данных
+Задача 1. 
 
-1. Выберите из таблицы workers записи с id равным 1, 2, 3, 5, 14.
+Товар (название, цена, количество), категория товара.
 
-SELECT * FROM workers WHERE id IN(1, 2, 3, 5, 14)
-
-2. Выберите из таблицы workers записи с login равным 'eee', 'bbb', 'zzz'.
-
-SELECT * FROM workers WHERE login IN("eee", "bbb", "zzz")
-
-3. Выберите из таблицы workers записи с id равным 1, 2, 3, 7, 9, и логином, равным 'user', 'admin', 'ivan' и зарплатой больше 300.
-
-SELECT * FROM workers WHERE id IN(1, 2, 3, 7, 9) AND login IN("user","admin","ivan") AND salary>300
-
-На BETWEEN
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: BETWEEN.
-
-4. Выберите из таблицы workers записи c зарплатой от 100 до 1000.
-
-SELECT * FROM workers WHERE salary BETWEEN 100 AND 1000
-
-5. Выберите из таблицы workers записи c id от 3 до 10 и зарплатой от 300 до 500.
-
-SELECT * FROM workers WHERE id BETWEEN 3 AND 10 AND salary BETWEEN 300 AND 500 
-
-На AS
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: AS.
-
-6. Выберите из таблицы workers все записи так, чтобы вместо id было userId, вместо login – userLogin, вместо salary - userSalary.
-
-SELECT id AS useriD, login AS userLogin, salary AS userSalary FROM workers
-
-На DISTINCT
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: DISTINCT.
-
-7. Выберите из таблицы workers все записи так, чтобы туда попали только записи с разной зарплатой (без дублей).
-
-SELECT DISTINCT salary FROM workers
-
-8. Получите SQL запросом все возрасты без дублирования.
-
-SELECT DISTINCT age FROM workers
-
-На MIN и MAX
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: MIN, MAX.
-
-9. Найдите в таблице workers минимальную зарплату.
-
-SELECT MIN(salary) FROM workers
-
-10. Найдите в таблице workers максимальную зарплату.
-
-SELECT MAX(salary) FROM workers
-
-На SUM
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: SUM.
-
-11. Найдите в таблице workers суммарную зарплату.
-
-SELECT SUM(salary) FROM workers
-
-12. Найдите в таблице workers суммарную зарплату для людей в возрасте от 21 до 25.
-
-SELECT SUM(salary) FROM workers WHERE age BETWEEN 21 AND 25
-
-13. Найдите в таблице workers суммарную зарплату для id, равного 1, 2, 3 и 5.
-
-SELECT SUM(salary) FROM workers WHERE id IN(1, 2, 3, 5)
-
-На AVG
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: AVG.
-
-14. Найдите в таблице workers среднюю зарплату.
-
-SELECT AVG(salary) FROM workers
-
-15. Найдите в таблице workers средний возраст.
-
-SELECT AVG(age) FROM workers
-
-На NOW, CURRENT_DATE, CURRENT_TIME
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: NOW, CURRENT_DATE, CURRENT_TIME.
-
-16. Выберите из таблицы workers все записи, у которых дата больше текущей.
-
-SELECT * FROM workers WHERE date>CURRENT_DATE()
-
-17. Вставьте в таблицу workers запись с полем date с текущим моментом времени в формате 'год-месяц-день часы:минуты:секунды'.
-
-INSERT INTO workers ('name', 'date') VALUES ('Вася', NOW())
-
-18. Вставьте в таблицу workers запись с полем date с текущей датой в формате 'год-месяц-день'.
-
-INSERT INTO workers ('name', 'date') VALUES ('Вася', CURRENT_DATE())
-
-19. Вставьте в таблицу workers запись с полем time с текущим моментом времени в формате 'часы:минуты:секунды'.
-
-INSERT INTO workers ('name', 'date') VALUES ('Вася', CURRENT_TIME())
-
-На работу с частью даты
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: SECOND, MINUTE, HOUR, DAY, MONTH, YEAR, DAYOFWEEK, WEEKDAY.
-
-20. Выберите из таблицы workers все записи за 2016 год.
-
-SELECT * FROM workers WHERE YEAR(date)=2016
-
-21. Выберите из таблицы workers все записи за март любого года.
-
-SELECT * FROM workers WHERE MONTH(date)=3
-
-22. Выберите из таблицы workers все записи за третий день месяца.
-
-SELECT * FROM workers WHERE DAY(date)=3
-
-23. Выберите из таблицы workers все записи за пятый день апреля любого года.
-
-SELECT * FROM workers WHERE MONTH(date)=4 AND DAY(date)=5
-
-24. Выберите из таблицы workers все записи за следующие дни любого месяца: 1, 7, 11, 12, 15, 19, 21, 29.
-
-SELECT * FROM workers WHERE DAY(date) IN(1, 7, 11, 12, 15, 19, 21, 29)
-
-25. Выберите из таблицы workers все записи за вторник.
-
-SELECT * FROM workers WHERE DAYOFWEEK(date)=3
-
-26. Выберите из таблицы workers все записи за первую декаду любого месяца 2016 года.
-
-SELECT * FROM workers WHERE DAY(date)<=10 AND YEAR(date)=2016
-
-27. Выберите из таблицы workers все записи, в которых день меньше месяца.
-
-SELECT * FROM workers WHERE DAY(date)<MONTH(date)
-
-28. При выборке из таблицы workers запишите день, месяц и год в отдельные поля.
-
-SELECT DAY(date) AS fieldday MONTH(date) AS fieldmonth YEAR(date) AS fieldyear FROM workers
-
-29. При выборке из таблицы workers создайте новое поле today, в котором будет номер текущего дня недели.
-
-SELECT WEEKDAY(NOW()) AS today FROM workers
-
-На EXTRACT, DATE
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: EXTRACT, DATE.
-
-30. При выборке из таблицы workers запишите год, месяц и день в отдельные поля с помощью EXTRACT.
-
-SELECT EXTRACT(YEAR FROM date) AS year, EXTRACT(MONTH FROM date) AS month, EXTRACT(DAY FROM date) AS day FROM workers
-
-31. При выборке из таблицы workers запишите день, месяц и год в отдельное поле с помощью DATE в формате 'год-месяц-день'.
-
-SELECT DATE(date) FROM workers
-
-На DATE_FORMAT
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: DATE_FORMAT.
-
-32. При выборке из таблицы workers выведите дату в формате '31.12.2025'.
-
-SELECT DATE_FORMAT(date, '%d.%m.%Y') FROM workers
-
-33. При выборке из таблицы workers выведите дату в формате '2025% 31.12'.
-
-SELECT DATE_FORMAT(date, '%Y%% %d.%m') FROM workers
-
-На INTERVAL, DATE_ADD, DATE_SUB
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: INTERVAL, DATE_ADD, DATE_SUB.
-
-34. При выборке из таблицы workers прибавьте к дате 1 день.
-
-SELECT DATE_ADD(date, INTERVAL 1 DAY) FROM workers
-
-35. При выборке из таблицы workers отнимите от даты 1 день.
-
-SELECT DATE_ADD(date, INTERVAL -1 DAY) FROM workers
-
-36. При выборке из таблицы workers прибавьте к дате 1 день, 2 часа.
-
-SELECT DATE_ADD(date, INTERVAL "1:2" DAY_HOUR) FROM workers
-
-37. При выборке из таблицы workers прибавьте к дате 1 год, 2 месяца.
-
-SELECT DATE_ADD(date, INTERVAL "1:2" YEAR_MONTH) FROM workers
-
-38. При выборке из таблицы workers прибавьте к дате 1 день, 2 часа, 3 минуты.
-
-SELECT DATE_ADD(date, INTERVAL "1 2:3" DAY_SECOND) FROM workers
-
-39. При выборке из таблицы workers прибавьте к дате 1 день, 2 часа, 3 минуты, 5 секунд.
-
-SELECT DATE_ADD(date, INTERVAL "1 2:3:5" DAY_SECOND) FROM workers
-
-40. При выборке из таблицы workers прибавьте к дате 2 часа, 3 минуты, 5 секунд.
-
-SELECT DATE_ADD(date, INTERVAL "2:2:5" HOUR_SECOND) FROM workers
-
-41. При выборке из таблицы workers прибавьте к дате 1 день и отнимите 2 часа.
-
-SELECT DATE_ADD(date, INTERVAL "1 -2" DAY_HOUR) FROM workers
-
-42. При выборке из таблицы workers прибавьте к дате 1 день и отнимите 2 часа, 3 минуты.
-
-SELECT DATE_ADD(date, INTERVAL "1 -2:-3" DAY_MINUTE) FROM workers
-
-На математические операции
-
-43. При выборке из таблицы workers создайте новое поле res, в котором будет число 3.
-
-SELECT 3 AS res FROM workers
-
-44. При выборке из таблицы workers создайте новое поле res, в котором будет строка 'eee'.
-
-SELECT 'eee' AS res FROM workers
-
-45. При выборке из таблицы workers создайте новое поле 3, в котором будет число 3.
-
-SELECT 3 AS 3 FROM workers
-
-46. При выборке из таблицы workers создайте новое поле res, в котором будет лежать сумма зарплаты и возраста.
-
-SELECT (salary + age) AS res FROM workers
-
-47. При выборке из таблицы workers создайте новое поле res, в котором будет лежать разность зарплаты и возраста.
-
-SELECT (salary - age) AS res FROM workers
-
-48. При выборке из таблицы workers создайте новое поле res, в котором будет лежать произведение зарплаты и возраста.
-
-SELECT (salary * age) AS res FROM workers
-
-49. При выборке из таблицы workers создайте новое поле res, в котором будет лежать среднее арифметическое зарплаты и возраста.
-
-SELECT ((salary * age)/2) AS res FROM workers
-
-50. Выберите из таблицы workers все записи, в которых сумма дня и месяца меньше 10-ти.
-
-SELECT * FROM workers WHERE (MONTH(date) + DAY(date))<10
-
-На LEFT, RIGHT, SUBSTRING
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: LEFT, RIGHT, SUBSTRING.
-
-51. При выборке из таблицы workers получите первые 5 символов поля description.
-
-SELECT LEFT(description, 5) FROM workers
-
-52. При выборке из таблицы workers получите последние 5 символов поля description.
-
-SELECT RIGHT(description, 5) FROM workers
-
-53. При выборке из таблицы workers получите из поля description символы со второго по десятый.
-
-SELECT SUBSTRING(description, 2, 10) FROM workers
-
-На UNION
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: UNION.
-
-54. Даны две таблицы: таблица category и таблица sub_category с полями id и name. Достаньте одним запросом названия категорий и подкатегорий.
-
-SELECT id, name FROM workers UNION SELECT id, name FROM sub_category
-
-На CONCAT, CONCAT_WS
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: CONCAT, CONCAT_WS.
-
-55. При выборке из таблицы workers создайте новое поле res, в котором будут лежать одновременно зарплата и возраст (слитно).
-
-SELECT CONCAT(salary, age) AS res FROM workers
-
-56. При выборке из таблицы workers создайте новое поле res, в котором будут лежать одновременно зарплата и возраст (слитно), а после возраста будут идти три знака '!'.
-
-SELECT CONCAT(salary, age, "!!!") AS res FROM workers
-
-57. При выборке из таблицы workers создайте новое поле res, в котором будут лежать одновременно зарплата и возраст через дефис.
-
-SELECT CONCAT(salary, "-", age) AS res FROM workers
-
-58. При выборке из таблицы workers получите первые 5 символов логина и добавьте троеточие.
-
-SELECT CONCAT(LEFT(login, 5), "...") AS res FROM workers
-
-На GROUP BY
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: GROUP BY.
-
-59. Найдите самые маленькие зарплаты по группам возрастов (для каждого возраста свою минимальную зарплату).
-
-SELECT MIN(salary) FROM workers GROUP BY age
-
-60. Найдите самый большой возраст по группам зарплат (для каждой зарплаты свой максимальный возраст).
-
-SELECT MAX(age) FROM workers GROUP BY salary
-
-На GROUP_CONCAT
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: GROUP_CONCAT.
-
-61. Выберите из таблицы workers уникальные возраста так, чтобы для каждого возраста было поле res, в котором будут лежать через дефис id записей с таким возрастом.
-
-SELECT DISTINCT age (SELECT GROUP_CONCAT(id SEPARATOR "-")) AS res FROM workers
-
-На подзапросы
-
-62. Выберите из таблицы workers все записи, зарплата в которых больше средней зарплаты.
-
-SELECT * FROM workers WHERE salary>(SELECT AVG(salary) FROM workers)
-
-63. Выберите из таблицы workers все записи, возраст в которых меньше среднего возраста, деленного на 2 и умноженного на 3.
-
-SELECT * FROM workers WHERE age<(SELECT (AVG(age)/2)*3 FROM workers)
-
-64. Выберите из таблицы workers записи с минимальной зарплатой.
-
-SELECT * FROM workers WHERE salary=(SELECT MIN(salary) FROM workers)
-
-65. Выберите из таблицы workers записи с максимальной зарплатой.
-
-SELECT * FROM workers WHERE salary=(SELECT MAX(salary) FROM workers)
-
-66. При выборке из таблицы workers создайте новое поле max, в котором будет лежать максимальное значение зарплаты для возраста 25 лет.
-
-SELECT MAX(salary) AS `max` FROM workers WHERE age=25
-
-67. При выборке из таблицы workers создайте новое поле avg, в котором будет лежать деленная на 2 разница между максимальным значением возраста и минимальным значением возраста в во всей таблице.
-
-SELECT (MAX(age) - MIN(age))/2 AS `avg` FROM workers
-
-68. При выборке из таблицы workers создайте новое поле avg, в котором будет лежать деленная на 2 разница между максимальным значением зарплаты и минимальным значением зарплаты для возраста 25 лет.
-
-SELECT (MAX(salary) - MIN(salary))/2 AS `avg` FROM workers WHERE age=25
-
-На JOIN
-Для решения задач данного блока вам понадобятся следующие SQL команды и функции: JOIN.
-
-69. Даны две таблицы: таблица category с полями id и name и таблица page с полями id, name и category_id. Достаньте одним запросом все страницы вместе с их категориями.
-
-SELECT * FROM page LEFT JOIN category ON  page.catogory_id = category.id 
-
-70. Даны 3 таблицы: таблица category с полями id и name, таблица sub_category с полями id и name и таблица page с полями id, name и sub_category_id. Достаньте одним запросом все страницы вместе с их подкатегориями и категориями.
-
-SELECT * FROM page LEFT JOIN category ON page.catogory_id = category.id LEFT JOIN sub_category ON category.id = sub_category.category_id 
-
-На работу с полями
-Задачи данного блока следует решать SQL запросами, а не через PhpMyAdmin.
-
-71. Создайте базы данных test1 и test2.
-
-CREATE DATABASE test1
-CREATE DATABASE test2
-
-72. Удалите базу данных test2.
-
-DROP DATABASE test2
-
-73. Создайте в базе данных test1 таблицы table1 и table2 с полями id, login, salary, age, date.
-
-CREATE TABLE table1(
+--товары
+CREATE TABLE goods(
    id INT,
-   login VARCHAR(255),
-   salary INT,
-   age INT,
-   date DATE NOT NULL
+   idcat INT, --номер категории
+   name VARCHAR(255), --название
+   qty INT, --количество
+   price INT, --цена
    primary key (id)
 );
 
-CREATE TABLE table2(
+--категории
+CREATE TABLE cat(
    id INT,
-   login VARCHAR(255),
-   salary INT,
-   age INT,
-   date DATE NOT NULL
+   name VARCHAR(255),
    primary key (id)
 );
 
-74. Переименуйте таблицу table2 в table3.
+1. достать товары вместе с категориями:
+SELECT * FROM goods JOIN cat ON goods.idcat = cat.id
 
-RENAME TABLE table2 TO table3
+2. достать товары из категории 'Овощи':
+SELECT * FROM goods JOIN cat ON goods.idcat = cat.id WHERE cat.name = "Овощи"
 
-75. Удалите таблицу table3.
+3. достать товары из категорий 'Овощи', 'Мясо', 'Морепродукты':
+SELECT * FROM goods JOIN cat ON goods.idcat = cat.id WHERE cat.name IN ('Овощи', 'Мясо', 'Морепродукты')
 
-DROP TABLE table3
+4. достать все категории (без товаров, только названия категорий):
+SELECT name FROM cat
 
-76. Добавьте в таблицу table1 поле status.
+5. достать все категории, в которых есть товары (без товаров, только названия категорий, без дублей):
+SELECT DISTINCT name FROM cat JOIN goods ON cat.id = goods.idcat
 
-ALTER TABLE table1 ADD COLUMN status
 
-77. Удалите из таблицы table1 поле age.
+Задача 2.
 
-ALTER TABLE table1 DROP COLUMN age  
+Товар (название, цена, количество), подкатегория товара, категория товара. Товар принадлежит подкатегории, подкатегория — категории. Пример: помидорки черри (товар), помидоры (подкатегория), овощи (категория). Запросы: (1) достать товары вместе с подкатегориями и категориями, (2) достать товары из подкатегории 'Помидоры', (3) достать все подкатегории категории 'Овощи'.
 
-78. Переименуйте поле login на user_login.
+--товары
+CREATE TABLE goods(
+   id INT,
+   idsubcat INT, --номер подкатегории
+   name VARCHAR(255), --название
+   qty INT, --количество
+   price INT, --цена
+   primary key (id)
+);
 
-RENAME COLUMN login TO user_login
+--категории
+CREATE TABLE cat(
+   id INT,
+   name VARCHAR(255),
+   primary key (id)
+);
 
-79. Смените типа поля salary с int на varchar(255).
+--подкатегории
+CREATE TABLE subcat(
+   id INT,
+   idcat INT, --номер категории  
+   name VARCHAR(255),
+   primary key (id)
+);
 
-ALTER TABLE table1 CHANGE salary salary VARCHAR(255)
+1. достать товары вместе с подкатегориями и категориями:
 
-80. Очистите таблицу table1.
+SELECT * FROM goods JOIN cat ON goods.idcat = cat.id JOIN subcat ON cat.idsubcat = subcat.id
 
-DELETE FROM table1
+2. достать товары из подкатегории 'Помидоры':
 
-81. Очистите все таблицы базы данных test1.
+SELECT * FROM goods JOIN cat ON goods.idcat = cat.id JOIN subcat ON cat.idsubcat = subcat.id WHERE subcat.name = 'Помидоры'
 
-TRUNCATE test1
+3. достать все подкатегории категории 'Овощи', 'Мясо', 'Морепродукты':
+
+SELECT * FROM goods JOIN cat ON goods.idcat = cat.id JOIN subcat ON cat.idsubcat = subcat.id WHERE cat.name IN ('Овощи', 'Мясо', 'Морепродукты')
+
+
+Задача 3.
+
+Товар, категория, склад, брэнд. Товар принадлежит категории, складу и бренду.
+
+--товары
+CREATE TABLE goods(
+   id INT,
+   idcat INT, --номер категории
+   idstock INT, --номер подкатегории
+   idbrand INT, --номер подкатегории
+   name VARCHAR(255), --название
+   qty INT, --количество
+   price INT, --цена
+   primary key (id)
+);
+
+--категории
+CREATE TABLE cat(
+   id INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--склады
+CREATE TABLE stock(
+   id INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--бренды
+CREATE TABLE brand(
+   id INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+1. достать товары с их категорией, складом и брэндом:
+
+SELECT * FROM goods JOIN cat ON goods.idcat = cat.id JOIN stock ON goods.idstock = stock.id JOIN brand ON goods.idbrand = brand.id
+
+2. достать все склады:
+SELECT * FROM stock
+
+
+Задача 4.
+
+Товар, подкатегория, категория, склад, брэнд. Последние 3 никак не связаны, подкатегория принадлежит категории (например, помидоры овощам).
+
+--товары
+CREATE TABLE goods(
+   id INT,
+   idsubcat INT, --номер категории
+   idstock INT, --номер подкатегории
+   idbrand INT, --номер подкатегории
+   name VARCHAR(255), --название
+   qty INT, --количество
+   price INT, --цена
+   primary key (id)
+);
+
+--категории
+CREATE TABLE cat(
+   id INT,
+   idsubcat INT;
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--подкатегории
+CREATE TABLE subcat(
+   id INT,
+   idcat INT, --номер категории  
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--склады
+CREATE TABLE stock(
+   id INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--бренды
+CREATE TABLE brand(
+   id INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+1. достать товары с их подкатегорией и категорией, складом и брэндом
+
+SELECT * FROM goods JOIN subcat ON goods.idsubcat = subcat.id JOIN cat ON subcat.idcat = cat.id JOIN stock ON goods.idstock = stock.id JOIN brand ON goods.idbrand = brand.id
+
+
+Задача 5.
+
+Пользователь, его город. 
+
+--пользователи
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   idcity INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--города
+CREATE TABLE city(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+1. достать пользователей вместе с их городом:
+SELECT users.id, users.name, city.id, city.name FROM users JOIN city ON users.idcity = city.id
+
+2. достать все города:
+SELECT name FROM city
+
+3. достать всех пользователей из города Минск:
+SELECT users.id, users.name FROM users JOIN city ON users.idcity = city.id WHERE city.name = "Минск"
+
+4. достать все города, в которых есть пользователи
+SELECT DISTINCT city.name FROM city LEFT JOIN users ON users.idcity = city.id WHERE users.id IS NOT NULL
+
+5. достать все города, в которых нет пользователей
+SELECT DISTINCT city.name FROM city LEFT JOIN users ON users.idcity = city.id WHERE users.id IS NULL 
+
+6. вывести список городов с количеством пользователей в них:
+SELECT city.name, COUNT(users.id) AS qtyuser FROM city LEFT JOIN users ON city.id = users.idcity GROUP BY city.id 
+
+7. вывести список городов, в которых количество пользователей больше трех:
+SELECT city.name, COUNT(users.id) FROM city LEFT JOIN users ON city.id = users.idcity GROUP BY city.id HAVING COUNT(users.id) > 3
+
+
+Задача 6.
+
+Пользователь, его город, страна. 
+
+--пользователи
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   idcity INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--города
+CREATE TABLE country(
+   id INT NOT NULL AUTO_INCREMENT,
+   idcountry INT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--страны
+CREATE TABLE city(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+1. достать всех пользователей вместе с их городом и страной:
+SELECT users.name, city.name, country.name FROM users LEFT JOIN city ON users.idcity = city.id LEFT JOIN country ON city.idcountry = country.id
+
+2. достать все города с их странами:
+SELECT city.name, country.name FROM city LEFT JOIN country ON city.idcountry = country.id
+
+3. достать всех пользователей из страны Беларусь (без городов):
+SELECT users.name FROM users LEFT JOIN city ON users.idcity = city.id LEFT JOIN country ON city.idcountry = country.id WHERE country="Беларусь"
+
+4. достать всех пользователей из города Минск (без страны):
+SELECT users.name FROM users LEFT JOIN city ON users.idcity = city.id WHERE city="Минск"
+
+5. вывести список стран с количеством пользователей в них:
+SELECT country.name, COUNT(user.id) AS qtyusers FROM country JOIN city ON country.id = city.idcountry JOIN user ON city.id = user.idcity
+
+
+Задача 7.
+
+У отца всегда только один сын. Сыновья в свою очередь также могут быть отцами. 
+
+--пользователи
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   idson INT,
+   primary key (id)
+);
+
+1. получить пользователя вместе с его отцом и сыном:
+SELECT users.name, sons.name FROM users LEFT JOIN users AS sons ON users.idson = sons.id 
+
+2. получить дедушку пользователя:
+SELECT users.name, grandfather.name FROM users LEFT JOIN users AS father ON father.idson = user.id LEFT JOIN users AS grandfather ON father.id = grandfather.idson
+
+3. получить прадедушку пользователя: 
+SELECT users.name, greatfather.name  FROM users LEFT JOIN users AS father ON father.idson = users.id  LEFT JOIN users AS grandfather ON 
+grandfather.idson = father.id LEFT JOIN users AS greatfather ON greatfather.idson = grandfather.id
+
+
+Задача 8.
+
+Есть мужья и жены, а также неженатые/незамужние. Для всех указывается имя, фамилия, возраст, адрес. Муж с женой имеют одну фамилию и живут по одному адресу. 
+
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   surname VARCHAR(255),
+   age INT,
+   address VARCHAR(255),
+   idfamily INT,
+   primary key (id)
+);
+
+1. получить мужей с женами и наоборот:
+SELECT users.name, relations.name FROM users JOIN users AS relations ON users.id = relations.idfamily
+
+2. получить холостых:
+SELECT users.name FROM users WHERE idfamily IS NULL
+
+3. получить семьи (муж+жена), семьи не должны дублироваться (пара должна быть только 1 раз):
+SELECT DISTINCT users.name, relations.name FROM users JOIN users AS relations ON users.id = relations.idfamily WHERE users.id > relations.id
+
+
+Задача 9.
+
+Товар, который может принадлежать нескольким категориям одновременно.
+
+-- товары
+CREATE TABLE goods(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   idrel INT,
+   primary key (id)
+);
+
+-- отношения товаров и категорий
+CREATE TABLE relations(
+   id INT NOT NULL AUTO_INCREMENT,
+   idrel INT,
+   idcat INT,
+   primary key (id)
+);
+
+-- категории
+CREATE TABLE category(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+1. достать все товары вместе с их категориями:
+SELECT * FROM goods LEFT JOIN relations ON goods.idrel = relations.idrel LEFT JOIN category ON relations.idcat = category.id
+
+2. достать товар 'Огурец' вместе с его категориями:
+SELECT * FROM goods LEFT JOIN relations ON goods.idrel = relations.idrel LEFT JOIN category ON relations.idcat = category.id WHERE goods.name = "Огурец"
+
+3 достать все товары из категории 'Овощи':
+SELECT * FROM goods LEFT JOIN relations ON goods.idrel = relations.idrel LEFT JOIN category ON relations.idcat = category.id WHERE category.name = "Овощи"
+
+4. достать все товары, которые принадлежат более чем одной категории:
+SELECT * FROM goods LEFT JOIN relations ON goods.idrel = relations.idrel LEFT JOIN category ON relations.idcat = category.id GROUP BY goods.id HAVING COUNT(goods.id) > 1
+
+
+Задача 10.
+
+Пользователь и его интересы (могут быть одинаковыми у разных пользователей).
+
+-- пользователи
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   idrel INT,
+   primary key (id)
+);
+
+-- отношения пользователей и интересов
+CREATE TABLE relations(
+   id INT NOT NULL AUTO_INCREMENT,
+   idrel INT,
+   idinterests INT,
+   primary key (id)
+);
+
+-- интересы
+CREATE TABLE interests(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+1. достать интересы пользователя:
+SELECT users.name, intrests.name FROM users LEFT JOIN relations ON users.idrel = relations.idrel LEFT JOIN interests ON reletions.idinterests = interest.id WHERE users.id = 10
+
+2. достать всех пользователей с данным интересом:
+SELECT users.name, intrests.name FROM users LEFT JOIN relations ON users.idrel = relations.idrel LEFT JOIN interests ON reletions.idinterests = interest.id WHERE intrests.id = 10
+
+Задача 11.
+
+Пользователь, товары, покупки пользователей. У товара есть цена, пользователь может купить не один экземпляр товара, а одновременно несколько.
+
+-- покупки
+CREATE TABLE purchase(
+   id INT NOT NULL AUTO_INCREMENT,
+   iduser INT,
+   idgood INT,
+   date DATE,
+   primary key (id)
+);
+
+-- пользователи
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+-- товары
+CREATE TABLE goods(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   price REAL,
+   primary key (id)
+);
+
+1. вывести пользователей вместе с их покупками:
+SELECT goods.name, goods.price, users.name FROM goods JOIN purchase ON goods.id = purchase.idgood JOIN users ON purchase.iduser = users.id
+ 
+2. вывести пользователей вместе с суммами всех их покупок:
+SELECT goods.name, goods.price, users.name, SUM(price) FROM goods JOIN purchase ON goods.id = purchase.idgood JOIN users ON purchase.iduser = users.id 
+
+3. найти суммарные покупки на сайте за определенный месяц:
+SELECT SUM(price) FROM goods JOIN purchase ON goods.id = purchase.idgood JOIN users ON purchase.iduser = users.id  WHERE MONTH(date) = 2
+ 
+4. найти суммарные покупки на сайте помесячно:
+SELECT SUM(price) AS summa, DATE_FORMAT(date, '%m-%Y') users.name FROM goods JOIN purchase ON goods.id = purchase.idgood JOIN users ON purchase.iduser = users.id
+ 
+
+Задача 12.
+
+Есть отцы и сыновья. У отца может быть много сыновей.
+
+--пользователи
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+--родственные отношения
+CREATE TABLE relations(
+   id INT NOT NULL AUTO_INCREMENT,
+   iduser INT,
+   idson INT,
+   primary key (id)
+);
+
+1. получить всех сыновей пользователя:
+SELECT sons.name FROM users JOIN relations ON users.iduser = relations.iduser JOIN users AS sons ON relations.idson = sons.id WHERE users.id = 10 
+
+2. получить отца пользователя :
+SELECT father.name FROM users JOIN relations ON users.iduser = relations.idson JOIN users AS fathers ON relations.idusers = fathers.id WHERE users.id = 10 
+
+3. получить дедушку пользователя :
+SELECT grandfather.name FROM users JOIN relations ON users.iduser = relations.idson JOIN users AS fathers ON relations.idusers = fathers.id JOIN users AS grandfathers ON relations.idusers = grandfathers.id WHERE users.id = 10
+
+Задача 13.
+
+Море, реки, притоки (притоки делятся на правые и левые). Реки могут быть притоками других рек или впадать прямо в море. 
+
+-- реки
+CREATE TABLE rivers(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+-- притоки
+CREATE TABLE tributarys(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   idriver INT,
+   idsea INT,
+   primary key (id)
+);
+
+-- моря
+CREATE TABLE seas(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+1. получить все реки Черного Моря:
+SELECT rivers.name FROM river JOIN tributarys ON river.id = tributarys.idriver JOIN seas ON tributarys.idsea = sea.id WHERE seas.name = "Черное Море"
+ 
+2. получить все реки Черного Моря вместе с притоками:
+SELECT rivers.name, tributarys.name FROM rivers JOIN tributaries ON rivers.id = tributarys.id JOIN seas ON tributaires.idsea = sea.id WHERE seas.name = "Черное Море"
+
+3. получить все притоки реки Днепр:
+SELECT tributaries.name FROM rivers JOIN tributaries ON rivers.id = tributaries.idriver WHERE rivers.name = "Днепр"
+
+4. получить куда впадает данная река (в какую реку или в какое море):
+SELECT rivers.name, seas.name FROM rivers JOIN tributaries ON rivers.id = tributaries.idrivers JOIN seas ON tributaires.idsea = seas.id WHERE rivers.id = 1
+
+Задача 14.
+
+Пользователь, обмен сообщениями между пользователями (в личку). Сообщение можно пометить как прочитанное (это может только получатель сообщения).
+
+CREATE TABLE messages(
+   id INT NOT NULL AUTO_INCREMENT,
+   idreader INT,
+   idauthor INT,
+   status BOOLEAN,
+   message VARCHAR(255),
+   primary key (id)
+);
+
+SELECT * FROM massages JOIN messages AS tomessage ON massages.idreader = tomessage.idauthor  WHERE status = 1
+
+
+Задача 15 - 16.
+
+Есть сайт с датами футбольных игр. В каждой игре нужно выводить дату игры, первую команду и вторую команду. После того, как игра прошла — нужно выводить еще и счет.
+
+CREATE TABLE games(
+   id INT NOT NULL AUTO_INCREMENT,
+   idteam1 INT,
+   idteam2 INT,
+   dategame DATE,
+   gamecity VARCHAR(255),
+   status BOOLEAN,
+   primary key (id)
+);
+
+CREATE TABLE teams(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   primary key (id)
+);
+
+CREATE TABLE players(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   idteam INT,
+   primary key (id)
+);
+
+1. получить все игры вместе с командами:
+SELECT * FROM games JOIN teams ON games.idteam1 = teams.id UNION SELECT * FROM games JOIN teams ON games.idteam2 = teams.id
+
+2. получить все игры с командами за текущий месяц:
+SELECT * FROM games JOIN teams ON games.idteam1 = teams.id UNION SELECT * FROM games JOIN teams ON games.idteam2 = teams.id WHERE MONTH(date) = MONTH(NOW())
+
+3. получить все игры с командами за предыдущий месяц:
+SELECT * FROM games JOIN teams ON games.idteam1 = teams.id UNION SELECT * FROM games JOIN teams ON games.idteam2 = teams.id WHERE MONTH(date) = MONTH(DATE_ADD(), INTERVAL -1 MONTH)
+
+4. получить все сыгранные игры:
+SELECT * FROM games JOIN teams ON games.idteam1 = teams.id UNION SELECT * FROM games JOIN teams ON games.idteam2 = teams.id WHERE status IS NOT NULL
+
+5. получить все несыгранные игры:
+SELECT * FROM games JOIN teams ON games.idteam1 = teams.id UNION SELECT * FROM games JOIN teams ON games.idteam2 = teams.id WHERE status IS NULL
+
+6. получить все командами c городами:
+SELECT *, teams.city FROM games JOIN teams ON games.idteam1 = teams.id UNION SELECT * FROM game JOIN teams ON games.idteam2 = teams.id
+
+7. получить всех играков команды:
+SELECT * FROM player JOIN teams ON players.idteam = team.id
+
+
+Задача 17.
+
+Пользователь, страницы, категории страниц. Пользователи пишут посты в гостевой книге к определенной странице.
+
+CREATE TABLE users(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   idpage INT,
+   primary key (id)
+);
+
+CREATE TABLE pages(
+   id INT NOT NULL AUTO_INCREMENT,
+   text TEXT,
+   idcategory INT,
+   primary key (id)
+);
+
+CREATE TABLE categories(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
+   idteam INT,
+   primary key (id)
+);
+
+1. получить все комментарии к данной странице:
+SELECT * FROM users JOIN pages ON users.idpade = pages.id JOIN categories ON pages.idcategory = categories.id
+
+2. получить все комментарии данного пользователя:
+SELECT * FROM users JOIN pages ON users.idpade = pages.id JOIN categories ON pages.idcategory = categories.id WHERE users.id = 1
