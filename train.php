@@ -1,6 +1,6 @@
-Задача 1 :
+2. Задача:
+Модифицируйте код так, чтобы в случае успешной авторизации форма для ввода пароля и логина не показывалась на экране
 
-Реализуйте описанную выше авторизацию. Сделайте так, чтобы, если пользователь прошел авторизацию - выводилось сообщение об этом, а если не прошел - то сообщение о том, что введенный логин или пароль вбиты не правильно.
 <?php 
 $local = 'localhost'; 
 $user = 'root'; 
@@ -9,6 +9,12 @@ $db_base = 'test';
 
 $connect = mysqli_connect($local, $user, $password, $db_base) or die (mysqli_error($connect)); 
 mysqli_query($connect, "SET NAMES 'utf8'"); 
+
+$form = '<form action="" method="POST"> 
+<input name="login" placeholder="login"> 
+<input type="password" name="password" placeholder="password"> 
+<input type="submit"> 
+</form>'; 
 
 if (!empty($_POST['login']) AND !empty($_POST['password'])) { 
 $login = $_POST['login']; 
@@ -21,11 +27,13 @@ $user = mysqli_fetch_assoc($result);
 
 if (!empty($user)) { 
 echo "Good"; 
+echo $form = ''; 
 } 
 else { 
 echo 'Wrong '; 
 } 
-}
+} 
+echo $form;
 ?>
 
 <form action="" method="POST">
