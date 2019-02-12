@@ -1,5 +1,4 @@
-<!--Модифицируйте ваш код так, чтобы кроме логина и пароля пользователю нужно было ввести еще и дату своего рождения и email. 
-   Сохраните эти данные в базу данных-->
+<!--Реализуйте описанное добавление даты регистрации пользователя-->
 
 <?php 
 $local = 'localhost'; 
@@ -15,7 +14,10 @@ $addLogin = $_POST['addLogin'];
 $addPassword = $_POST['addPassword']; 
 $addBirthday = $_POST['addBirthday']; 
 $addEmail = $_POST['addEmail']; 
-$query = "INSERT INTO users SET login = '$addLogin', password = '$addPassword', birthday = '$addBirthday', email = '$addEmail'"; 
+
+$date = date('Y-m-d'); 
+$query = "INSERT INTO users SET 
+login = '$addLogin', password = '$addPassword', birthday = '$addBirthday', email = '$addEmail' registration_date = '$date'"; 
 $result = mysqli_query($connect, $query) or die (mysqli_error($connect)); 
 } 
 ?> 
