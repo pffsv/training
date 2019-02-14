@@ -1,9 +1,8 @@
 
 <?php 
-/*7. Задача
-Модифицируйте ваш код так, чтобы при попытке регистрации выполнялась проверка на занятость логина и, 
-если он занят, - выводите сообщение об этом и просите ввести другой логин*/
-
+/*Урок 52. Валидация данных 
+1. Задача 
+Модифицируйте ваш код так, чтобы нельзя было зарегистрировать пользователя с пустым логином или паролем*/
 session_start(); 
 
 $local = 'localhost'; 
@@ -16,6 +15,7 @@ mysqli_query($connect, "SET NAMES 'utf8'");
 
 if (!empty($_POST['addLogin']) && !empty($_POST['addPassword']) && !empty($_POST['confirm'])) { 
 if ($_POST['addPassword'] == $_POST['confirm']) { 
+if (!empty(trim($_POST['addLogin'])) AND !empty(trim($_POST['addPassword'])) AND !empty(trim($_POST['confirm']))) { 
 $addLogin = $_POST['addLogin']; 
 $addPassword = $_POST['addPassword']; 
 
@@ -41,13 +41,17 @@ echo "<p style=\"color:red\"> username already exists </p>";
 } 
 } 
 else { 
+echo "<p style=\"color:red\"> Enter a valid username or password. Must not contain an empty string </p>"; 
+} 
+} 
+else { 
 echo "<p style=\"color:red\"> enter the correct password </p>"; 
 } 
 } 
 ?> 
 <form action="" method="POST"> 
-<input name="addLogin" placeholder="enter login"> 
-<input type="password" name="addPassword" placeholder="enter password"> 
-<input type="password" name="confirm" placeholder="confirm your password"> 
-<input type="submit" value="Register"> 
+<input name="addLogin" placeholder="enter login" value="<?php if(!empty($_POST['addLogin'])) echo $_POST['addLogin']; ?>">
+<input type="password" name="addPassword" placeholder="enter password" value="<?php if(!empty($_POST['addLogin'])) echo $_POST['addPassword']; ?>">
+<input type="password" name="confirm" placeholder="confirm your password" value="<?php if(!empty($_POST['confirm'])) echo $_POST['confirm']; ?>">
+<input type="submit" value="Register">
 </form>
