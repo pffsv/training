@@ -1,7 +1,8 @@
 
+<!--3. Задача
+Модифицируйте ваш код так, чтобы логин был длиной от 4 до 10 символов. В случае, если это не так, выводите сообщение об этом над формой.-->
+
 <?php 
-/*2. Задача
-Модифицируйте ваш код так, чтобы логин мог содержать только латинские буквы и цифры. В случае, если это не так, выводите сообщение об этом над формой */
 session_start(); 
 
 $local = 'localhost'; 
@@ -15,9 +16,9 @@ mysqli_query($connect, "SET NAMES 'utf8'");
 if (!empty($_POST['addLogin']) && !empty($_POST['addPassword']) && !empty($_POST['confirm'])) { 
 if ($_POST['addPassword'] == $_POST['confirm']) { 
 if (!empty(trim($_POST['addLogin'])) AND !empty(trim($_POST['addPassword'])) AND !empty(trim($_POST['confirm']))) { 
-
 $reg = "#^[A-Za-z\d]+$#"; 
 if (preg_match($reg, $_POST['addLogin'])) { 
+if (strlen($_POST['addLogin']) >= 4 && strlen($_POST['addLogin']) <= 10) { 
 $addLogin = $_POST['addLogin']; 
 $addPassword = $_POST['addPassword']; 
 
@@ -43,6 +44,10 @@ echo "<p style=\"color:red\"> username already exists </p>";
 } 
 } 
 else { 
+echo "<p style=\"color:red\"> Your login must contain from 4 to 10 characters </p>"; 
+} 
+} 
+else { 
 echo "<p style=\"color:red\"> Login can contain only Latin letters or numbers </p>"; 
 } 
 } 
@@ -56,7 +61,8 @@ echo "<p style=\"color:red\"> enter the correct password </p>";
 } 
 ?> 
 <form action="" method="POST"> 
-<input name="addLogin" placeholder="enter login" value="<?php if(!empty($_POST['addLogin'])) echo $_POST['addLogin']; ?>">
-<input type="password" name="addPassword" placeholder="enter password" value="<?php if(!empty($_POST['addLogin'])) echo $_POST['addPassword']; ?>">
-<input type="password" name="confirm" placeholder="confirm your password" value="<?php if(!empty($_POST['confirm'])) echo $_POST['confirm']; ?>">
-<input type="submit" value="Register">
+<input name="addLogin" placeholder="enter login" value="<?php if(!empty($_POST['addLogin'])) echo $_POST['addLogin']; ?>"> 
+<input type="password" name="addPassword" placeholder="enter password" value="<?php if(!empty($_POST['addLogin'])) echo $_POST['addPassword']; ?>"> 
+<input type="password" name="confirm" placeholder="confirm your password" value="<?php if(!empty($_POST['confirm'])) echo $_POST['confirm']; ?>"> 
+<input type="submit" value="Register"> 
+</form>
