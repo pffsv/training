@@ -1,8 +1,7 @@
 
 <?php 
-/*Урок 52. Валидация данных 
-1. Задача 
-Модифицируйте ваш код так, чтобы нельзя было зарегистрировать пользователя с пустым логином или паролем*/
+/*2. Задача
+Модифицируйте ваш код так, чтобы логин мог содержать только латинские буквы и цифры. В случае, если это не так, выводите сообщение об этом над формой */
 session_start(); 
 
 $local = 'localhost'; 
@@ -16,6 +15,9 @@ mysqli_query($connect, "SET NAMES 'utf8'");
 if (!empty($_POST['addLogin']) && !empty($_POST['addPassword']) && !empty($_POST['confirm'])) { 
 if ($_POST['addPassword'] == $_POST['confirm']) { 
 if (!empty(trim($_POST['addLogin'])) AND !empty(trim($_POST['addPassword'])) AND !empty(trim($_POST['confirm']))) { 
+
+$reg = "#^[A-Za-z\d]+$#"; 
+if (preg_match($reg, $_POST['addLogin'])) { 
 $addLogin = $_POST['addLogin']; 
 $addPassword = $_POST['addPassword']; 
 
@@ -41,6 +43,10 @@ echo "<p style=\"color:red\"> username already exists </p>";
 } 
 } 
 else { 
+echo "<p style=\"color:red\"> Login can contain only Latin letters or numbers </p>"; 
+} 
+} 
+else { 
 echo "<p style=\"color:red\"> Enter a valid username or password. Must not contain an empty string </p>"; 
 } 
 } 
@@ -54,4 +60,3 @@ echo "<p style=\"color:red\"> enter the correct password </p>";
 <input type="password" name="addPassword" placeholder="enter password" value="<?php if(!empty($_POST['addLogin'])) echo $_POST['addPassword']; ?>">
 <input type="password" name="confirm" placeholder="confirm your password" value="<?php if(!empty($_POST['confirm'])) echo $_POST['confirm']; ?>">
 <input type="submit" value="Register">
-</form>
