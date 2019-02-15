@@ -1,5 +1,9 @@
-<!--4. Задача
-Реализуйте описанную выше авторизацию с соленым паролем. Попробуйте зарегистрируйтесь, авторизуйтесь, убедитесь, что все работает-->
+<!--Урок №54. Профиль и личный кабинет
+
+1. Задача.
+Пусть при регистрации мы спрашивали у пользователя логин, пароль, имя, отчество, фамилию, дату рождения. Выведите в профиле пользователя все эти данные, кроме пароля.
+
+файл profile.php-->
 
 <?php 
 session_start(); 
@@ -12,37 +16,20 @@ $db_base = 'test';
 $connect = mysqli_connect($local, $user, $password, $db_base) or die (mysqli_error($connect)); 
 mysqli_query($connect, "SET NAMES 'utf8'"); 
 
-if (!empty($_POST['login']) AND !empty($_POST['password'])) { 
-$login = $_POST['login']; 
+$id = $_GET['id']; 
 
-$query = "SELECT * FROM users WHERE login='$login'"; 
+$query = "SELECT * FROM users WHERE id='$id'"; 
 $result = mysqli_query($connect, $query) or die (mysqli_error($connect)); 
 $user = mysqli_fetch_assoc($result); 
 
-if (!empty($user)) { 
-$passwordEntered = md5($user['salt'].$_POST['password']); 
-$passwordFromDatabase = $user['password']; 
-
-if ($passwordEntered == $passwordFromDatabase) { 
-$_SESSION['auth'] = true; 
-$_SESSION['login'] = $login; 
-header ('Location: index.php'); 
-} 
-else { 
-$_SESSION['auth'] = null; 
-echo "<p> Повторите попытку </p>"; 
-} 
-} 
-else { 
-echo "<p> Повторите попытку </p>"; 
-} 
-} 
+echo "<h3> Карточка пользователя </h3>"; 
+echo "<hr>"; 
+echo "Логин: {$user['login']}".'<br>'; 
+echo "Имя: {$user['name']}".'<br>'; 
+echo "Фамилия: {$user['surname']}".'<br>'; 
+echo "Отчество: {$user['patronymic']}".'<br>'; 
+echo "День рождения: {$user['birthday']}".'<br><hr>'; 
 ?> 
 <head> 
 <meta charset="utf-8"> 
-</head> 
-<form action="" method="POST"> 
-<input name="login" placeholder="login"> 
-<input type="password" name="password" placeholder="password"> 
-<input type="submit" value="Авторизировать"> 
-</form>
+</head>
