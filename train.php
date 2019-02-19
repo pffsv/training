@@ -1,54 +1,33 @@
-<?php 
-error_reporting(E_ALL); 
-ini_set('display_errors', 'on'); 
+<?php
+//Урок 58
+//1.Сделайте класс Employee (работник), в котором будут следующие свойства - name (имя), age (возраст), salary (зарплата).
+class Employee
+{
+	public $name;
+	public $age;
+	public $salary;
+}
 
-$host = 'localhost'; 
-$user = 'root'; 
-$password = ''; 
-$dbName = 'test'; 
-$link = mysqli_connect($host, $user, $password, $dbName); 
-mysqli_query($link, "SET NAMES 'utf-8'"); 
+//2.Создайте объект класса Employee, затем установите его свойства в следующие значения - имя 'Иван', возраст 25, зарплата 1000.
 
-session_start(); 
+$employee1 = new Employee;
+$employee1->name = 'Иван';
+$employee1->age = 25;
+$employee1->salary = 1000;
 
-if(!empty($_POST['log']) and !empty($_POST['pass'])) { 
+//3.Создайте второй объект класса Employee, установите его свойства в следующие значения - имя 'Вася', возраст 26, зарплата 2000.
 
-$log = $_POST['log']; 
-$pass = $_POST['pass']; 
-$email = $_POST['email']; 
-$birthdate = $_POST['birthdate']; 
-$date = date('Y-m-d'); 
+$employee2 = new Employee;
+$employee2->name = 'Вася';
+$employee2->age = 26;
+$employee2->salary = 2000;
 
-if($_POST['pass'] == $_POST['confirm']) { 
+//4.Выведите на экран сумму зарплат Ивана и Васи.
 
-$query = "SELECT * FROM users WHERE login = '$log'"; 
-$user = mysqli_fetch_assoc(mysqli_query($link, $query)); 
+echo $employee1->salary + $employee2->salary;
 
-if(empty($user)) { 
+//5.Выведите на экран сумму возрастов Ивана и Васи.
 
-$query = "INSERT INTO users (login, pass, email, birthdate, registration_date) VALUES ('$log', '$pass', '$email', '$birthdate', '$date')"; 
-mysqli_query($link, $query) or die(mysqli_error($link)); 
+echo $employee1->age + $employee2->age;
 
-$_SESSION['auth'] = true; 
-$_SESSION['logName'] = $log; 
-
-$id = mysqli_insert_id($link); 
-$_SESSION['id'] = $id; 
-
-header('Location: /index.php'); 
-} else { 
-echo 'This login is busy. Try again.'; 
-include 'registerForm.php'; 
-} 
-
-
-} else { 
-echo 'Password does not match confirmation. Try again.'; 
-include 'registerForm.php'; 
-} 
-
-} else { 
-
-//include 'registerForm.php'; 
-} 
 ?>
