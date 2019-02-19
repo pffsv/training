@@ -1,37 +1,27 @@
 <?php
-//Регистрация
-		//Устанавливаем доступы к базе данных:
-		$host = 'localhost'; //имя хоста, на локальном компьютере это localhost
-		$user = 'root'; //имя пользователя, по умолчанию это root
-		$password = ''; //пароль, по умолчанию пустой
-		$db_name = 'test'; //имя базы данных
+class User
+{
+	public $name;
+	public $age;
+}
 
-	//Соединяемся с базой данных используя наши доступы:
-		$link = mysqli_connect($host, $user, $password, $db_name);
+$user = new User();
+$user -> name = 'Коля';
+$user -> age = 25;
 
-	//Устанавливаем кодировку (не обязательно, но поможет избежать проблем):
-		mysqli_query($link, "SET NAMES 'utf8'");
+echo $user -> name;
+echo $user -> age;
+echo "<br>";
 
-	//Делаем запрос к БД, результат запроса пишем в $result:
-//		$result = mysqli_query($link, $query) or die(mysqli_error($link));
+$user1 = new User();
+$user1 -> name = 'Kola';
+$user1 -> age = 25;
 
-//		for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+$user2 = new User();
+$user2 -> name = 'Vasa';
+$user2 -> age = 30;
 
-	// Если форма регистрации отправлена...
-	if (!empty($_POST['login']) and !empty($_POST['password'])) {
-	
-		// Пишем логин и пароль из формы в переменные для удобства работы:
-		$login = $_POST['login'];
-		$password = $_POST['password'];
-		
-		// Формируем и отсылаем SQL запрос:
-		$query = "INSERT INTO users SET login='$login', password='$password'";
-		mysqli_query($link, $query);
-	}
+echo $user1 -> age + $user2 -> age;
+
 ?>
-<form action="" method="POST">
-	<input name="login">
-	<input name="password" type="password">
-	<input type="submit" value="Отправить">
-</form>
 
