@@ -1,22 +1,14 @@
+
+<p>Please enter your name:</p>
+
+<form action="post.php" method="post">
+	<input type="text" name="name123" />
+	<input type="submit" />
+</form>
+
 <?php
-//Урок 59
-//1.Сделайте класс Employee (работник), в котором будут следующие свойства - name (имя), age (возраст), salary (зарплата).
-class User
-{
-	public $name;
-	public $age;
 
-	// Создаем метод
-	public function show()
-	{
-		return '!!!';
-	}
+$name_is_empty = $_GET['name_is_empty'];
+if ($name_is_empty) {
+	echo '<p style="color: red;">Name is required</p>';
 }
-	$user = new User;
-	$user->name = 'Коля';
-	$user->age = 25;
-	
-	// Вызовем наш метод:
-	echo $user->show(); // выведет '!!!'	
-?>
-
