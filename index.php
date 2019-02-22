@@ -1,66 +1,75 @@
+
+<html>
+<head>
+  <meta charset="utf-8"></head>
+  <body>
+    <form action="post.php" method="post">
+      <p>
+        <strong>Login*</strong>       
+        <input name="login">
+      </p>
+      
+      <p>
+        <strong>Password*</strong>    
+        <input type="password" name="password"/>
+      </p>
+      
+      <p>
+        <strong>First name*</strong>   
+        <input type="text" name="first_name" />
+      </p>  
+      
+      <p>
+        <strong>Last name*</strong>    
+        <input type="text" name="last_name" />
+      </p> 
+        
+      <p>
+        <strong>Middle name</strong> 
+        <input type="text" name="middle_name" />
+      </p> 
+
+      <p>
+        <strong>email*</strong>       
+        <input type="text" name="email" />
+      </p>
+
+      
+      <p><input type="submit" /></p>
+  </form>
 <?php
 
-// integer - целочисленный
-// float (double) - с плавающей точкой
-// string - строковый
-// boolean (bool) - булево (0/1, true/false, да/нет)
-// array - массив
+$Login_is_empty = $_GET['login_is_empty'];
+if ($Login_is_empty) {
+  echo '<p style="color: red;">login is required</p>';
+}
 
-$integer = 1;
-$float = 1.2;
-$string = 'Мама мыла раму';
-$bool = true;
+$Password_is_empty = $_GET['password_is_empty'];
+if ($Password_is_empty) {
+  echo '<p style="color: red;">password is required</p>';
+}
 
-// echo $integer;
-// $integer++;
-// $integer = $integer + 2;
-// $integer += 3;
-// echo '<br>';
-// echo $integer;
+$First_name_is_empty = $_GET['first_name_is_empty'];
+if ($First_name_is_empty) {
+	echo '<p style="color: red;">first_name is required</p>';
+}
 
-// $alphabet1 = [ // если не пишем ключи, то 
-// 			   // используются следующие умолчания
-// 	'Raskolnikov', // ключ = 0
-// 	'Trubkin', // ключ = 1
-// 	'Vasechkin'  // ключ = 2
-// ];
+$Last_name_is_empty = $_GET['last_name_is_empty'];
+if ($Last_name_is_empty) {
+	echo '<p style="color: red;">last_name is required</p>';	
+}
 
-$alphabet2 = [
-	55 => 'Raskolnikov', 
-	78 => 'Trubkin',
-	79 => 'Vasechkin',
-	'zampolit' => 'Zhukov',
-];
+$Middle_name_is_empty = $_GET['middle_name_is_empty'];
+if ($Middle_name_is_empty) {
+	echo '<p style="color: red;">middle_name is required</p>';	
+}
 
-// echo '<p>' . $alphabet2[79] . '</p>';
-// echo '<p>' . $alphabet2['zampolit'] . '</p>';
+$email_is_empty = $_GET['email_is_empty'];
+if ($email_is_empty) {
+	echo '<p style="color: red;">email is required</p>';	
+}
 
-// if ($alphabet1[0] == $alphabet2[0]) {
-// 	echo 'equal';
-// } else {
-// 	echo 'not equal';
-// }
+?> 
 
-$user1 = [
-	'first_name' => 'Yegor',
-	'last_name' => 'Popov',
-	'middle_name' => 'Sergeevich',
-	'email' => 'indeveler@gmail.com',
-	'login' => 'indeveler',
-	'password' => 'qwertsa1988'
-];
-
-$users = [
-	1 => $user1,
-	2 => [
-		'first_name' => 'Sergey',
-		'last_name' => 'Popov',
-		'email' => 'pffsv@mail.ru',
-		'login' => 'pffsv',
-		'password' => 'qwertsa1964'
-	]
-];
-
-echo '<p>' . $user1['email'] . '</p>';
-// echo '<p>' . $users . '</p>';
-echo '<p>' . $users[2]['email'] . '</p>';
+</body>
+</html>
