@@ -1,18 +1,20 @@
 <?php 
 
-// Определяем что такое машины, что она умеет делать и как.
-class Car
+Class user
 {
-    var $color = 'White';
-    public $model = 'Honda';
-    function tut_tut()    {  echo "BIp BIp";  }
-}
+	public $name;
+	public $age;
 
-$honda = new Car(); // присваиваем переменной honda объект - Машину
-//echo '<p>' . $honda->color . '</p>'; // Выводим свойство машины - цвет 
+// Создаем метод:
+	public function show($str)
+	{
+		return $str . '!!!';
+	}
+}
+$user = new User;
+$user->name = 'Kola';
+$user->age = 25;
+
+echo $user->show('hello');
 
 ?>
-
-<p><?php echo $honda->model ?> is Japan car.<br>Ha har</p>
-<p><?= $honda->model ?> is Japan car.<br>Ha har</p>
-<p>Toyota is another Japan car</p>
