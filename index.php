@@ -1,21 +1,23 @@
 <?php 
-
-Class user
-{
-	public $name;
-	public $age;
-
-// Создаем метод:
-	public function show()
+	class User
 	{
-		return $this->name;
+		public $name;
+		public $age;
+		
+		// Метод для изменения имени юзера:
+		public function setName($name)
+		{
+			$this->name = $name; // запишем новое значение свойства name
+		}
 	}
-}
-
+	
 	$user = new User; // создаем объект класса
-	$user->name = 'Коля'; 
-	$user->age = 25; 
-
-	echo $user->show();
-
+	$user->name = 'Коля'; // записываем имя
+	$user->age = 25; // записываем возраст
+	
+	// Установим новое имя:
+	$user->setName('Вася');
+	
+	// Проверим, что имя изменилось:
+	echo $user->name; // выведет 'Вася'
 ?>
