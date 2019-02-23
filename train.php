@@ -1,40 +1,23 @@
 <?php
-//1.Сделайте класс Employee (работник), в котором будут следующие свойства - name (имя), age (возраст), salary (зарплата).
-class Exployee
+//7.Сделайте класс User, в котором будут следующие свойства - name (имя), age (возраст).
+
+class User
 {
-public $name;
-public $age;
-public $salary;
+	public $name;
+	public $age;
+//8.Сделайте метод setAge, который параметром будет принимать новый возраст пользователя.	
+	public function setAge($age)
+	{
+		$this->age = $age; 
+	}
+}
+//9.Создайте объект класса User с именем 'Коля' и возрастом 25. С помощью метода setAge поменяйте возраст на 30. Выведите новое значение возраста на экран.
+$user = new User;
+$user->name = 'Коля';
+$user->age = 25;
 
-//2.Сделайте в классе Employee метод getName, который будет возвращать имя работника.
+$user->setAge(30);
 
-	public function getName()
-	{
-		return $this->name;
-	}
-//3.Сделайте в классе Employee метод getAge, который будет возвращать возраст работника.
-		public function getAge()
-	{
-		return $this->age;
-	}
-//4.Сделайте в классе Employee метод getSalary, который будет возвращать зарплату работника.
-		public function getSalary()
-	{
-		return $this->salary;
-	}
-//5.Сделайте в классе Employee метод checkAge, который будет проверять то, что работнику больше 18 лет и возвращать true, если это так, и false, если это не так.	
-		public function checkAge()
-	{
-		if ($this->age > 18) {
-			return true;
-		}
-	}
-}	
-//6.Создайте два объекта класса Employee, запишите в их свойства какие-либо значения. С помощью метода getSalary найдите сумму зарплат созданных работников.
-	$Exployee1 = new Exployee;
-	$Exployee1->salary = 5000;
-	$Exployee2 = new Exployee;
-	$Exployee2->salary = 2000;		
+echo $user->age;
 
-echo $Exployee1->getSalary() + $Exployee2->getSalary();
 ?>
