@@ -6,15 +6,16 @@ Class user
 	public $age;
 
 // Создаем метод:
-	public function show($str)
+	public function show()
 	{
-		return $str . '!!!';
+		return $this->name;
 	}
 }
-$user = new User;
-$user->name = 'Kola';
-$user->age = 25;
 
-echo $user->show('hello');
+	$user = new User; // создаем объект класса
+	$user->name = 'Коля'; 
+	$user->age = 25; 
+
+	echo $user->show();
 
 ?>
