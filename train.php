@@ -1,17 +1,23 @@
 <?php
 //62.Модификаторы доступа public и private
-//2.Попробуйте вызвать метод isAgeCorrect снаружи класса. Убедитесь, что это будет вызывать ошибку.	
-	class User
+//3.Сделайте класс Student со свойствами $name и $course (курс студента, от 1-го до 5-го).
+	class Student
 	{
-		private $name;
-		private $age;
-			// Объявим приватным:
-		private function isAgeCorrect($age)
-		{
-			return $age >= 18 and $age <= 60;
-		}	
+		public $name;
+		public $course;
+	
+//4.В классе Student сделайте public метод transferToNextCourse, который будет переводить студента на следующий курс.	
+	public function transferToNextCourse()
+	{
+		$newcourse = $this->course + 1;
+//5.Выполните в методе transferToNextCourse проверку на то, что следующий курс не больше 5.	
+		return $newcourse <= 5;
+	}
 
-	$user = new User;
-    $user->checkAge(30);
+//6.Вынесите проверку курса в отдельный private метод isCourseCorrect.
+	private function isCourseCorrect($newcourse)
+	{
+	return $newcourse <= 5;
+	}
 	}
 ?>	
