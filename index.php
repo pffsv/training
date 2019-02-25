@@ -1,23 +1,34 @@
 <?php 
-	class User
+//62.Модификаторы доступа public и private
+class User
 	{
 		public $name;
 		public $age;
 		
-		// Метод для изменения имени юзера:
-		public function setName($name)
+		// Метод для изменения возраста юзера:
+		public function setAge($age)
 		{
-			$this->name = $name; // запишем новое значение свойства name
+			// Проверим возраст на корректность:
+			if ($this->isAgeCorrect($age)) {
+				$this->age = $age;
+			}
+		}
+		
+		// Метод для добавления к возрасту:
+		public function addAge($years)
+		{
+			$newAge = $this->age + $years; // вычислим новый возраст
+			
+			// Проверим возраст на корректность:
+			if ($this->isAgeCorrect($newAge)) {
+				$this->age = $newAge; // обновим, если новый возраст прошел проверку
+			}
+		}
+		
+		// Метод для проверки возраста:
+		private function isAgeCorrect($age)
+		{
+			return $age >= 18 and $age <= 60;
 		}
 	}
-	
-	$user = new User; // создаем объект класса
-	$user->name = 'Коля'; // записываем имя
-	$user->age = 25; // записываем возраст
-	
-	// Установим новое имя:
-	$user->setName('Вася');
-	
-	// Проверим, что имя изменилось:
-	echo $user->name; // выведет 'Вася'
 ?>
