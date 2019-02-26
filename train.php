@@ -1,23 +1,20 @@
 <?php
-//62.Модификаторы доступа public и private
-//3.Сделайте класс Student со свойствами $name и $course (курс студента, от 1-го до 5-го).
-	class Student
+//63.Конструктор объекта
+/*1.Сделайте класс Employee, в котором будут следующие публичные свойства - name (имя), age (возраст), salary (зарплата). 
+Сделайте так, чтобы эти свойства заполнялись в методе __construct при создании объекта.*/
+	class Employee
 	{
 		public $name;
-		public $course;
+		public $age;
+		public $salary;
+		
+		// Конструктор объекта:
+		public function __construct($name, $age)
+		{
+			$this->name = $name; // запишем данные в свойство name
+			$this->age = $age; // запишем данные в свойство age
+			$this->salary = $salary; // запишем данные в свойство salary
+		}
+	}
 	
-//4.В классе Student сделайте public метод transferToNextCourse, который будет переводить студента на следующий курс.	
-	public function transferToNextCourse()
-	{
-		$newcourse = $this->course + 1;
-//5.Выполните в методе transferToNextCourse проверку на то, что следующий курс не больше 5.	
-		return $newcourse <= 5;
-	}
-
-//6.Вынесите проверку курса в отдельный private метод isCourseCorrect.
-	private function isCourseCorrect($newcourse)
-	{
-	return $newcourse <= 5;
-	}
-	}
 ?>	
