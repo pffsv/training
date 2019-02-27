@@ -1,34 +1,36 @@
 <?php 
-//63.Конструктор объекта
-	class User
+//64.Работа с геттерами и сеттерами
+class User
 	{
 		public $name;
-		public $age;
+		private $age; // объявим возраст приватным
 		
-		// Конструктор объекта:
-		public function __construct()
+		// Метод для чтения возраста юзера:
+		public function getAge()
 		{
-			echo '!!!';
+			return $this->age;
+		}
+		
+		// Метод для изменения возраста юзера:
+		public function setAge($age)
+		{
+			// Проверим возраст на корректность:
+			if ($this->isAgeCorrect($age)) {
+				$this->age = $age;
+			}
+		}
+		
+		// Метод для проверки возраста:
+		private function isAgeCorrect($age)
+		{
+			return $age >= 18 and $age <= 60;
 		}
 	}
+		$user = new User;
 	
-	$user = new User; // выведет '!!!'
-
-	class Users
-	{
-		public $name;
-		public $age;
-		
-		// Конструктор объекта:
-		public function __construct($name, $age)
-		{
-			$this->name = $name; // запишем данные в свойство name
-			$this->age = $age; // запишем данные в свойство age
-		}
-	}
+		// Установим возраст:
+		$user->setAge(50);
 	
-	$user = new User('Коля', 25); // создадим объект, сразу заполнив его данными
-	
-	echo $user->name; // выведет 'Коля'
-	echo $user->age; // выведет 25	
+		// Прочитаем новый возраст:
+		echo $user->getAge(); // выведет 50
 ?>
