@@ -1,13 +1,15 @@
 <?php
-//65.Свойства только для чтения
-/*2.Сделайте так, чтобы свойства name и surname были доступны только для чтения, а свойство salary - и для чтения, и для записи.*/
+//66.Хранение классов в отдельных файлах
+/*1.Сделайте класс Employee, в котором будут следующие свойства: name (имя), surname (фамилия), patronymic (отчество) и salary (зарплата).
+Пусть этот класс хранится в отдельном файле.*/
 class Employee
 {
 private $name;
 private $surname;
+private $patronymic;
 private $salary;
 
-function __construct($name, $surname, $salary)
+function __construct($name, $patronymic, $surname, $salary)
 {
 $this->name = $name;
 $this->surname = $surname;
@@ -21,6 +23,10 @@ public function getSurname()
 {
 return $this->surname;
 }
+public function getPatronymic()
+{
+return $this->patronymic;
+}
 public function getSalary()
 {
 return $this->salary.'$';
@@ -30,9 +36,5 @@ public function setSalary($salary)
 $this->salary = $salary;
 }
 }
-$Employee = new Employee('Коля', 'Иванов', 500);
-echo $Employee->getName().' '.$Employee->getSurname();// Коля Иванов
-echo $Employee->getSalary();// 500$
-$Employee->setSalary(1000);
-echo $Employee->getSalary();// 1000$
+
 ?>	
