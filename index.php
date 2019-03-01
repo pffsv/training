@@ -1,10 +1,29 @@
 <?php 
-//66.Хранение классов в отдельных файлах
-//2.Подключите к файлу index.php класс Employee, создайте два объекта этого класса с произвольными данными, выведите на экран сумму их зарплат.
+//67.Хранение объектов в массивах
+//Пусть у нас дан вот такой класс User:
+	class User
+	{
+		public $name;
+		public $age;
+		
+		public function __construct($name, $age)
+		{
+			$this->name = $name;
+			$this->age = $age;
+		}
+	}
 
+//Давайте создадим 3 объекта этого класса:
+
+	$user1 = new User('Коля', 21);
+	$user2 = new User('Вася', 22);
+	$user3 = new User('Петя', 23);
+
+//Давайте теперь запишем созданные нами объекты в массив $users:
 	
-	require_once 'train.php'; // подключаем наш класс
-	$emp1 = new Employee('Иван', 'Ивановиич', 'Иванов', 1000);
-    $emp2 = new Employee('Петр', 'Петрович', 'Петров', 500);
-    echo $emp1->getSalary() + $emp2->getSalary(); // 2000$ и 1500$ преобразует к числу, выводит 3500	
+	$users[] = $user1;
+	$users[] = $user2;
+	$users[] = $user3;
+	
+	var_dump($users);
 ?>
