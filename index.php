@@ -1,61 +1,110 @@
 <?php 
-//67.Хранение объектов в массивах
-//Пусть у нас дан вот такой класс User:
-	class User
+//68.Начальные значения свойств в конструкторе
+//Пусть у нас есть какой-то класс с двумя свойствами:
+/*
+	class TestOne
 	{
-		public $name;
-		public $age;
+		public $prop1;
+		public $prop2;
+	}
+
+//Давайте сделаем так, чтобы при создании объекта класса эти свойства имели какие-либо значения.
+//Как вы уже знаете, в момент создания объекта вызывается метод __construct. Давайте зададим начальные значения свойства в этом методе:
+	class Test
+	{
+		public $prop1;
+		public $prop2;
 		
-		public function __construct($name, $age)
+		public function __construct()
+		{
+			$this->prop1 = 'value1'; // начальное значение свойства
+			$this->prop2 = 'value2'; // начальное значение свойства
+		}
+	}
+	
+	$test = new Test;
+	echo $test->prop1; // выведет 'value1'
+	echo $test->prop2; // выведет 'value2'
+//Применение
+//Пусть у нас есть класс Student с двумя свойствами - name и course (курс студента).
+//Сделаем так, чтобы имя студента приходило параметром при создании объекта, а курс автоматически принимал значение 1:
+
+	class Student
+	{
+		private $name;
+		private $course;
+		
+		public function __construct($name)
 		{
 			$this->name = $name;
-			$this->age = $age;
+			$this->course = 1; // курс изначально равен 1
 		}
 	}
 
-//Давайте создадим 3 объекта этого класса:
-/*
-	$user1 = new User('Коля', 21);
-	$user2 = new User('Вася', 22);
-	$user3 = new User('Петя', 23);
+Сделаем геттеры для наших свойств:
+	class Student
+	{
+		private $name;
+		private $course;
+		
+		public function __construct($name)
+		{
+			$this->name = $name;
+			$this->course = 1;
+		}
+		
+		// Геттер имени:
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		// Геттер курса:
+		public function getCourse()
+		{
+			return $this->course;
+		}
+	}
+*/	
+/*Пусть имя созданного студента будет неизменяемым и доступным только для чтения, а вот для курса мы сделаем метод, 
+который будет переводить нашего студента на следующий курс:*/
 
-//Давайте теперь запишем созданные нами объекты в массив $users:
+	class Student
+	{
+		private $name;
+		private $course;
+		
+		public function __construct($name)
+		{
+			$this->name = $name;
+			$this->course = 1;
+		}
+		
+		// Геттер имени:
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		// Геттер курса:
+		public function getCourse()
+		{
+			return $this->course;
+		}
+		
+		// Перевод студента на новый курс:
+		public function transferToNextCourse()
+		{
+			$this->course++;
+		}
+	}
+
+//Проверим работу нашего класса:
+
+	$student = new Student('Коля'); // создаем объект класса
 	
-	$users[] = $user1;
-	$users[] = $user2;
-	$users[] = $user3;
+	echo $student->getCourse(); // выведет 1 - начальное значение
+	$student->transferToNextCourse(); // переведем студента на следующий курс
+	echo $student->getCourse(); // выведет 2
 	
-	var_dump($users);
-
-//Давайте теперь переделаем наш код в другом стиле - добавим элементы в массив сразу при его создании:
-
-	$user1 = new User('Коля', 21);
-	$user2 = new User('Вася', 22);
-	$user3 = new User('Петя', 23);
-	
-	$users = [$user1, $user2, $user3];
-	var_dump($users);
-
-//Здесь также можно избавится от промежуточных переменных:
-
-	$users = [
-		new User('Коля', 21),
-		new User('Вася', 22),
-		new User('Петя', 23)
-	];
-	
-	var_dump($users);	
-
-//Затем эти объекты можно, к примеру, перебрать циклом. Давайте сделаем это:
-*/
-	$users = [
-		new User('Коля', 21),
-		new User('Вася', 22),
-		new User('Петя', 23)
-	];
-	
-	// Переберем созданный массив циклом:
-	foreach ($users as $user) {
-		echo $user->name . ' ' . $user->age . '<br>';
-	}		
 ?>
