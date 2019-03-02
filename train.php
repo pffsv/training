@@ -1,28 +1,49 @@
 <?php
-//67.Хранение объектов в массивах
-/*1.Сделайте класс City (город), в котором будут следующие свойства: name (название города), population (количество населения).*/
-class City
+//68.Начальные значения свойств в конструкторе
+/*1.реализуйте такой же класс Student.*/
+/*2.Модифицируйте метод transferToNextCourse так, чтобы при переводе на новый курс выполнялась проверка того, что новый курс не будет больше 5.*/
+class Student
 {
-	public $name;
-	public $population;
+	private $name;
+	private $course;
 
-	public function __construct($name, $population)
+	function __construct($name)
 	{
 		$this->name = $name;
-		$this->population = $population;
+		$this->course = 1;
+	}
+	public function getName()
+	{
+	return $this->name;
+	}
+	public function getCourse()
+	{
+	return $this->course;
+	}
+
+	public function transferToNextCourse()
+	{
+	$newcourse = $this->course + 1;
+	if ($this->isCourseCorrect($newcourse)) {
+	$this->course = $newcourse;
+	}
+	}
+	private function isCourseCorrect($newcourse)
+	{
+	return $newcourse <= 5;
 	}
 }
-//2.Создайте 5 объектов класса City, заполните их данными и запишите в массив.
-	$cities = [
-		new City('Москва', 80000000),
-		new City('Новосибирск', 1000000),
-		new City('Томск', 500000),
-		new City('Кемерово', 400000),
-		new City('Омск', 1000000)
-		];
 
-//3.Переберите созданный вами массив с городами циклом и выведите города и их население на экран.
-	foreach ($cities as $city) {
-		echo 'г. '.$city->name.' (кол-во населения: '.$city->population.')<br>';
-	}		
+	$std = new Student('Вася');
+	echo $std->getCourse();// 1
+	$std->transferToNextCourse();
+	echo $std->getCourse();// 2
+	$std->transferToNextCourse();
+	echo $std->getCourse();// 3
+	$std->transferToNextCourse();
+	echo $std->getCourse();// 4
+	$std->transferToNextCourse();
+	echo $std->getCourse();// 5
+	$std->transferToNextCourse();
+	echo $std->getCourse();// 5	
 ?>	
