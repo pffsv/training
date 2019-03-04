@@ -1,30 +1,35 @@
 <?php 
 //70.Переменные названия свойств
-//Пусть у нас есть вот такой класс User:
+//Массив свойств
+//Пусть теперь дан вот такой класс User:
 
 	class User
 	{
-		public $name;
-		public $age;
+		public $surname; // фамилия
+		public $name; // имя
+		public $patronymic; // отчество
 		
-		public function __construct($name, $age)
+		public function __construct($surname, $name, $patronymic)
 		{
+			$this->surname = $surname;
 			$this->name = $name;
-			$this->age = $age;
+			$this->patronymic = $patronymic;
 		}
 	}
+//И пусть дан массив свойств
+
+	$props = ['surname', 'name', 'patronymic'];
+//Попробуем теперь вывести значение свойства, которое хранится в нулевом элементе массива, то есть в $props[0].
+//На самом деле, если просто попытаться сделать $user->$props[0] - это не будет работать:
+
+	$user = new User('Иванов', 'Иван', 'Иванович');
 	
-	$user = new User('Коля', 21);
-	echo $user->name; // выведет 'Коля'
+	$props = ['surname', 'name', 'patronymic'];
+	echo $user->$props[0]; // так работать не будет
+//Для того, чтобы такое сложное имя свойства заработало, его нужно взять в фигурные скобки, вот так:
 
-/*На примере этого класса мы сейчас разберем то, что названия свойств можно хранить в переменной.
-К примеру, пусть у нас есть переменная $prop, в которой лежит строка 'name'.
-Тогда обращение $user->$prop по сути эквивалентно обращению $user->name.
-Посмотрим на примере:*/
-
-	$user = new User('Коля', 21);
+	$user = new User('Иванов', 'Иван', 'Иванович');
 	
-	$prop = 'name';
-	echo $user->$prop; // выведет 'Коля'
-
+	$props = ['surname', 'name', 'patronymic'];
+	echo $user->{$props[0]}; // выведет 'Иванов'
 ?>
