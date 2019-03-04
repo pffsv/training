@@ -1,61 +1,30 @@
 <?php 
-//69.Начальные значения свойств при объявлении
-class Student
+//70.Переменные названия свойств
+//Пусть у нас есть вот такой класс User:
+
+	class User
 	{
-		private $name;
-		private $course = 1; // начальное значение курса
+		public $name;
+		public $age;
 		
-		public function __construct($name)
+		public function __construct($name, $age)
 		{
 			$this->name = $name;
-		}
-		
-		// Геттер имени:
-		public function getName()
-		{
-			return $this->name;
-		}
-		
-		// Геттер курса:
-		public function getCourse()
-		{
-			return $this->course;
-		}
-		
-		// Перевод студента на новый курс:
-		public function transferToNextCourse()
-		{
-			$this->course++;
+			$this->age = $age;
 		}
 	}
-//Пусть у нас есть вот такой класс Arr, у которого есть метод add для добавления чисел и метод getSum для получения суммы всех добавленных чисел:
-
-	class Arr
-	{
-		// Массив для хранения чисел:
-		private $numbers;
-		
-		// Добавляет число в набор:
-		public function add($num)
-		{
-			$this->numbers[] = $num;
-		}
-		
-		// Находит сумму чисел набора:
-		public function getSum()
-		{
-			return array_sum($this->numbers);
-		}
-	}
-
-//Давайте воспользуемся нашим классом Arr - добавим несколько чисел и найдем их сумму:
-
-	$arr = new Arr;
 	
-	$arr->add(1);
-	$arr->add(2);
-	$arr->add(3);
+	$user = new User('Коля', 21);
+	echo $user->name; // выведет 'Коля'
+
+/*На примере этого класса мы сейчас разберем то, что названия свойств можно хранить в переменной.
+К примеру, пусть у нас есть переменная $prop, в которой лежит строка 'name'.
+Тогда обращение $user->$prop по сути эквивалентно обращению $user->name.
+Посмотрим на примере:*/
+
+	$user = new User('Коля', 21);
 	
-	echo $arr->getSum(); // выведет 6
+	$prop = 'name';
+	echo $user->$prop; // выведет 'Коля'
 
 ?>
