@@ -1,24 +1,29 @@
 <?php
-//69.Начальные значения свойств при объявлении
-/*1.Реализуйте класс Arr, похожий на тот, который я реализовал выше.
-В отличие от моего класса метод add вашего класса параметром должен принимать массив чисел. 
-Все числа из этого массива должны добавляться в конец массива $this->numbers.*/
-/*2.Вместо метода getSum реализуйте метод getAvg, который будет находить среднее арифметическое переданных чисел.*/
-class Arr
+//70.Переменные названия свойств
+/*1.Сделайте класс City (город), 
+в котором будут следующие свойства - name (название), foundation (дата основания), population (население). 
+Создайте объект этого класса.*/
+class City
 {
-private $numbers = [];
+public $name;
+public $foundation;
+public $population;
 
-public function add($arr)
+function __construct($name, $foundation, $population)
 {
-$this->numbers = array_merge($this->numbers, $arr);
-}
-public function getAvg()
-{
-return array_sum($this->numbers) / count($this->numbers);
+$this->name = $name;
+$this->foundation = $foundation;
+$this->population = $population;
 }
 }
-$array = [1, 2, 3, 4, 5];
-$arr = new Arr;
-$arr->add($array);
-echo $arr->getAvg();// 3
+/*2.Пусть дана переменная $props, в которой хранится массив названий свойств класса City. 
+Переберите этот массив циклом foreach и выведите на экран значения соответствующих свойств.*/
+
+$props = ['name', 'foundation', 'population'];
+$city = new City('Томск', 1604, 600000);
+
+foreach ($props as $prop) {
+echo $city->$prop.' ';
+}
+
 ?>	
