@@ -1,29 +1,25 @@
 <?php
 //70.Переменные названия свойств
-/*1.Сделайте класс City (город), 
-в котором будут следующие свойства - name (название), foundation (дата основания), population (население). 
-Создайте объект этого класса.*/
-class City
+/*1.Скопируйте мой код класса User и массив $props. В моем примере на экран выводится фамилия юзера. Выведите еще и имя, и отчество.*/
+class User
 {
-public $name;
-public $foundation;
-public $population;
+public $surname; // фамилия
+public $name; // имя
+public $patronymic; // отчество
 
-function __construct($name, $foundation, $population)
+public function __construct($surname, $name, $patronymic)
 {
+$this->surname = $surname;
 $this->name = $name;
-$this->foundation = $foundation;
-$this->population = $population;
+$this->patronymic = $patronymic;
 }
 }
-/*2.Пусть дана переменная $props, в которой хранится массив названий свойств класса City. 
-Переберите этот массив циклом foreach и выведите на экран значения соответствующих свойств.*/
-
-$props = ['name', 'foundation', 'population'];
-$city = new City('Томск', 1604, 600000);
-
-foreach ($props as $prop) {
-echo $city->$prop.' ';
+$user = new User('Иванов', 'Иван', 'Иванович');
+$props = ['surname', 'name', 'pat' => 'patronymic'];
+function getProp()
+{
+return 'name';
 }
+echo $user->{$props[0]}.' '.$user->{getProp()}.' '.$user->{$props['pat']};
 
 ?>	
