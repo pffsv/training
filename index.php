@@ -1,81 +1,42 @@
 <?php 
-//70.Переменные названия свойств
-//Ассоциативный массив
-//Массив, кстати, может быть и ассоциативным:
-	class User
+//71.Переменные названия методов
+class User
 	{
-		public $surname; // фамилия
-		public $name; // имя
-		public $patronymic; // отчество
+		private $name;
+		private $age;
 		
-		public function __construct($surname, $name, $patronymic)
+		public function __construct($name, $age)
 		{
-			$this->surname = $surname;
 			$this->name = $name;
-			$this->patronymic = $patronymic;
-		}
-	}
-	$user = new User('Иванов', 'Иван', 'Иванович');
-	
-	$props = ['prop1' => 'surname', 'prop2' => 'name', 'prop3' => 'patronymic'];
-	echo $user->{$props['prop1']}; // выведет 'Иванов'
-
-//Имя свойства из функции
-//Имя свойства также может быть из функции:
-
-	function getProp()
-	{
-		return 'surname';
-	}
-	
-	$user = new User('Иванов', 'Иван', 'Иванович');
-	echo $user->{getProp()}; // выведет 'Иванов'
-
-//Имя свойства из свойства другого объекта
-//Имя свойства может быть даже свойством другого объекта.
-
-//Проиллюстрируем кодом. Пусть для примера дан объект Prop, который в свойстве value будет содержать название свойства объекта User:
-
-	class Props
-	{
-		public $value;
-		
-		public function __construct($value)
-		{
-			$this->value = $value;
-		}
-	}
-
-//Давайте выведем фамилию юзера с помощью объекта Prop:
-
-	$user = new User('Иванов', 'Иван', 'Иванович');
-	$prop = new Props('surname'); // будем выводить значение свойства surname
-	
-	echo $user->{$prop->value}; // выведет 'Иванов'
-
-//Имя свойства из метода другого объекта
-//Имя свойства также может браться из метода другого объекта:
-
-	class Prop
-	{
-		private $value;
-		
-		public function __construct($value)
-		{
-			$this->value = $value;
+			$this->age = $age;
 		}
 		
-		public function getValue()
+		public function getName()
 		{
-			return $this->value;
+			return $this->name;
+		}
+		
+		public function getAge()
+		{
+			return $this->age;
 		}
 	}
 
-//Давайте выведем фамилию юзера:
+//Пусть в переменной $method хранится имя метода. Давайте вызовем метод с таким именем:
 
-	$user = new User('Иванов', 'Иван', 'Иванович');
-	$prop = new Prop('surname'); // будем выводить значение свойства surname
+	$user = new User('Коля', 21);
 	
-	echo $user->{$prop->getValue()}; // выведет 'Иванов'
+	$method = 'getName';
+	echo $user->$method(); // выведет 'Коля'
+
+//Если имя метода получается из массива, то такое обращение к методу следует брать в фигурные скобки вот таким образом (круглые скобки будут снаружи фигурных):
+
+
+	$user = new User('Коля', 21);
+	
+	$methods = ['getName', 'getAge'];
+	echo $user->{$methods[0]}(); // выведет 'Коля'
+
+//Все остальные нюансы точно такие же, как и при работе со свойствами из переменной.
 
 ?>	
