@@ -1,32 +1,24 @@
 <?php
-//71.Переменные названия методов
-/*1.Пусть массив $methods будет ассоциативным с ключами method1 и method2:
-
-	$methods = ['method1' => 'getName', 'method2' => 'getAge'];
-
-Выведите имя и возраст пользователя с помощью этого массива.*/
-class User
+//72.Вызов метода сразу после создания объекта
+/*1.Не подсматривая в мой код реализуйте такой же класс Arr и вызовите его метод getSum сразу после создания объекта.*/
+class Arr
 {
-private $name;
-private $age;
+private $numbers = [];
 
-public function __construct($name, $age)
+public function __construct($numbers)
 {
-$this->name = $name;
-$this->age = $age;
+$this->numbers = $numbers;
 }
 
-public function getName()
+public function add($number)
 {
-return $this->name;
+$this->numbers[] = $number;
 }
 
-public function getAge()
+public function getSum()
 {
-return $this->age;
+return array_sum($this->numbers);
 }
 }
-$user = new User('Коля', 21);
-$methods = ['method1' => 'getName', 'method2' => 'getAge'];
-echo $user->{$methods['method1']}() . ' ' . $user->{$methods['method2']}();
+echo (new Arr([5, 4, 3, 2, 1]))->getSum();
 ?>	
