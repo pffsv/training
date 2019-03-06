@@ -1,52 +1,34 @@
 <?php 
 //74.Класс как набор методов
-/*Однако, в отличие от обычного набора функций, мы можем пользоваться преимуществами ООП - 
-например, делать вспомогательные методы приватными, чтобы они не были доступны извне класса.
-Давайте приступим к написанию кода нашего класса.
-Если обдумать реализацию методов, то становится очевидно, что они будут фактически одинаковыми, 
-отличие будет только в степени, в которую будут возводится элементы нашего массива. Вот код, иллюстрирующий это:*/
+//Итак, давайте поменяем методы нашего класса с использованием нового метода getSum:
 
 	class ArraySumHelper
 	{
 		public function getSum1($arr)
 		{
-			$sum = 0;
-			
-			foreach ($arr as $elem) {
-				$sum += $elem; // первая степень элемента - это сам элемент
-			}
-			
-			return $sum;
+			return $this->getSum($arr, 1);
 		}
 		
 		public function getSum2($arr)
 		{
-			$sum = 0;
-			
-			foreach ($arr as $elem) {
-				$sum += pow($elem, 2); // возведем во вторую степень
-			}
-			
-			return $sum;
+			return $this->getSum($arr, 2);
 		}
 		
 		public function getSum3($arr)
 		{
-			$sum = 0;
-			
-			foreach ($arr as $elem) {
-				$sum += pow($elem, 3); // возведем в третью степень
-			}
-			
-			return $sum;
+			return $this->getSum($arr, 3);
 		}
 		
 		public function getSum4($arr)
 		{
+			return $this->getSum($arr, 4);
+		}
+		
+		private function getSum($arr, $power) {
 			$sum = 0;
 			
 			foreach ($arr as $elem) {
-				$sum += pow($elem, 4); // возведем в четвертую степень
+				$sum += pow($elem, $power);
 			}
 			
 			return $sum;
