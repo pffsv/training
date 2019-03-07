@@ -1,39 +1,120 @@
 <?php 
-//74.Класс как набор методов
-//Итак, давайте поменяем методы нашего класса с использованием нового метода getSum:
+//75.Наследование классов
+//Представьте, что у вас есть класс User. Он нужен вам для каких-то целей и в общем-то полностью вас устраивает - доработки этому классу в не нужны.
+//Вот этот класс:
 
-	class ArraySumHelper
+	class User
 	{
-		public function getSum1($arr)
+		private $name;
+		private $age;
+		
+		public function getName()
 		{
-			return $this->getSum($arr, 1);
+			return $this->name;
 		}
 		
-		public function getSum2($arr)
+		public function setName($name)
 		{
-			return $this->getSum($arr, 2);
+			$this->name = $name;
 		}
 		
-		public function getSum3($arr)
+		public function getAge()
 		{
-			return $this->getSum($arr, 3);
+			return $this->age;
 		}
 		
-		public function getSum4($arr)
+		public function setAge($age)
 		{
-			return $this->getSum($arr, 4);
-		}
-		
-		private function getSum($arr, $power) {
-			$sum = 0;
-			
-			foreach ($arr as $elem) {
-				$sum += pow($elem, $power);
-			}
-			
-			return $sum;
+			$this->age = $age;
 		}
 	}
+/*А теперь представим себе ситуацию, когда нам понадобился еще и класс Employee (работник). 
+Работник очень похож на юзера, имеет те же свойства и методы, но еще и добавляет свои - свойство salary (зарплата), 
+а также геттер и сеттер для этого свойства.
+Вот этот класс Employee:*/
+/*
+	class Employee
+	{
+		private $name;
+		private $age;
+		private $salary; // зарплата
+		
+		// Геттер зарплаты
+		public function getSalary()
+		{
+			return $this->salary;
+		}
+		
+		// Сеттер зарплаты
+		public function setSalary($salary)
+		{
+			$this->salary = $salary;
+		}
+		
+		public function getName()
+		{
+			return $this->age;
+		}
+		
+		public function setName($name)
+		{
+			$this->name = $name;
+		}
+		
+		public function getAge()
+		{
+			return $this->age;
+		}
+		
+		public function setAge($age)
+		{
+			$this->age = $age;
+		}
+	}
+*/
+/*Как мы видим, код классов User и Employee практически полностью совпадает.
+Было бы намного лучше сделать так, чтобы общая часть была записана только в одном месте.
+Если обдумать ситуацию, то получается, что класс Employee - это тот же класс User, но более расширенный.
+Для решения проблемы существует такая вещь, как наследование
+С помощью наследования мы можем заставить наш класс Employee позаимствовать (унаследовать) 
+методы и свойства класса User и просто дополнить их своими методами и свойствами.
+Наследование реализуется с помощью ключевого слова extends (переводится как расширяет).
+Чтобы класс Employee унаследовал от класса User следует при объявлении класса Employee вместо class Employee написать так: class Employee extends User.
+Класс, от которого наследуют называется родителем (англ. parent), а класс, который наследует - потомком.
+Класс-потомок наследует только публичные методы и свойства, но не приватные.
+Итак, давайте перепишем наш класс Employee так, чтобы он наследовал от User.
+Код намного сократится:*/
 
+	class Employee extends User
+	{
+		private $salary;
+		
+		public function getSalary()
+		{
+			return $this->salary;
+		}
+		
+		public function setSalary($salary)
+		{
+			$this->salary = $salary;
+		}
+		
+	}
+
+//Проверим работу нового класса Employee:
+
+	$employee = new Employee;
+	
+	$employee->setSalary(1000); // метод класса Employee
+	$employee->setName('Коля'); // метод унаследован от родителя
+	$employee->setAge(25); // метод унаследован от родителя
+	
+	echo $employee->getSalary(); // метод класса Employee
+	echo $employee->getName(); // метод унаследован от родителя
+	echo $employee->getAge(); // метод унаследован от родителя
+
+//Обратите внимание на следующее: класс-потомок не унаследовал от своего родителя приватные свойства name и age - попытка обратится к ним вызовет ошибку.
+
+//При этом, однако, в классе-потомке доступны геттеры и сеттеры свойств name и age, так как эти геттеры и сеттеры являются публичными.
 
 ?>
