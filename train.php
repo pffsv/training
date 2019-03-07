@@ -1,47 +1,76 @@
 <?php
-//74.Класс как набор методов
-/*1Напишите реализацию методов класса ArrayAvgHelper*/
-class ArraySumHelper
+//75.Наследование классов
+/*1.реализуйте классы User, Employee.*/
+class User
 {
-public function getAvg1($arr)
+private $name;
+private $age;
+
+public function getName()
 {
-return $this->getSum($arr, 1);
+return $this->name;
 }
 
-public function getAvg2($arr)
+public function setName($name)
 {
-return $this->calcSqrt($this->getSum($arr, 2), 2);
+$this->name = $name;
 }
 
-public function getAvg3($arr)
+public function getAge()
 {
-return $this->calcSqrt($this->getSum($arr, 3), 3);
+return $this->age;
 }
 
-public function getAvg4($arr)
+public function setAge($age)
 {
-return $this->calcSqrt($this->getSum($arr, 4), 4);
+$this->age = $age;
+}
+}
+class Employee extends User
+{
+private $salary;
+
+public function getSalary()
+{
+return $this->salary;
 }
 
-private function getSum($arr, $power)
+public function setSalary($salary)
 {
-$sum = 0;
-foreach ($arr as $elem) {
-$sum += pow($elem, $power);
+$this->salary = $salary;
 }
-return $sum;
 }
+$empl = new Employee;
 
-private function calcSqrt($num, $power)
+$empl->setSalary(1000);
+$empl->setName('Вася');
+$empl->setAge(30);
+
+echo $empl->getSalary();
+echo $empl->getName();
+echo $empl->getAge();
+
+class Student extends User
 {
-return pow($num, 1 / $power);
-}
-}
-$arr = [1, 2, 3];
+private $course;
 
-echo (new ArraySumHelper)->getAvg1($arr);
-echo (new ArraySumHelper)->getAvg2($arr);
-echo (new ArraySumHelper)->getAvg3($arr);
-echo (new ArraySumHelper)->getAvg4($arr);
+public function getCourse()
+{
+return $this->course;
+}
+public function setCourse($course)
+{
+$this->course = $course;
+}
+}
+$st = new Student;
+
+$st->setCourse(1);
+$st->setName('Вася');
+$st->setAge(30);
+
+echo $st->getCourse();
+echo $st->getName();
+echo $st->getAge();
 
 ?>	
