@@ -1,6 +1,7 @@
 <?php
 //75.Наследование классов
 /*1.реализуйте классы User, Employee.*/
+/*2.класс Student, наследующий от класса User.*/
 class User
 {
 private $name;
