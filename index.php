@@ -1,116 +1,114 @@
 <?php 
-//80.Использование классов внутри других классов
-/*Бывает такое, что мы хотели бы использовать методы одного класса внутри другого, но не хотели бы наследовать от этого класса.
-Почему мы не хотим наследовать?
-Во-первых, используемый класс может являться вспомогательным и по логике нашего кода может не подходить на роль родителя.
-Во-вторых, мы можем захотеть использовать несколько классов внутри другого класса, 
-а с наследованием это не получится, ведь в PHP у класса может быть только один родитель.
-Давайте посмотрим на практическом примере. Пусть у нас дан следующий класс Arr, в объект которого мы можем добавлять числа с помощью метода add:
+//81.Передача объектов параметрами
+//Пусть у нас дан вот такой класс Employee:
 
-	class Arr
+	class Employee
 	{
-		private $nums = []; // массив чисел
+		private $name;
+		private $salary;
 		
-		// Добавляем число в массив:
-		public function add($num)
+		public function __construct($name, $salary)
 		{
-			$this->nums[] = $num;
+			$this->name = $name;
+			$this->salary = $salary;
+		}
+		
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		public function getSalary()
+		{
+			return $this->salary;
+		}
+	}
+
+//Давайте сделаем еще и класс EmployeesCollection, который будет хранить массив работников, то есть массив объектов класса Employee.
+//Пусть работники будут храниться в свойстве employees, а для добавления работников будет существовать метод add.
+//Этот метод add параметром будет принимать объект класса Employee и записывать его в конец массива $this->employees:
+/*
+	class EmployeesCollection
+	{
+		private $employees = []; // массив работников, по умолчанию пустой
+		
+		// Добавляем нового работника:
+		public function add($employee)
+		{
+			$this->employees[] = $employee; // $employee - объект класса Employee
 		}
 	}
 */
-//Давайте теперь добавим в наш класс метод, который будет находить сумму квадратов элементов и прибавлять к ней сумму кубов элементов.
+//Давайте также добавим в наш класс метод getTotalSalary, который будет находить суммарную зарплату всех хранящихся работников:
 
-//Пусть у нас уже существует класс SumHelper, имеющий методы для нахождения сумм элементов массивов:
-
-	class SumHelper
+	class EmployeesCollection
 	{
-		// Сумма квадратов:
-		public function getSum2($arr)
+		private $employees = [];
+		
+		public function add($employee)
 		{
-			return $this->getSum($arr, 2);
+			$this->employees[] = $employee;
 		}
 		
-		// Сумма кубов:
-		public function getSum3($arr)
+		// Находим суммарную зарплату:
+		public function getTotalSalary()
 		{
-			return $this->getSum($arr, 3);
-		}
-		
-		// Вспомогательная функция для нахождения суммы:
-		private function getSum($arr, $power) {
 			$sum = 0;
 			
-			foreach ($arr as $elem) {
-				$sum += pow($elem, $power);
+			// Перебираем работников циклом:
+			foreach ($this->employees as $employee) {
+				$sum += $employee->getSalary(); // получаем з/п работника через метод getSalary()
 			}
 			
 			return $sum;
 		}
 	}
 
-//Логично будет не реализовывать нужные нам методы еще раз в классе Arr, а воспользоваться методами класса SumHelper внутри класса Arr.
+//Давайте проверим работу класса EmployeesCollection:
 
-//Для этого в классе Arr создадим объект класса SumHelper внутри конструктора и запишем его в свойство sumHelper:
-/*
-	class Arr
+	$employeesCollection = new EmployeesCollection;
+	
+	$employeesCollection->add(new Employee('Коля', 100));
+	$employeesCollection->add(new Employee('Вася', 200));
+	$employeesCollection->add(new Employee('Петя', 300));
+	
+	echo $employeesCollection->getTotalSalary(); // выведет 600
+
+//Итак, как вы видите, объекты одного класса можно параметрами передавать в другой класс.
+
+//Давайте сделаем наш класс EmployeesCollection более жизненным и добавим метод получения всех работников и метод подсчета:
+
+	class EmployeesCollections
 	{
-		private $nums = []; // массив чисел
-		private $sumHelper; // сюда запишется объект класса SumHelper
+		private $employees = [];
 		
-		// Конструктор класса:
-		public function __construct()
+		// Получаем всех работников в виде массива:
+		public function get()
 		{
-			// Запишем объект вспомогательного класса в свойство:
-			$this->sumHelper = new SumHelper;
+			return $this->employees;
 		}
 		
-		// Добавляем число в массив:
-		public function add($num)
+		// Подсчитываем количество хранимых работников:
+		public function count()
 		{
-			$this->nums[] = $num;
-		}
-	}
-*/
-//Теперь внутри Arr доступно свойство $this->sumHelper, в котором хранится объект класса SumHelper с его публичными методами и свойствами (если бы публичные свойства были, сейчас их там нет, только публичные методы).
-
-//Создадим теперь в классе Arr метод getSum23, который будет находить сумму квадратов элементов и прибавлять к ней сумму кубов элементов, используя методы класса SumHelper:
-
-	class Arr
-	{
-		private $nums = []; // массив чисел
-		private $sumHelper; // сюда запишется объект класса SumHelper
-		
-		// Конструктор класса:
-		public function __construct()
-		{
-			$this->sumHelper = new SumHelper;
+			return count($this->employees);
 		}
 		
-		// Находим сумму квадратов и кубов элементов массива:
-		public function getSum23()
+		public function add($employee)
 		{
-			// Для краткости запишем $this->nums в переменную:
-			$nums = $this->nums;
+			$this->employees[] = $employee;
+		}
+		
+		public function getTotalSalary()
+		{
+			$sum = 0;
 			
-			// Найдем описанную сумму:
-			return $this->sumHelper->getSum2($nums) + $this->sumHelper->getSum3($nums);
-		}
-		
-		// Добавляем число в массив:
-		public function add($number)
-		{
-			$this->nums[] = $number;
+			foreach ($this->employees as $employee) {
+				$sum += $employee->getSalary();
+			}
+			
+			return $sum;
 		}
 	}
 
-//Давайте воспользуемся созданным классом Arr:
-
-	$arr = new Arr(); // создаем объект
-	
-	$arr->add(1); // добавляем в массив число 1
-	$arr->add(2); // добавляем в массив число 2
-	$arr->add(3); // добавляем в массив число 3
-	
-	// Находим сумму квадратов и кубов:
-	echo $arr->getSum23();
 ?>
