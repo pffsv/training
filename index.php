@@ -1,16 +1,32 @@
 <?php 
-//81.Передача объектов параметрами
-//Пусть у нас дан вот такой класс Employee:
+//82.Сравнение объектов
+//Сейчас мы с вами научимся сравнивать объекты с помощью операторов 'и'.
+/*Вы должны уже знать, что для примитивов (то есть не объектов) оператор == сравнивает данные по значению без учета типа, 
+а оператор === - учитывая тип:*/
 
-	class Employee
+	var_dump(3 == 3); // выведет true
+	var_dump(3 == '3'); // выведет true
+	
+	var_dump(3 === 3); // выведет true
+	var_dump(3 === '3'); // выведет false
+
+/*Давайте теперь посмотрим, как работает сравнение объектов.
+При использовании оператора == для сравнения двух объектов выполняется сравнение свойств объектов: 
+два объекта равны, если они имеют одинаковые свойства и их значения (значения свойств сравниваются через ==) 
+и являются экземплярами одного и того же класса.
+При сравнении через ===, переменные, содержащие объекты, считаются равными только тогда, 
+когда они ссылаются на один и тот же экземпляр одного и того же класса.
+Давайте посмотрим на примере. Пусть у нас дан вот такой класс User:*/
+
+	class User
 	{
 		private $name;
-		private $salary;
+		private $age;
 		
-		public function __construct($name, $salary)
+		public function __construct($name, $age)
 		{
 			$this->name = $name;
-			$this->salary = $salary;
+			$this->age = $age;
 		}
 		
 		public function getName()
@@ -18,97 +34,51 @@
 			return $this->name;
 		}
 		
-		public function getSalary()
+		public function getAge()
 		{
-			return $this->salary;
+			return $this->age;
 		}
 	}
 
-//Давайте сделаем еще и класс EmployeesCollection, который будет хранить массив работников, то есть массив объектов класса Employee.
-//Пусть работники будут храниться в свойстве employees, а для добавления работников будет существовать метод add.
-//Этот метод add параметром будет принимать объект класса Employee и записывать его в конец массива $this->employees:
-/*
-	class EmployeesCollection
-	{
-		private $employees = []; // массив работников, по умолчанию пустой
-		
-		// Добавляем нового работника:
-		public function add($employee)
-		{
-			$this->employees[] = $employee; // $employee - объект класса Employee
-		}
-	}
-*/
-//Давайте также добавим в наш класс метод getTotalSalary, который будет находить суммарную зарплату всех хранящихся работников:
+//Создадим два объекта нашего класса с одинаковыми значениями свойств и сравним созданные объекты:
 
-	class EmployeesCollection
-	{
-		private $employees = [];
-		
-		public function add($employee)
-		{
-			$this->employees[] = $employee;
-		}
-		
-		// Находим суммарную зарплату:
-		public function getTotalSalary()
-		{
-			$sum = 0;
-			
-			// Перебираем работников циклом:
-			foreach ($this->employees as $employee) {
-				$sum += $employee->getSalary(); // получаем з/п работника через метод getSalary()
-			}
-			
-			return $sum;
-		}
-	}
 
-//Давайте проверим работу класса EmployeesCollection:
-
-	$employeesCollection = new EmployeesCollection;
+	$user1 = new User('Коля', 30);
+	$user2 = new User('Коля', 30);
 	
-	$employeesCollection->add(new Employee('Коля', 100));
-	$employeesCollection->add(new Employee('Вася', 200));
-	$employeesCollection->add(new Employee('Петя', 300));
+	var_dump($user1 == $user2); // выведет true
+
+//Пусть теперь значения свойств одинаковые, но у них разный тип:
+
+
+	$user1 = new User('Коля', 30); // возраст - число
+	$user2 = new User('Коля', '30'); // возраст - строка
 	
-	echo $employeesCollection->getTotalSalary(); // выведет 600
+	var_dump($user1 == $user2); // выведет true
 
-//Итак, как вы видите, объекты одного класса можно параметрами передавать в другой класс.
+//Пусть значения свойств разные:
 
-//Давайте сделаем наш класс EmployeesCollection более жизненным и добавим метод получения всех работников и метод подсчета:
+	$user1 = new User('Коля', 30);
+	$user2 = new User('Коля', 25);
+	
+	var_dump($user1 == $user2); // выведет false
 
-	class EmployeesCollections
-	{
-		private $employees = [];
-		
-		// Получаем всех работников в виде массива:
-		public function get()
-		{
-			return $this->employees;
-		}
-		
-		// Подсчитываем количество хранимых работников:
-		public function count()
-		{
-			return count($this->employees);
-		}
-		
-		public function add($employee)
-		{
-			$this->employees[] = $employee;
-		}
-		
-		public function getTotalSalary()
-		{
-			$sum = 0;
-			
-			foreach ($this->employees as $employee) {
-				$sum += $employee->getSalary();
-			}
-			
-			return $sum;
-		}
-	}
+//Давайте теперь сравним два наших объекта через ===:
+
+
+	$user1 = new User('Коля', 30);
+	$user2 = new User('Коля', 30);
+	
+	var_dump($user1 === $user2); // выведет false
+
+//Чтобы две переменных с объектами действительно были равными при сравнении через ===, они должны указывать на один и тот же объект.
+
+//Давайте сделаем, чтобы это было так, и сравним переменные:
+
+
+	$user1 = new User('Коля', 30);
+	$user2 = $user1; // передача объекта по ссылке
+	
+	var_dump($user1 === $user1); // выведет true
 
 ?>
