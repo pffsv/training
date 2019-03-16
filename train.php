@@ -1,70 +1,84 @@
 <?php
 //83.Определение принадлежности объекта к классу
 /*
-Определение принадлежности объекта к классу
+Оператор instanceof и наследование
 
-1.Сделайте класс Employee с публичными
-свойствами name (имя) и salary (зарплата).
-2.Сделайте класс Student с публичными свойствами
-name (имя) и scholarship (стипендия).
-3.Создайте по 3 объекта каждого класса и в
-произвольном порядке запишите их в массив $arr.
-4.Переберите циклом массив $arr и выведите на
-экран столбец имен всех работников.
-5.Аналогичным образом выведите на экран
-столбец имен всех студентов.
-6.Переберите циклом массив $arr и с его помощью
-найдите сумму зарплат работников и сумму стипендий
-студентов. После цикла выведите эти два числа на экран.
+7.Сделайте класс User с публичным свойствами
+name (имя) и surname (фамилия).
+8.Сделайте класс Employee, который будет наследовать
+от класса User и добавлять salary (зарплата).
+9.Сделайте класс City с публичными свойствами name
+(название города) и population (количество населения).
+10.Создайте 3 объекта класса User, 3 объекта класса
+Employee, 3 объекта класса City, и в произвольном
+порядке запишите их в массив $arr.
+11.Переберите циклом массив $arr и выведите на
+экран столбец свойств name тех объектов, которые
+принадлежат классу User или потомку этого класса.
+12.Переберите циклом массив $arr и выведите на
+экран столбец свойств name тех объектов, которые
+НЕ принадлежат классу User или потомку этого класса.
+13.Переберите циклом массив $arr и выведите на экран
+столбец свойств name тех объектов, которые принадлежат
+именно классу User, то есть не классу City и не классу Employee.
 */
-class Employee
+class User
 {
 public $name;
-public $salary;
+public $surname;
 
-function __construct($name, $salary)
+function __construct($name, $surname)
 {
 $this->name = $name;
+$this->surname = $surname;
+}
+}
+
+class Employee extends User
+{
+public $salary;
+
+function __construct($name, $surname, $salary)
+{
+parent::__construct($name, $surname);
 $this->salary = $salary;
 }
 }
-class Student
+
+class City
 {
 public $name;
-public $scholarship;
+public $population;
 
-function __construct($name, $scholarship)
+function __construct($name, $population)
 {
 $this->name = $name;
-$this->scholarship = $scholarship;
+$this->population = $population;
 }
 }
-
-$arr[] = new Employee('Вася', 2500);
-$arr[] = new Employee('Коля', 2000);
-$arr[] = new Employee('Саша', 3000);
-$arr[] = new Student('Женя', 1000);
-$arr[] = new Student('Олег', 900);
-$arr[] = new Student('Дима', 950);
+$arr[] = new User('Вася', 'Пупкин');
+$arr[] = new User('Коля', 'Пупкин');
+$arr[] = new User('Вова', 'Пупкин');
+$arr[] = new Employee('Саша', 'Пупкин', 1000);
+$arr[] = new Employee('Женя', 'Пупкин', 1000);
+$arr[] = new Employee('Гога', 'Пупкин', 1000);
+$arr[] = new City('Москва', 10000000);
+$arr[] = new City('Питер', 7000000);
+$arr[] = new City('Караганда', 100000);
 foreach ($arr as $name) {
-if ($name instanceof Employee) {
-echo $name->name;// ВасяКоляСаша
+if ($name instanceof User) {
+echo $name->name;// ВасяКоляВоваСашаЖеняГога
 }
 }
 foreach ($arr as $name) {
-if ($name instanceof Student) {
-echo $name->name;// ЖеняОлегДима
+if (!$name instanceof User) {
+echo $name->name;// МоскваПитерКараганда
 }
 }
-$sal = 0;
-$sch = 0;
-foreach ($arr as $sum) {
-if ($sum instanceof Employee) {
-$sal += $sum->salary;
-} elseif ($sum instanceof Student) {
-$sch += $sum->scholarship;
+foreach ($arr as $name) {
+if (!$name instanceof Employee && !$name instanceof City) {
+echo $name->name;// ВасяКоляВова
 }
 }
-echo 'Сумма ЗП: '.$sal.', Сумма стипендий: '.$sch;
 
 ?>	
