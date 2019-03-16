@@ -3,82 +3,91 @@
 /*
 Оператор instanceof и наследование
 
-7.Сделайте класс User с публичным свойствами
-name (имя) и surname (фамилия).
-8.Сделайте класс Employee, который будет наследовать
-от класса User и добавлять salary (зарплата).
-9.Сделайте класс City с публичными свойствами name
-(название города) и population (количество населения).
-10.Создайте 3 объекта класса User, 3 объекта класса
-Employee, 3 объекта класса City, и в произвольном
-порядке запишите их в массив $arr.
-11.Переберите циклом массив $arr и выведите на
-экран столбец свойств name тех объектов, которые
-принадлежат классу User или потомку этого класса.
-12.Переберите циклом массив $arr и выведите на
-экран столбец свойств name тех объектов, которые
-НЕ принадлежат классу User или потомку этого класса.
-13.Переберите циклом массив $arr и выведите на экран
-столбец свойств name тех объектов, которые принадлежат
-именно классу User, то есть не классу City и не классу Employee.
+14.реализуйте такой же класс UsersCollection.
 */
-class User
+class Employee
 {
-public $name;
-public $surname;
+private $name;
+private $salary;
 
-function __construct($name, $surname)
+public function __construct($name, $salary)
 {
 $this->name = $name;
-$this->surname = $surname;
-}
-}
-
-class Employee extends User
-{
-public $salary;
-
-function __construct($name, $surname, $salary)
-{
-parent::__construct($name, $surname);
 $this->salary = $salary;
 }
+
+public function getName()
+{
+return $this->name;
 }
 
-class City
+public function getSalary()
 {
-public $name;
-public $population;
+return $this->salary;
+}
+}
+class Student
+{
+private $name;
+private $scholarship;
 
-function __construct($name, $population)
+public function __construct($name, $scholarship)
 {
 $this->name = $name;
-$this->population = $population;
+$this->scholarship = $scholarship;
+}
+public function getName()
+{
+return $this->name;
+}
+public function getScholarship()
+{
+return $this->scholarship;
 }
 }
-$arr[] = new User('Вася', 'Пупкин');
-$arr[] = new User('Коля', 'Пупкин');
-$arr[] = new User('Вова', 'Пупкин');
-$arr[] = new Employee('Саша', 'Пупкин', 1000);
-$arr[] = new Employee('Женя', 'Пупкин', 1000);
-$arr[] = new Employee('Гога', 'Пупкин', 1000);
-$arr[] = new City('Москва', 10000000);
-$arr[] = new City('Питер', 7000000);
-$arr[] = new City('Караганда', 100000);
-foreach ($arr as $name) {
-if ($name instanceof User) {
-echo $name->name;// ВасяКоляВоваСашаЖеняГога
-}
-}
-foreach ($arr as $name) {
-if (!$name instanceof User) {
-echo $name->name;// МоскваПитерКараганда
-}
-}
-foreach ($arr as $name) {
-if (!$name instanceof Employee && !$name instanceof City) {
-echo $name->name;// ВасяКоляВова
-}
+class UsersCollection
+{
+private $employees = [];
+private $students = [];
+
+public function add($user)
+{
+if ($user instanceof Employee) {
+$this->employees[] = $user;
 }
 
+if ($user instanceof Student) {
+$this->students[] = $user;
+}
+}
+public function getTotalSalary()
+{
+$sum = 0;
+foreach ($this->employees as $employee) {
+$sum += $employee->getSalary();
+}
+return $sum;
+}
+public function getTotalScholarship()
+{
+$sum = 0;
+foreach ($this->students as $student) {
+$sum += $student->getScholarship();
+}
+return $sum;
+}
+public function getTotalPayment()
+{
+return $this->getTotalScholarship() + $this->getTotalSalary();
+}
+}
+$uscol = new UsersCollection;
+$uscol->add(new Student('Вова', 300));
+$uscol->add(new Student('Вася', 400));
+$uscol->add(new Employee('Петя', 200));
+$uscol->add(new Employee('Саня', 150));
+
+echo $uscol->getTotalScholarship();// 700
+echo $uscol->getTotalSalary();// 350
+echo $uscol->getTotalPayment();// 1050
 ?>	
