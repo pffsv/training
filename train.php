@@ -1,93 +1,83 @@
 <?php
-//83.Определение принадлежности объекта к классу
-/*
-Оператор instanceof и наследование
+/*84.Контроль типов при работе с объектами
 
-14.реализуйте такой же класс UsersCollection.
+1.Сделайте класс Post (должность), в котором будут
+следующие свойства, доступные только для чтения: name
+(название должности) и salary (зарплата на этой должности).
+2.Создайте несколько объектов класса Post: программист,
+менеджер водитель.
+3.Сделайте класс Employee (работник), в котором будут
+следующие свойства: name (имя) и surname (фамилия).
+Пусть начальные значения этих свойств будут
+передаваться параметром в конструктор.
+4.Сделайте геттеры и сеттеры для свойств name и surname.
+5.Пусть теперь третьим параметром конструктора будет
+передаваться должность работника, представляющая
+собой объект класса Post. Укажите тип этого
+параметра в явном виде.
+6.Сделайте так, чтобы должность работника
+(то есть переданный объект с должностью)
+записывалась в свойство post.
+7.Создайте объект класса Employee с должностью
+программист. При его создании используйте один
+из объектов класса Post, созданный нами ранее.
+8.Выведите на экран имя, фамилию, должность
+и зарплату созданного работника.
+9.Реализуйте в классе Employee метод changePost,
+который будет изменять должность работника на
+другую. Метод должен принимать параметром объект
+класса Post. Укажите в методе тип принимаемого
+параметра в явном виде.
 */
-class Employee
+class Post
 {
 private $name;
 private $salary;
 
-public function __construct($name, $salary)
+function __construct($name, $salary)
 {
 $this->name = $name;
 $this->salary = $salary;
 }
+}
+$post1 = new Post('программист', 1500);
+$post2 = new Post('менеджер', 1000);
+$post3 = new Post('водитель', 1000);
 
-public function getName()
-{
-return $this->name;
-}
-
-public function getSalary()
-{
-return $this->salary;
-}
-}
-class Student
+class Employee
 {
 private $name;
-private $scholarship;
+private $surname;
+private $post;
 
-public function __construct($name, $scholarship)
+public function __construct($name, $surname, Post $post)
 {
 $this->name = $name;
-$this->scholarship = $scholarship;
+$this->surname = $surname;
+$this->post = $post;
 }
+
 public function getName()
 {
 return $this->name;
 }
-public function getScholarship()
-{
-return $this->scholarship;
-}
-}
-class UsersCollection
-{
-private $employees = [];
-private $students = [];
 
-public function add($user)
+public function getSurname()
 {
-if ($user instanceof Employee) {
-$this->employees[] = $user;
+return $this->surname;
+}
+public function changePost(Post $post)
+{
+$this->post = $post;
+}
 }
 
-if ($user instanceof Student) {
-$this->students[] = $user;
-}
-}
-public function getTotalSalary()
-{
-$sum = 0;
-foreach ($this->employees as $employee) {
-$sum += $employee->getSalary();
-}
-return $sum;
-}
-public function getTotalScholarship()
-{
-$sum = 0;
-foreach ($this->students as $student) {
-$sum += $student->getScholarship();
-}
-return $sum;
-}
-public function getTotalPayment()
-{
-return $this->getTotalScholarship() + $this->getTotalSalary();
-}
-}
-$uscol = new UsersCollection;
-$uscol->add(new Student('Вова', 300));
-$uscol->add(new Student('Вася', 400));
-$uscol->add(new Employee('Петя', 200));
-$uscol->add(new Employee('Саня', 150));
+$empl = new Employee('Вася', 'Пупкин', $post1);
+$empl1 = new Employee('Вася', 'Пупкин', $post1);
+var_dump($empl);// 'Вася', 'Пупкин', 'программист', 1500
+$empl->changePost($post2);
+var_dump($empl);// 'Вася', 'Пупкин', 'менеджер', 1000
 
-echo $uscol->getTotalScholarship();// 700
-echo $uscol->getTotalSalary();// 350
-echo $uscol->getTotalPayment();// 1050
+$empl->changePost($empl1);// err
+
 ?>	
