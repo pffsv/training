@@ -1,38 +1,18 @@
 <?php
-/*85.Статические методы
+/*86.Статические свойства
 
-1.Переделайте методы класса ArraySumHelper на статические.
-2.Пусть дан массив с числами. Найдите с помощью класса
-ArraySumHelper сумму квадратов элементов этого массива.
+1.Сделайте класс Num, у которого будут два публичных
+статических свойства: num1 и num2. Запишите в первое
+свойство число 2, а во второе - число 3. Выведите
+сумму значений свойств на экран.
 */
-class ArraySumHelper
+class Num
 {
-public static function getSum1($arr)
-{
-return self::getSum($arr, 1);
+public static $num1;
+public static $num2;
 }
-public static function getSum2($arr)
-{
-return self::getSum($arr, 2);
-}
-public static function getSum3($arr)
-{
-return self::getSum($arr, 3);
-}
-public static function getSum4($arr)
-{
-return self::getSum($arr, 4);
-}
-private static function getSum($arr, $power) {
-$sum = 0;
-
-foreach ($arr as $elem) {
-$sum += pow($elem, $power);
-}
-return $sum;
-}
-}
-
-echo ArraySumHelper::getSum2([1, 2, 3,]);// 14
+Num::$num1 = 2;
+Num::$num2 = 3;
+echo Num::$num1 + Num::$num2;// 5
 
 ?>	
