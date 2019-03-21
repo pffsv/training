@@ -1,64 +1,46 @@
 <?php
-/*86.Статические свойства
+/*87.Объект со статическими свойствами и методами
 
-1.Сделайте класс Num, у которого будут два публичных
-статических свойства: num1 и num2. Запишите в первое
-свойство число 2, а во второе - число 3. Выведите
-сумму значений свойств на экран.
+1.реализуйте такой же класс User,
+подсчитывающий количество своих объектов.
 */
-class Num
+class User
 {
-public static $num1;
-public static $num2;
-}
-Num::$num1 = 2;
-Num::$num2 = 3;
-echo Num::$num1 + Num::$num2;// 5
+public $name;
+public static $count;
 
+public function __construct($name)
+{
+$this->name = $name;
+self::$count++;
+}
+}
+$us1 = new User('u1');
+echo User::$count;
+$us2 = new User('u2');
+echo User::$count;
 /*
-2.Сделайте класс Num, у которого будут два приватны
-статических свойства: num1 и num2. Пусть по умолчанию
-в свойстве num1 хранится число 2, а в свойстве num2 - число 3.
-3.Сделайте в классе Num метод getSum, который будет
-выводить на экран сумму значений свойств num1 и num2.
+2.Самостоятельно переделайте код вашего класса
+User в соответствии с теоретической частью урока.
 */
-
-class Num1
+class User1
 {
-private static $num1 = 2;
-private static $num2 = 3;
+public $name;
+private static $count;
 
-public static function getSum()
+public function __construct($name)
 {
-return self::$num1 + self::$num2;
+$this->name = $name;
+self::$count++;
+}
+public static function getCount()
+{
+return self::$count;
 }
 }
-echo Num1::getSum();// 5
-
-/*
-4.Добавьте в наш класс Geometry метод, который будет
-находить объем шара по радиусу. С помощью этого
-метода выведите на экран объем шара с радиусом 10.
-*/
-
-class Geometry
-{
-private static $pi = 3.14;
-
-public static function getCircleSquare($radius)
-{
-return self::$pi * $radius * $radius;
-}
-public static function getCircleСircuit($radius)
-{
-return 2 * self::$pi * $radius;
-}
-public static function getBallVolume($radius)
-{
-return 4/3 * self::$pi * pow($radius, 3);
-}
-}
-echo Geometry::getBallVolume(10);// 4186.66
-
+$usr1 = new User1('u1');
+echo User1::getCount();
+$usr2 = new User1('u2');
+echo User1::getCount();
 
 ?>	
