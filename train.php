@@ -1,78 +1,44 @@
 <?php
 /*89.Абстрактные классы
 
-1.реализуйте такой же абстрактный класс User, а
-также классы Employee и Student, наследующие от него.
-2.Добавьте в ваш класс User такой же абстрактный
-метод increaseRevenue. Напишите реализацию этого
-метода в классах Employee и Student.
-3.Добавьте также в ваш класс User абстрактный метод
-decreaseRevenue (уменьшить зарплату). Напишите
-реализацию этого метода в классах Employee и Student.
+4.Сделайте аналогичный класс Rectangle (прямоугольник), у
+которого будет два приватных свойства: $a для ширины и $b для длины.
+Данный класс также должен наследовать от класса Figure
+и реализовывать его методы.
+5.Добавьте в класс Figure метод getSquarePerimeterSum,
+который будет находить сумму площади и периметра.
 */
-abstract class User
+abstract class Figure
 {
-private $name;
+abstract public function getSquare();
+abstract public function getPerimeter();
+public function getSquarePerimeterSum()
+{
+return $this->getSquare() + $this->getPerimeter();
+}
+}
 
-public function getName()
+class Rectangle extends Figure
 {
-return $this->name;
-}
-public function setName($name)
-{
-$this->name = $name;
-}
-abstract public function increaseRevenue($value);
-abstract public function decreaseRevenue($value);
-}
-class Employee extends User
-{
-private $salary;
+private $a;
+private $b;
 
-public function getSalary()
+function __construct($a, $b)
 {
-return $this->salary;
+$this->a = $a;
+$this->b = $b;
 }
-public function setSalary($salary)
+public function getSquare()
 {
-$this->salary = $salary;
+return $this->a * $this->b;
 }
-public function increaseRevenue($value)
+public function getPerimeter()
 {
-$this->salary = $this->salary + $value;
-}
-public function decreaseRevenue($value)
-{
-$this->salary = $this->salary - $value;
+return 2 * ($this->a + $this->b);
 }
 }
-class Student extends User
-{
-private $scholarship;
-
-public function getScholarship()
-{
-return $this->scholarship;
-}
-public function setScholarship($scholarship)
-{
-$this->scholarship = $scholarship;
-}
-public function increaseRevenue($value)
-{
-$this->scholarship = $this->scholarship + $value;
-}
-public function decreaseRevenue($value)
-{
-$this->scholarship = $this->scholarship - $value;
-}
-}
-$st = new Student;
-$st->setName('Вася');
-$st->setScholarship(1000);
-$st->increaseRevenue(100);
-echo $st->getName();
-echo $st->getScholarship();// 1100
-$st->decreaseRevenue(200);
-echo $st->getScholarship();// 900
+$r = new Rectangle(2, 4);
+echo $r->getSquare();// 8
+echo $r->getPerimeter();// 12
+echo $r->getSquarePerimeterSum();// 20
 ?>	
