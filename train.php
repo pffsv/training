@@ -1,25 +1,78 @@
 <?php
-/*88.Константы классов
+/*89.Абстрактные классы
 
-1.Реализуйте предложенный класс Circle самостоятельно.
-2.С помощью написанного класса Circle найдите длину
-окружности и площадь круга с радиусом 10.
+1.реализуйте такой же абстрактный класс User, а
+также классы Employee и Student, наследующие от него.
+2.Добавьте в ваш класс User такой же абстрактный
+метод increaseRevenue. Напишите реализацию этого
+метода в классах Employee и Student.
+3.Добавьте также в ваш класс User абстрактный метод
+decreaseRevenue (уменьшить зарплату). Напишите
+реализацию этого метода в классах Employee и Student.
 */
-class Circle
+abstract class User
 {
-const PI = 3.14;
+private $name;
 
-public static function getCircleSquare($radius)
+public function getName()
 {
-return self::PI * $radius * $radius;
+return $this->name;
 }
-public static function getCircleСircuit($radius)
+public function setName($name)
 {
-return 2 * self::PI * $radius;
+$this->name = $name;
+}
+abstract public function increaseRevenue($value);
+abstract public function decreaseRevenue($value);
+}
+class Employee extends User
+{
+private $salary;
+
+public function getSalary()
+{
+return $this->salary;
+}
+public function setSalary($salary)
+{
+$this->salary = $salary;
+}
+public function increaseRevenue($value)
+{
+$this->salary = $this->salary + $value;
+}
+public function decreaseRevenue($value)
+{
+$this->salary = $this->salary - $value;
 }
 }
+class Student extends User
+{
+private $scholarship;
 
-echo Circle::getCircleSquare(10);// 314
-echo Circle::getCircleСircuit(10);// 62.8
-
+public function getScholarship()
+{
+return $this->scholarship;
+}
+public function setScholarship($scholarship)
+{
+$this->scholarship = $scholarship;
+}
+public function increaseRevenue($value)
+{
+$this->scholarship = $this->scholarship + $value;
+}
+public function decreaseRevenue($value)
+{
+$this->scholarship = $this->scholarship - $value;
+}
+}
+$st = new Student;
+$st->setName('Вася');
+$st->setScholarship(1000);
+$st->increaseRevenue(100);
+echo $st->getName();
+echo $st->getScholarship();// 1100
+$st->decreaseRevenue(200);
+echo $st->getScholarship();// 900
 ?>	
