@@ -1,46 +1,25 @@
 <?php
-/*87.Объект со статическими свойствами и методами
+/*88.Константы классов
 
-1.реализуйте такой же класс User,
-подсчитывающий количество своих объектов.
+1.Реализуйте предложенный класс Circle самостоятельно.
+2.С помощью написанного класса Circle найдите длину
+окружности и площадь круга с радиусом 10.
 */
-class User
+class Circle
 {
-public $name;
-public static $count;
+const PI = 3.14;
 
-public function __construct($name)
+public static function getCircleSquare($radius)
 {
-$this->name = $name;
-self::$count++;
+return self::PI * $radius * $radius;
+}
+public static function getCircleСircuit($radius)
+{
+return 2 * self::PI * $radius;
 }
 }
-$us1 = new User('u1');
-echo User::$count;
-$us2 = new User('u2');
-echo User::$count;
-/*
-2.Самостоятельно переделайте код вашего класса
-User в соответствии с теоретической частью урока.
-*/
-class User1
-{
-public $name;
-private static $count;
 
-public function __construct($name)
-{
-$this->name = $name;
-self::$count++;
-}
-public static function getCount()
-{
-return self::$count;
-}
-}
-$usr1 = new User1('u1');
-echo User1::getCount();
-$usr2 = new User1('u2');
-echo User1::getCount();
+echo Circle::getCircleSquare(10);// 314
+echo Circle::getCircleСircuit(10);// 62.8
 
 ?>	
