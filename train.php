@@ -1,6 +1,10 @@
 <?php
-/*90.Интерфейсы
-1.Сделайте класс Disk (круг), реализующий интерфейс Figure.
+/*91.Применение интерфейсов
+
+1.реализуйте такой же класс FiguresCollection.
+2.Добавьте в класс FiguresCollection метод
+getTotalPerimeter для нахождения суммарного
+периметра всех фигур.
 */
 interface iDisk
 {
@@ -8,26 +12,29 @@ public function getSquare();
 public function getPerimeter();
 }
 
-class Disk implements iDisk
+class FiguresCollection
 {
-private $r;
-const PI = 3.14;
+private $figures = [];
 
-function __construct($r)
+public function addFigure(iDisk $figure)
 {
-$this->r = $r;
+$this->figures[] = $figure;
 }
-public function getSquare()
+public function getTotalSquare()
 {
-return self::PI * $this->r * $this->r;
+$sum = 0;
+foreach ($this->figures as $figure) {
+$sum += $figure->getSquare();
 }
-
-public function getPerimeter()
+return $sum;
+}
+public function getTotalPerimeter()
 {
-return 2 * self::PI * $this->r;
+$sum = 0;
+foreach ($this->figures as $figure) {
+$sum += $figure->getPerimeter();
+}
+return $sum;
 }
 }
-$d = new Disk(3);
-echo $d->getSquare();// 28.26
-echo $d->getPerimeter();// 18.84
 ?>	
