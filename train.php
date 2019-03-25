@@ -1,44 +1,33 @@
 <?php
-/*89.Абстрактные классы
-
-4.Сделайте аналогичный класс Rectangle (прямоугольник), у
-которого будет два приватных свойства: $a для ширины и $b для длины.
-Данный класс также должен наследовать от класса Figure
-и реализовывать его методы.
-5.Добавьте в класс Figure метод getSquarePerimeterSum,
-который будет находить сумму площади и периметра.
+/*90.Интерфейсы
+1.Сделайте класс Disk (круг), реализующий интерфейс Figure.
 */
-abstract class Figure
+interface iDisk
 {
-abstract public function getSquare();
-abstract public function getPerimeter();
-public function getSquarePerimeterSum()
-{
-return $this->getSquare() + $this->getPerimeter();
-}
+public function getSquare();
+public function getPerimeter();
 }
 
-class Rectangle extends Figure
+class Disk implements iDisk
 {
-private $a;
-private $b;
+private $r;
+const PI = 3.14;
 
-function __construct($a, $b)
+function __construct($r)
 {
-$this->a = $a;
-$this->b = $b;
+$this->r = $r;
 }
 public function getSquare()
 {
-return $this->a * $this->b;
+return self::PI * $this->r * $this->r;
 }
+
 public function getPerimeter()
 {
-return 2 * ($this->a + $this->b);
+return 2 * self::PI * $this->r;
 }
 }
-$r = new Rectangle(2, 4);
-echo $r->getSquare();// 8
-echo $r->getPerimeter();// 12
-echo $r->getSquarePerimeterSum();// 20
+$d = new Disk(3);
+echo $d->getSquare();// 28.26
+echo $d->getPerimeter();// 18.84
 ?>	
