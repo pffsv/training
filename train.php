@@ -1,74 +1,61 @@
 <?php
 /*
-93.Объявление конструктора в интерфейсе
-1.Сделайте интерфейс iCube, который будет описывать фигуру Куб.
-Пусть ваш интерфейс описывает конструктор, параметром принимающий
-сторону куба, а также методы для получения объема куба и площади поверхности.
-2.Сделайте класс Cube, реализующий интерфейс iCube.
-*/
-interface iCube
-{
-public function __construct($a);
-public function getCubeVolume();
-public function getCubeSquare();
-}
+94.Наследование интерфейсов друг от друга
 
-class Cube implements iCube
-{
-private $a;
-
-public function __construct($a)
-{
-$this->a = $a;
-}
-public function getCubeVolume()
-{
-return pow($this->a, 3);
-}
-public function getCubeSquare()
-{
-return 6 * $this->a * $this->a;
-}
-}
-$c = new Cube(3);
-echo $c->getCubeVolume();// 27
-echo $c->getCubeSquare();// 54
-/*
-3.Сделайте интерфейс iUser, который будет описывать юзера.
-Предполагается, что у юзера будет имя и возраст и эти поля
-будут передаваться параметрами конструктора.
-Пусть ваш интерфейс также задает то, что у юзера будут
-геттеры (но не сеттеры) для имени и возраста.
-4.Сделайте класс User, реализующий интерфейс iUser.
+1.Сделайте интерфейс iUser с методами
+getName, setName, getAge, setAge.
+2.Сделайте интерфейс iEmployee,
+наследующий от интерфейса iUser и добавляющий
+в него методы getSalary и setSalary.
+3.Сделайте класс Employee, реализующий интерфейс iEmployee.
 */
 interface iUser
 {
-public function __construct($name, $age);
+public function setName($name);
 public function getName();
+public function setAge($age);
 public function getAge();
 }
+interface iEmployee
+{
+public function setSalary($salary);
+public function getSalary();
+}
 
-class User implements iUser
+class Employee implements iEmployee
 {
 private $name;
 private $age;
+private $salary;
 
-public function __construct($name, $age)
+public function setName($name)
 {
 $this->name = $name;
-$this->age = $age;
 }
 public function getName()
 {
 return $this->name;
 }
+public function setAge($age)
+{
+$this->age = $age;
+}
 public function getAge()
 {
 return $this->age;
 }
+public function setSalary($salary)
+{
+$this->salary = $salary;
 }
-$u = new User('Вася', 30);
-echo $u->getName();// Вася
-echo $u->getAge();// 30
+public function getSalary()
+{
+return $this->salary;
+}
+}
+$e = new Employee;
+$e->setName('Вася');
+$e->setSalary(1000);
+echo $e->getName().' '.$e->getSalary();// Вася 1000
 
 ?>	
