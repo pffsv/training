@@ -1,29 +1,25 @@
 <?php 
-//94.Наследование интерфейсов друг от друга
-//Интерфейсы, так же, как и классы, могут наследовать друг от друга с помощью оператора extends.
-//Давайте посмотрим на примере.
-//В предыдущем уроке мы с вами сделали вот такой интерфейс iRectangle:
-
-	interface iRectangle
-	{
-		public function __construct($a, $b);
-		public function getSquare();
-		public function getPerimeter();
-	}
-
-//Однако у нас уже есть интерфейс Figure, описывающий часть методов интерфейса iRectangle (метод getSquare и метод getPerimeter):
+//95.Интерфейсы и instanceof
+//Оператор instanceof при работе с интерфейсами работает так же, как и при наследовании.
+//Посмотрим на примере. Пусть у нас есть вот такой класс Quadrate, который реализует интерфейс Figure:
 
 	interface Figure
 	{
-		public function getSquare();
-		public function getPerimeter();
+		
 	}
-
-//Давайте сделаем так, чтобы интерфейс iRectangle наследовал методы интерфейса Figure:
-
-	interface iRectangle extends Figure
+	
+	class Quadrate implements Figure
 	{
-		public function __construct($a, $b);
+		
 	}
+
+//Создадим объект этого класса и проверим его оператором instanceof:
+
+	$quadrate = new Quadrate;
+	
+	var_dump($quadrate instanceof Quadrate); // выведет true
+	var_dump($quadrate instanceof Figure); // выведет true
+
+//То есть с помощью instanceof можно проверять, реализует какой-то класс заданный интерфейс или нет.
 
 ?>
