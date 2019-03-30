@@ -1,85 +1,82 @@
 <?php 
-//96.Несколько интерфейсов
-/*В PHP нет множественного наследования - каждый класс может иметь только одного родителя.
-С интерфейсами дело, однако, обстоит по другому: каждый класс может реализовывать любое количество интерфейсов.
-Для этого имена интерфейсов нужно перечислить через запятую после ключевого слова implements.
-В этом проявляется еще одно отличие интерфейсов от абстрактных классов - можно реализовывать много интерфейсов, 
-но унаследовать несколько абстрактных классов нельзя.
-Давайте попробуем на практике. Пусть кроме интерфейса Figure у нас также есть интерфейс Tetragon (четырехугольник).
-Методы этого интерфейса будут реализовывать классы Quadrate (квадрат) и Rectangle (прямоугольник), так как у них 4 стороны, но не класс Disk (круг).
-Пусть интерфейс Tetragon описывает геттеры для всех четырех сторон четырехугольника:*/
+//97.Наследование от класса и реализация интерфейса
+/*Класс может наследовать от другого класса и при этом реализовывать какой-то интерфейс. Рассмотрим на практическом примере.
+Пусть мы хотим сделать класс Programmer (программист), у которого будет имя, зарплата и список языков, которые знает программист.
+Пока наше описание класса весьма расплывчато: да, в классе будет имя, зарплата, языки - но какие методы будут в нашем классе?
+Давайте более точно опишем наш класс с помощью интерфейса iProgrammer:*/
 
-	interface Tetragon
+	interface iProgrammer
 	{
-		public function getA();
-		public function getB();
-		public function getC();
-		public function getD();
+		public function __construct($name, $salary); // задаем имя и зарплату
+		public function getName(); // получить имя
+		public function getSalary(); // получить зарплату
+		public function getLangs(); // получить массив языков, которые знает программист
+		public function addLang($lang); // добавить язык в массив языков
 	}
 
-//Пусть также у нас есть интерфейс Figure, который мы уже делали ранее:
+/*Пусть мы покопались в уже реализованных нами классах и, оказывается, у нас уже есть похожий класс Employee. 
+Он реализует не все методы класса Programmer, но часть.
+Вот код уже существующего у нас класса Employee:*/
 
-	interface Figure
+	class Employee
 	{
-		public function getSquare();
-		public function getPerimeter();
-	}
-
-//Сделаем так, чтобы класс Quadrate реализовывал два интерфейса: и Figure, и Tetragon.
-//Для этого перечислим оба интерфейса через запятую после ключевого слова implements:
-
-	class Quadrate implements Figure, Tetragon
-	{
-		// тут будет реализация
-	}
-
-/*Доработаем теперь наш класс Quadrate, чтобы он реализовывал интерфейс Tetragon. 
-Понятно, что наш квадрат является вырожденным случаем четырехугольника, ведь у квадрата все стороны равны.
-Поэтому все новые методы будут возвращать одно и тоже - ширину квадрата:*/
-
-	class Quadrate implements Figure, Tetragon
-	{
-		private $a;
+		private $name;
+		private $salary;
 		
-		public function __construct($a)
+		public function __construct($name, $salary)
 		{
-			$this->a = $a;
+			$this->name = $name;
+			$this->salary = $salary;
 		}
 		
-		public function getA()
+		public function getName()
 		{
-			return $this->a;
+			return $this->name;
 		}
 		
-		public function getB()
+		public function getSalary()
 		{
-			return $this->a;
-		}
-		
-		public function getC()
-		{
-			return $this->a;
-		}
-		
-		public function getD()
-		{
-			return $this->a;
-		}
-		
-		public function getSquare()
-		{
-			return $this->a * $this->a;
-		}
-		
-		public function getPerimeter()
-		{
-			return 4 * $this->a;
+			return $this->salary;
 		}
 	}
 
-/*Очевидно, что в прямоугольнике уже не все стороны одинаковы, а только противоположные. В этом случае новые методы станут немного отличаться.
-Ну, и в какой-нибудь трапеции вообще все 4 стороны будут разные.
-Однако, не имеет значения, что за фигуру мы будем рассматривать - 
-важно, что все эти фигуры будут иметь описанные методы (пусть некоторые фигуры и вырожденные) и работать однотипно.*/
+//Логично в нашем случае сделать так, чтобы наш новый класс Programmer унаследовал часть необходимых себе методов от класса Employee 
+//(а часть мы потом реализуем уже в самом новом классе):
 
+	class Programmer extends Employee
+	{
+		
+	}
+
+//При этом нам известно, что класс Pogrammer должен реализовывать интерфейс iProgrammer:
+
+	class Programmer implements iProgrammer
+	{
+		
+	}
+
+//Давайте совместим наследование от класса Employee и реализацию интерфейса iProgrammer:
+
+	class Programmer extends Employee implements iProgrammer
+	{
+		
+	}
+
+//Получится, что наш класс Pogrammer унаследует от класса Employee методы __construct, getName() и getSalary(), 
+//а методы addLang и getLangs нам придется реализовать:
+
+	class Programmer extends Employee implements iProgrammer
+	{
+		public function addLang($lang)
+		{
+			// реализация
+		}
+		
+		public function getLangs()
+		{
+			// реализация
+		}
+	}
+
+//Интерфейсу iProgrammer все равно, родные методы у класса или унаследованные - главное, чтобы все описанные методы были реализованы.
 ?>
