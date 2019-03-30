@@ -1,84 +1,62 @@
 <?php
 /*
-96.Несколько интерфейсов
+97.Наследование от класса и реализация интерфейса
 
-1.Сделайте так, чтобы класс Rectangle также
-реализовывал два интерфейса: и Figure, и Tetragon.
-2.Сделайте интерфейс Circle (круг) с методами
-getRadius (получить радиус) и getDiameter (получить диаметр).
-3.Сделайте так, чтобы класс Disk также реализовывал
-два интерфейса: и Figure, и Circle.
+1.Скопируйте код моего класса Employee и код интерфейса
+iProgrammer. Не копируйте мою заготовку класса iProgrammer -
+не подсматривая в мой код реализуйте этот класс самостоятельно.
 */
-interface Figure
+interface iProgrammer
 {
-public function getSquare();
-public function getPerimeter();
+public function __construct($name, $salary);
+public function getName();
+public function getSalary();
+public function getLangs();
+public function addLang($lang);
 }
-interface Tetragon
+class Employee
 {
-public function getA();
-public function getB();
-public function getC();
-public function getD();
-}
-interface Circle
-{
-public function getRadius();
-public function getDiameter();
-}
-class Rectangle implements Figure, Tetragon
-{
-private $a;
-private $b;
+private $name;
+private $salary;
 
-public function __construct($a, $b)
+public function __construct($name, $salary)
 {
-$this->a = $a;
+$this->name = $name;
+$this->salary = $salary;
 }
-public function getA()
+public function getName()
 {
-return $this->a;
+return $this->name;
 }
-public function getB()
+public function getSalary()
 {
-return $this->b;
-}
-public function getC()
-{
-return $this->a;
-}
-public function getD()
-{
-return $this->b;
-}
-public function getSquare()
-{
-return $this->a * $this->b;
-}
-public function getPerimeter()
-{
-return 2 * $this->a * $this->b;
+return $this->salary;
 }
 }
-class Disk implements Figure, Circle
+class Programmer extends Employee implements iProgrammer
 {
-public function getSquare()
-{
+private $name;
+private $salary;
+private $lang;
 
-}
-public function getPerimeter()
+public function __construct($name, $salary)
 {
-
+parent::__construct($name, $salary);
+}
+public function addLang($lang)
+{
+$this->lang = $lang;
 }
 
-public function getRadius()
+public function getLangs()
 {
-
-}
-public function getDiameter()
-{
-
+return $this->lang;
 }
 }
+$p = new Programmer('Вася', 1000);
+$p->addLang('php');
+echo $p->getName();// Вася
+echo $p->getSalary();// 1000
+echo $p->getLangs();// php
 
 ?>	
