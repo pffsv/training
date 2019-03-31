@@ -1,62 +1,39 @@
 <?php
 /*
-97.Наследование от класса и реализация интерфейса
+98.Константы в интерфейсе
 
-1.Скопируйте код моего класса Employee и код интерфейса
-iProgrammer. Не копируйте мою заготовку класса iProgrammer -
-не подсматривая в мой код реализуйте этот класс самостоятельно.
+1.Сделайте класс Sphere, который будет
+реализовывать интерфейс iSphere.
 */
-interface iProgrammer
+interface iSphere
 {
-public function __construct($name, $salary);
-public function getName();
-public function getSalary();
-public function getLangs();
-public function addLang($lang);
-}
-class Employee
-{
-private $name;
-private $salary;
+const PI = 3.14;
 
-public function __construct($name, $salary)
-{
-$this->name = $name;
-$this->salary = $salary;
-}
-public function getName()
-{
-return $this->name;
-}
-public function getSalary()
-{
-return $this->salary;
-}
-}
-class Programmer extends Employee implements iProgrammer
-{
-private $name;
-private $salary;
-private $lang;
-
-public function __construct($name, $salary)
-{
-parent::__construct($name, $salary);
-}
-public function addLang($lang)
-{
-$this->lang = $lang;
+public function __construct($radius);
+public function getVolume();
+public function getSquare();
 }
 
-public function getLangs()
+class Sphere implements iSphere
 {
-return $this->lang;
+private $radius;
+
+function __construct($radius)
+{
+$this->radius = $radius;
+}
+public function getVolume()
+{
+return 4/3 * self::PI * pow($this->radius, 3);
+}
+public function getSquare()
+{
+return 4 * self::PI * pow($this->radius, 2);
 }
 }
-$p = new Programmer('Вася', 1000);
-$p->addLang('php');
-echo $p->getName();// Вася
-echo $p->getSalary();// 1000
-echo $p->getLangs();// php
+
+$s = new Sphere(10);
+echo $s->getVolume();// 4186.6666666667
+echo $s->getSquare();// 1256
 
 ?>	
