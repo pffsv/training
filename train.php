@@ -1,39 +1,47 @@
 <?php
 /*
-98.Константы в интерфейсе
+99.Работа с трейтами
 
-1.Сделайте класс Sphere, который будет
-реализовывать интерфейс iSphere.
+1.Реализуйте класс Country (страна) со свойствами
+name (название), age (возраст), population
+(количество населения) и геттерами для них.
+Пусть наш класс для сокращения своего кода
+использует уже созданный нами трейт Helper.
 */
-interface iSphere
+trait Helper
 {
-const PI = 3.14;
+private $name;
+private $age;
 
-public function __construct($radius);
-public function getVolume();
-public function getSquare();
-}
-
-class Sphere implements iSphere
+public function getName()
 {
-private $radius;
-
-function __construct($radius)
-{
-$this->radius = $radius;
-}
-public function getVolume()
-{
-return 4/3 * self::PI * pow($this->radius, 3);
-}
-public function getSquare()
-{
-return 4 * self::PI * pow($this->radius, 2);
-}
+return $this->name;
 }
 
-$s = new Sphere(10);
-echo $s->getVolume();// 4186.6666666667
-echo $s->getSquare();// 1256
+public function getAge()
+{
+return $this->age;
+}
+}
+class Country
+{
+use Helper;
+
+private $population;
+
+function __construct($name, $age, $population)
+{
+$this->name = $name;
+$this->age = $age;
+$this->population = $population;
+}
+public function getPopulation()
+{
+return $this->population;
+}
+}
+
+$c = new Country('Хоббитания', 1200, 500);
+echo $c->getName().' '.$c->getAge().' '.$c->getPopulation();// Хоббитания 1200 500
 
 ?>	
