@@ -1,50 +1,53 @@
 <?php
 /*
-107.Магический метод __toString
+108.Магический метод __get
 
-1.Сделайте класс User, в котором будут следующие
-свойства - name (имя), surname (фамилия),
-patronymic (отчество).
-Сделайте так, чтобы при выводе объекта через
-echo на экран выводилось ФИО пользователя
-(фамилия, имя, отчество через пробел).
+1.Переделайте код этого класса так, чтобы
+вместо геттеров использовался магический метод __get.
 */
 class User
 {
 private $name;
-private $surname;
-private $patronymic;
+private $age;
 
-public function __construct($name, $surname, $patronymic)
+public function __construct($name, $age)
 {
 $this->name = $name;
-$this->surname = $surname;
-$this->patronymic = $patronymic;
+$this->age = $age;
 }
-public function __toString()
+public function __get($property)
 {
-return $this->surname.' '.$this->name.' '.$this->patronymic;
+return $this->$property;
 }
 }
-$u = new User('Василий', 'Пупкин', 'Алибабаевич');
-echo $u;// Пупкин Василий Алибабаевич
+$u = new User('Вася', 28);
+echo $u->name.' '.$u->age;// Вася 28
 /*
-2.реализуйте такой же класс Arr.
+2.Сделайте класс Date с публичными свойствами
+year (год), month (месяц) и day (день).
+С помощью магии сделайте свойство weekDay,
+которое будет возвращать день недели,
+соответствующий дате.
 */
-class Arr
+class Date
 {
-private $num = [];
+public $year;
+public $month;
+public $day;
 
-public function add($n)
+public function __construct($year, $month, $day)
 {
-$this->num[] = $n;
-return $this;
+$this->year = $year;
+$this->month = $month;
+$this->day = $day;
 }
-public function __toString()
+public function __get($prop)
 {
-return (string) array_sum($this->num);
+if ($prop == 'weekday') {
+return (new DateTime("$this->year-$this->month-$this->day"))->format('l');
 }
 }
-echo (new Arr)->add(1)->add(2)->add(3);// 6
+}
+echo (new Date(2019, 02, 03))->weekday;// Sunday
 
 ?>	
