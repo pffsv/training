@@ -1,64 +1,50 @@
 <?php
 /*
-104.Абстрактные методы трейтов
-1.Скопируйте код моего трейта TestTrait и код моего
-класса Test. Удалите из класса метод method2.
-Убедитесь в том, что отсутствие его реализации
-приведет к ошибке PHP.
+107.Магический метод __toString
+
+1.Сделайте класс User, в котором будут следующие
+свойства - name (имя), surname (фамилия),
+patronymic (отчество).
+Сделайте так, чтобы при выводе объекта через
+echo на экран выводилось ФИО пользователя
+(фамилия, имя, отчество через пробел).
 */
-trait TestTrait
+class User
 {
-public function method1()
-{
-return 1;
-}
-abstract public function method2();
-}
-class Test
-{
-use TestTrait;
-}
+private $name;
+private $surname;
+private $patronymic;
 
-new Test;// Fatal error
-
+public function __construct($name, $surname, $patronymic)
+{
+$this->name = $name;
+$this->surname = $surname;
+$this->patronymic = $patronymic;
+}
+public function __toString()
+{
+return $this->surname.' '.$this->name.' '.$this->patronymic;
+}
+}
+$u = new User('Василий', 'Пупкин', 'Алибабаевич');
+echo $u;// Пупкин Василий Алибабаевич
 /*
-105.Использование трейтов в трейтах
-
-1.Самостоятельно сделайте такие же трейты,
-как у меня и подключите их к классу Test.
-Сделайте в этом классе метод getSum,
-возвращающий сумму результатов методов
-подключенных трейтов.
+2.реализуйте такой же класс Arr.
 */
-trait Trait1
+class Arr
 {
-private function method1()
-{
-return 1;
-}
-private function method2()
-{
-return 2;
-}
-}
-trait Trait2
-{
-use Trait1;
+private $num = [];
 
-private function method3()
+public function add($n)
 {
-return 3;
+$this->num[] = $n;
+return $this;
+}
+public function __toString()
+{
+return (string) array_sum($this->num);
 }
 }
-class Test
-{
-use Trait2;
+echo (new Arr)->add(1)->add(2)->add(3);// 6
 
-public function getSum()
-{
-return self::method1() + self::method2() + self::method3();
-}
-}
-
-echo (new Test)->getSum();// 6
 ?>	
