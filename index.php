@@ -1,34 +1,12 @@
-<!--1.JavaScript для новичков-->
-<!--Как запустить JavaScript
-Написать и запустить JavaScript можно двумя способами: первый заключается в том, что мы пишем код прямо на HTML странице внутри тега <script>:-->
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Это заголовок тайтл</title>
-		<script>
-			var name = 'Дима';
-			alert('Привет, '+name);
-		</script>
-	</head>
-	<body>
-		Это основное содержимое страницы.
-	</body>
-</html>
-
-<!--Тег <script> можно располагать в любом месте страницы - как в <head>, так и в <body>.
-Второй вариант заключается в том, что JavaScript код хранится в отдельном файле (наподобие CSS)
- и подключается тоже с помощью тега <script> с атрибутом src, в котором указывается путь к файлу со скриптом:-->
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Это заголовок тайтл</title>
-		<script src="путь к файлу со скриптом"></script>
-	</head>
-	<body>
-		Это основное содержимое страницы.
-	</body>
-</html>
+<?php
+    /* Справочник PHP: http://php.net */
+    /*
+        Escape-последовательности для Unicode-символов:
+        http://rapidtables.com/code/text/unicode-characters.htm
+    */
+    echo 'Hello World!'; // Выводим строку Hello World!
+    echo '<br />';
+    echo '<b>Hello</b>';
+    echo "\u{03B2}";
+?>
+<p>А это уже HTML-текст!</p>
