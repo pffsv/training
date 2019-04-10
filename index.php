@@ -1,44 +1,6 @@
 <?php
-    echo M_PI.'<br />';
-    echo M_E.'<br />';
-    
-    $x = -3;
-    echo abs($x).'<br />';
-    
-    $x = 12.3932923;
-    echo round($x).'<br />';
-    echo round($x, 2).'<br />';
-    echo round($x, -1).'<br />';
-    
-    echo floor($x).'<br />';
-    echo ceil($x).'<br />';
-    
-    echo mt_rand(1, 5).'<br />';
-    $arr = [];
-    for ($i = 0; $i < 10; $i++) $arr[] = mt_rand(1, 100);
-    
-    print_r($arr);
-    
-    echo '<br />';
-    echo min(5, 7, -3, 0, 10, 12, 3);
-    echo '<br />';
-    echo max(5, 7, -3, 0, 10, 12, 3);
-    
-    echo '<br />';
-    echo base_convert("100", 2, 10);
-    
-    echo '<br />';
-    echo sin($x).'<br />';
-    echo cos($x).'<br />';
-    echo tan($x).'<br />';
-    echo (1 / tan($x)).'<br />';
-    
-    $x = 0.5;
-    echo asin($x).'<br />';
-    echo acos($x).'<br />';
-    echo atan($x).'<br />';
-    echo (M_PI / 2 - atan($x)).'<br />';
-    
-    echo rad2deg(asin($x)).'<br />';
-    echo deg2rad(30).'<br />';
+phpinfo();
+//header ("Content-Type: text/html; charset=utf-8");
+//echo "<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' 
+//content='width=device-width, initial-scale=1'><!--[if lt IE 9]><meta http-equiv='X-UA-Compatible' content='IE=edge'><![endif]--><style>html{height:100%;font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-size:10px;-webkit-tap-highlight-color:transparent}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}body{height:100%;margin:0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}button,h3,input{font-family:inherit}h3{font-weight:500;line-height:1.1;color:inherit;margin-top:0;margin-bottom:20px;font-size:24px}.authform{width:300px;background-color:#e1e5ec;padding:25px 27px;margin: 0 auto;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px}</style><title>Добро пожаловать!</title></head><body style='text-align: center'><table style='width:100%;height:100%;border:none'><tbody><tr><td style='padding: 20px'><div class='authform'><h3>Добро пожаловать!</h3><div style='margin-bottom: 18px'>Open Server Panel работает ;-)</div><a href='https://ospanel.io/docs/' id='link' style='color: #4D5662'>Руководство пользователя</a></td></tr></tbody></table></body></html>";
 ?>
