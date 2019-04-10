@@ -1,9 +1,6 @@
 <?php
-    /* Справочник PHP: http://php.net */
-    /*
-        Escape-последовательности для Unicode-символов:
-        http://rapidtables.com/code/text/unicode-characters.htm
-    */
+//1.Hello World
+
     echo 'Hello World!'; // Выводим строку Hello World!
     echo '<br />';
     echo '<b>Hello</b>';
