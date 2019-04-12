@@ -1,13 +1,9 @@
 <?
-   $var = 7;
+   $var = 5;
    $i = 0;
-   while(++$i <= $var)
+   do
    {
-      if($i==5)
-      {
-         continue;
-      }
-      echo($i);
-      echo('<br>');
+      echo($i); echo('<br>');   
    }
+   while(++$i <= $var)
 ?>
