@@ -1,9 +1,9 @@
 <?
    $var = 5;
    $i = 0;
-   do
+   for ($i = 0; $i <= $var; $i++)
    {
-      echo($i); echo('<br>');   
+      echo($i);
+      echo('<br>');
    }
-   while(++$i <= $var)
 ?>
