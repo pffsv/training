@@ -1,8 +1,6 @@
 <?
-   $str = "   Hello, world!   ";
-   $str1 = trim("   Hello, world!   ");
-   $str_len = strlen($str);
-   $str1_len = strlen($str1);
-   echo(" размер исходной строки '$str' = $str_len, <br>
-   размер строки после удаления пробелов = $str1_len");    
+   printf("Hello!"); // выводит  "Hello!" 
+   sprintf("Hello!"); // сама по себе ничего не выводит, 
+   $str = sprintf("Hello!"); // а просто возвращает строку,
+   printf($str); // которую затем можно вывести в выходной поток
 ?>
