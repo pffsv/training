@@ -1,6 +1,6 @@
 <?
-   printf("Hello!"); // выводит  "Hello!" 
-   sprintf("Hello!"); // сама по себе ничего не выводит, 
-   $str = sprintf("Hello!"); // а просто возвращает строку,
-   printf($str); // которую затем можно вывести в выходной поток
+   $day = 2;
+   $month = 3;
+   $year = 2003;
+   printf("%02d/%02d/%04d", $day, $month, $year);
 ?>
