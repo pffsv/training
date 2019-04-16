@@ -1,6 +1,10 @@
 <?
-   $day = 2;
-   $month = 3;
-   $year = 2003;
-   printf("%02d/%02d/%04d", $day, $month, $year);
+   $product = "maxtor/203-5505";
+   $str = sscanf($product,"maxtor/%3d-%4d");
+   echo ("$str[0]-$str[1]");
+
+   $date = "august 10 2003";
+   list($month, $day, $year) = sscanf($date, "%s %d %d");
+   echo("Date: $day-".substr($month,0,3)."-$year");
+
 ?>
