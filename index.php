@@ -1,21 +1,18 @@
 <?
-   $car = array("passenger car", "land-rover",
-      "station-wagon","victoria");
-   foreach($car as $index => $val)
-   {
-      echo("$index -> $val <br>");
-   }
-
-
-   echo(
-      "available cars: <br> <ul>"
+   $ship = array(
+      "Passenger ship" => array("Yacht","Liner","Ferry"),
+      "War ship" => array("Battle-wagon","Submarine","Cruiser"),
+      "Freight ship" => array("Tank vessel","Dry-cargo ship","Container 
+      cargo ship")
    );
-   $car = array("passenger car", "land-rover",
-      "station-wagon","victoria");
-   foreach($car as $val)
+   foreach($ship as $key => $type)
    {
-      echo("<li>$val</li>\n");
+      echo(
+      "<h2>$key</h2>\n"."<ul>\n");
+      foreach($type as $ship)
+      {
+         echo("\t<li>$ship</li>\n");
+      }
    }
-   echo("</ul>");
-
+   echo("</ul>\n");
 ?>
