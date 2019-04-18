@@ -1,16 +1,9 @@
 <?
-   $arr = array ("php", 4.0, array ("green", "red"));
-   $result = array_reverse ($arr);
-   echo "Массив: <br>";   
-   foreach($result as $key => $val) 
-   {
-      echo ("$key => $val <br>");
-   }
-   echo("<br>");
-   echo "Сортированный массив: <br>";      
-   $result_keyed = array_reverse ($arr, false);
-   foreach($result_keyed as $key => $val) 
-   {
-      echo ("$key => $val<br> ");
-   }
+   $array1 = $array2 = array("pict10.gif", "pict2.gif", "pict20.gif", "pict1.gif");
+   echo ("обычная сортировка:"); echo ("<br>");
+   sort($array1);
+   print_r($array1);
+   echo ("<br>"); echo ("естественная сортировка:"); echo ("<br>");
+   natsort($array2);
+   print_r($array2);
 ?>
