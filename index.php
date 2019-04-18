@@ -1,18 +1,16 @@
 <?
-   $ship = array(
-      "Passenger ship" => array("Yacht","Liner","Ferry"),
-      "War ship" => array("Battle-wagon","Submarine","Cruiser"),
-      "Freight ship" => array("Tank vessel","Dry-cargo ship","Container 
-      cargo ship")
-   );
-   foreach($ship as $key => $type)
+   $arr = array ("php", 4.0, array ("green", "red"));
+   $result = array_reverse ($arr);
+   echo "Массив: <br>";   
+   foreach($result as $key => $val) 
    {
-      echo(
-      "<h2>$key</h2>\n"."<ul>\n");
-      foreach($type as $ship)
-      {
-         echo("\t<li>$ship</li>\n");
-      }
+      echo ("$key => $val <br>");
    }
-   echo("</ul>\n");
+   echo("<br>");
+   echo "Сортированный массив: <br>";      
+   $result_keyed = array_reverse ($arr, false);
+   foreach($result_keyed as $key => $val) 
+   {
+      echo ("$key => $val<br> ");
+   }
 ?>
