@@ -1,19 +1,18 @@
 <?
-   $car = array("passenger car", "land-rover",
-      "station-wagon","victoria");
-   foreach($car as $index => $val)
+   $number = array ("1"=>"15", "2"=>"20", "3"=>"25");
+   function printarray ($item, $key) 
    {
-      echo("$index -> $val <br>");
+      echo "$key=>$item<br>\n";
    }
-//Как видно из синтаксиса, переменная $key необязательна и может быть опущена:
-   echo(
-      "available cars: <br> <ul>"
-   );
-   $car = array("passenger car", "land-rover",
-      "station-wagon","victoria");
-   foreach($car as $val)
+   function add_array (&$item, $key) 
+   // параметр $item передаем по ссылке, так как            
+   // его нам надо изменять
    {
-      echo("<li>$val</li>\n");
+      $item = $item + 1;
    }
-   echo("</ul>");
+   echo("Before:<br>");
+   array_walk ($number, 'printarray');
+   echo("After:<br>");
+   array_walk ($number, 'add_array');
+   array_walk ($number, 'printarray');
 ?>
