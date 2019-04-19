@@ -1,12 +1,11 @@
 <?
-  function degree($x,$y)
+  function fact($x)
   {
-    if($y)
+    for ($result = 1; $x > 1; --$x)
     {
-      return $x*degree($x,$y-1);
+      $result *= $x;
     }
-    return 1;
+    return $result;
   }
-  echo(degree(2,4)); // выводит 16
-?o("<br>$var"); // выводит 10 (глобальная переменная)
+  echo (fact(6)); // выводит 720
 ?>
