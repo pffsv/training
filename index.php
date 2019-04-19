@@ -1,11 +1,11 @@
 <?
-  function fact($x)
-  {
-    for ($result = 1; $x > 1; --$x)
+  $file = fopen("c:/www/html/pavlovo.jpg","rb");
+  if(!file)
     {
-      $result *= $x;
+      echo("Ошибка открытия файла");
     }
-    return $result;
-  }
-  echo (fact(6)); // выводит 720
+    else
+    {
+      fpassthru($file);
+    }
 ?>
