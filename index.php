@@ -1,11 +1,14 @@
 <?
-  $file = fopen("c:/www/html/pavlovo.jpg","rb");
-  if(!file)
+  $count = 1;
+  $file =  fopen ("file.csv","r");
+  while ($data = fgetcsv ($file, 1000, ",")) 
+  {
+    $num = count ($data);
+    $count++;
+    for ($i=0; $i < $num; $i++) 
     {
-      echo("Ошибка открытия файла");
+      print "$data[$i]<br>";
     }
-    else
-    {
-      fpassthru($file);
-    }
+  }
+  fclose ( $file );
 ?>
