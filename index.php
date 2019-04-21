@@ -1,14 +1,13 @@
 <?
-  $count = 1;
-  $file =  fopen ("file.csv","r");
-  while ($data = fgetcsv ($file, 1000, ",")) 
+  $file = fopen ("file.txt","r+");
+  $str = "Hello, world!";
+  if ( !$file )
   {
-    $num = count ($data);
-    $count++;
-    for ($i=0; $i < $num; $i++) 
-    {
-      print "$data[$i]<br>";
-    }
+    echo("Ошибка открытия файла");
   }
-  fclose ( $file );
+  else
+  {
+    fputs ( $file, $str);
+  }
+  fclose ($file);
 ?>
