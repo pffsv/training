@@ -1,13 +1,9 @@
 <?
-  $file = fopen ("file.txt","r+");
-  $str = "Hello, world!";
-  if ( !$file )
+  $dir = opendir (".");
+  echo "Files:\n";
+  while ($file = readdir ($dir)) 
   {
-    echo("Ошибка открытия файла");
+    echo "$file<br>";
   }
-  else
-  {
-    fputs ( $file, $str);
-  }
-  fclose ($file);
+  closedir ($dir);
 ?>
