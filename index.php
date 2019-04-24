@@ -1,22 +1,11 @@
 <?
-  function full_del_dir ($directory)
-  {
-  $dir = opendir($directory);
-  while(($file = readdir($dir)))
-  {
-    if ( is_file ($directory."/".$file))
-    {
-      unlink ($directory."/".$file);
-    }
-    else if ( is_dir ($directory."/".$file) &&
-             ($file != ".") && ($file != ".."))
-    {
-      full_del_dir ($directory."/".$file);  
-    }
-  }
-  closedir ($dir);
-  rmdir ($directory);
-  echo("Каталог успешно удален");
-  }
-  full_del_dir ("c:/temp")
+  // получаем www-адрес (имя хоста) из url
+  $url = "http://www.php.net/download.html";
+  preg_match("/^(http:\/\/)?([^\/]+)/i", $url, $matches);
+  $host = $matches[2];
+  echo("www-адрес: $host");
+  echo("<br>");
+  // получаем последние два сегмента имени хоста (доменное имя)
+  preg_match("/[^\.\/]+\.[^\.\/]+$/", $host, $matches);
+  echo "доменное имя: {$matches[0]}\n";
 ?>
