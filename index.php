@@ -1,11 +1,36 @@
 <?
-  $str = "PHP один из лучших языков программирования для Web";
-  if (preg_match ("/\bweb\b/i", $str)) 
+  function my_htmlspecialchats($document)
   {
-    echo("Соответствие найдено");
+    $search = array ("']*?>.*?'si",  
+                     "'<[\/\!]*?[^<>]*?>'si",           
+                     "'([\r\n])[\s]+'",                 
+                     "'&(quot|#34);'i",                 
+                     "'&(amp|#38);'i",
+                     "'&(lt|#60);'i",
+                     "'&(gt|#62);'i",
+                     "'&(nbsp|#160);'i",
+                     "'&(iexcl|#161);'i",
+                     "'&(cent|#162);'i",
+                     "'&(pound|#163);'i",
+                     "'&(copy|#169);'i",
+                     "'&#(\d+);'e");
+    $replace = array ("",
+                      "",
+                      "\\1",
+                      "\"",
+                      "&",
+                      "<",
+                      ">",
+                      " ",
+                      chr(161),
+                      chr(162),
+                      chr(163),
+                      chr(169),
+                      "chr(\\1)");
+    $text = preg_replace ($search, $replace, $document);
+    return $text;
   }
-  else
-  {
-    echo("Соответствие не найдено");
-  }
+  $doc = "alert;"; // напишем java-скрипт
+  my_htmlspecialchats($doc);  // выводит "alert;"
+  echo($doc);
 ?>
