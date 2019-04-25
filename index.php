@@ -1,10 +1,11 @@
 <?
-  $str = "May 15, 2003";
-  $pattern = "/(\w+) (\d+), (\d+)/i";
-  $replacement = "1 \${1} \$3";
-  print preg_replace($pattern, $replacement, $str);
-
-//Результат:
-//1 May 2003
-
+  $str = "PHP один из лучших языков программирования для Web";
+  if (preg_match ("/\bweb\b/i", $str)) 
+  {
+    echo("Соответствие найдено");
+  }
+  else
+  {
+    echo("Соответствие не найдено");
+  }
 ?>
