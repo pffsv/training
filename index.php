@@ -1,15 +1,7 @@
 
 <?
-//Соединение с удаленным FTP-сервером
-  $host = "ftp://ftp.server.ru";
-  $connect = ftp_connect($host);
-  if(!$connect)
-  {
-    echo("Ошибка соединения");
-    exit;
-  }
-  else
-  {
-    echo("Соединение установлено");  
-  }
+//Регистрация на FTP-сервере
+  $user = "maks";
+  $password = "password";
+  $result = ftp_login($connect, $user, $password);
 ?>
