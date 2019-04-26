@@ -1,10 +1,12 @@
 <?
-  $file_list = ftp_nlist($connect, ".");
-  if(is_array($file_list))
+  $file = "/web/user/file.txt";
+  $file_size = ftp_size($connect, $file);
+  if ($file_size == -1)
   {
-    foreach($file_list as $file)
-    {
-      echo("$file <br>");
-    }
+    echo("Размер файла не определен");
+  }
+  else
+  {
+    echo("Файл $file имеет размер $file_size байт");
   }
 ?>
