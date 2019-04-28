@@ -1,5 +1,15 @@
 <?
-  $pasv_flag = true;
-  $pasv_result = $pasv_flag ? "enabled" : "disabled";
-  ftp_pasv($connect, $pasv_flag);
+  $name = $HTTP_POST_VARS['name'];
+  if (!isset($name))
+  {
+    // если переменная $name не существует просим повторить ввод имени
+?>
+    <h1> Вы забыли ввести ваше имя </h1>
+    <!-- далее следует HTML-код формы, в которой вводится имя -->
+<?
+  }
+  else
+  {
+    -
+  }
 ?>
