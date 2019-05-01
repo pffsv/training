@@ -1,11 +1,13 @@
 <?php
-   $a = 1; 
-   $b = null; 
-   $c = 2 * 3; 
-   $d = true; 
-   if($a) echo "if(\$a);<br />"; 
-   if($b) echo "if(\$b);<br />"; 
-   if($c) echo "if(\$c);<br />"; 
-   if(!$d) echo "if(!\$d);<br />"; 
-   if($a < $c) echo "\$a < \$c;<br />"; 
+   $a = "A"; 
+   switch($a)
+   {
+   case 'A': 
+      echo 'Переменная имеет значение "А"'; 
+      break; 
+   case 'B': 
+      echo 'Переменная имеет значение "B"'; 
+      break;
+   default: echo 'Ответ не найден'; 
+   }
 ?>
