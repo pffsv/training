@@ -1,13 +1,9 @@
 <?php
-   $a = "A"; 
-   switch($a)
+   $var = 5; 
+   $i = 0; 
+   do
    {
-   case 'A': 
-      echo 'Переменная имеет значение "А"'; 
-      break; 
-   case 'B': 
-      echo 'Переменная имеет значение "B"'; 
-      break;
-   default: echo 'Ответ не найден'; 
+      echo $i . '<br />'; 
    }
+   while(++$i <= $var); 
 ?>
