@@ -1,26 +1,8 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <meta charset="utf-8" />
-      <title>
-         Введите данные. 
-      </title>
-   </head>
-   <body>
-      <form action="http://localhost/PHP/test.php" method="get">
-         <p>
-            HDD: 
-         </p>
-         <input type="text" name="HDD" />
-         <br />
-         
-         <p>
-            CD-ROM: 
-         </p>
-         <input type="text" name="CD-ROM" />
-         <br />
-         
-         <input type="submit" value="Отправить" />
-      </form>
-   </body>
-</html>
+<?php
+   define('CONSTANT1', 15); 
+   define('CONSTANT2', "\x20"); //Шестнадцатеричный код символа пробела
+   define('CONSTANT3', 'Hello'); 
+   echo CONSTANT1; 
+   echo CONSTANT2; 
+   echo CONSTANT3; 
+?>
