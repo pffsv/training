@@ -1,17 +1,12 @@
 <?php
-   $a = true;
-   $b = false;
-   $c = 11;
-   $d = 10;
-   
-   $f = $a ? $c : $d; # Переменной $f присвоится значение переменной $c, 
-                      # т. к. значение выражения $a истинно.
-                      
-   $g = $b ? $c : $d;   # Здесь наоборот: $g будет присвоено значение $d,
-                        # т. к. значение выражения $b ложно.
-                        
-   $h = (!empty($n)) ? $n : $c + $d;  # Сперва проверится существование 
-                                      # переменной $n. Т. к. она не существует, 
-                                      # переменной $h присвоится 
-                                      # сумма $c и $d, т. е. "21".
+   function get_current_browser() {
+      $browser = strtoupper($_SERVER['HTTP_USER_AGENT']); 
+      if(strpos($browser, 'MSIE') !== false) $browser = 'Internet Explorer'; 
+      elseif(strpos($browser, 'FIREFOX') !== false) $browser = 'Firefox';  
+      elseif(strpos($browser, 'KONQUEROR') !== false) $browser = 'Konqueror';  
+      elseif(strpos($browser, 'LYNX') !== false) $browser = 'Lynx'; 
+      else { $browser = $_SERVER['HTTP_USER_AGENT'];} 
+      return $browser;
+   }
+   get_current_browser(); 
 ?>
