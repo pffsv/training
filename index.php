@@ -4,8 +4,11 @@
 </head>
 <body>
 <?php
-echo "Hello World!"
+echo "Hello World! ";
+echo "Hello World! ";
+echo "Hello World! ";
+echo "Hello World! ";
+echo "Hello World! ";
 ?>
 </body>
-</html> header('Location: http://deskside/main.php?page=home'); 
-?>
+</html>
