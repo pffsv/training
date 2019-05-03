@@ -1,16 +1,5 @@
-<html>
-<head>
-<title>My First PHP Page</title>
-</head>
-<body>
 <?php
-echo "Hello World!";        
-
-
-
-  echo "Hello World!";
-
-
+$hello = "Hello World!";
+$a_number = 4;
+$anotherNumber = 8;
 ?>
-</body>
-</html>
