@@ -1,5 +1,5 @@
 <?php
-$hello = "Hello World!";
-$a_number = 4;
-$anotherNumber = 8;
+$myString = "Hello!";
+echo $myString;
+echo "<h5>I love using PHP!</h5>";
 ?>
