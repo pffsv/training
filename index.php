@@ -1,9 +1,20 @@
 <?php
-$go_to_universe = 1;
-
-if ( $go_to_universe == 1 ) {
-  echo "Иду в универ, будильник на 7 часов";
-} else {
-  echo "Не иду в универ, будильник на 9 часов";
-}
+$destination = "Tokyo";
+echo "Отправляемся в $destination<br />";
+switch ($destination){
+  case "Las Vegas":
+    echo "Берем с собой $5000! Вегас детка!";
+    break;
+  case "Amsterdam":
+    echo "Парочка газет, фольга...";
+    break;  
+  case "Egypt":
+    echo "50 бутылок солнцезащитного крема.";
+    break;  
+  case "Tokyo":
+    echo "Берем деньги на сувениры.";
+    break;
+  case "Caribbean Islands":
+    echo "Захватите трусы для плавания!";
+    break;  
 ?>
