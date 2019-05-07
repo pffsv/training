@@ -1,8 +1,10 @@
 <?php
-function myCompanyName(){
-    echo "Вы находитесь на блоге myblaze.ru <br />";
+function mySum($numX, $numY){
+    $total = $numX + $numY;
+    return $total; 
 }
-echo "Привет всем! <br />";
-myCompanyName();
-echo "Рад вас видеть! <br />";
+$myNumber = 0;
+echo "Перед использованием функции, myNumber = ". $myNumber ."<br />";
+$myNumber = mySum(3, 4); // Сохраняем результат вызова функции mySum в переменную $myNumber
+echo "После вызова функции, myNumber = " . $myNumber ."<br />";
 ?>
