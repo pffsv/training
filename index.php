@@ -1,5 +1,5 @@
 <?php
-$destination = "Tokyo";
+$destination = "New York";
 echo "Отправляемся в $destination<br />";
 switch ($destination){
   case "Las Vegas":
@@ -17,4 +17,7 @@ switch ($destination){
   case "Caribbean Islands":
     echo "Захватите трусы для плавания!";
     break;  
+  default:
+    echo "Бельишко чистое не забудьте!";
+    break;
 ?>
