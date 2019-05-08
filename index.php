@@ -1,12 +1,12 @@
-<?php
-$employeeAges;
-$employeeAges["Lisa"] = "28";
-$employeeAges["Jack"] = "16";
-$employeeAges["Ryan"] = "35";
-$employeeAges["Rachel"] = "46";
-$employeeAges["Grace"] = "34";
+<html>
+<head>
+<title>Страница с примером передачи переменных с помощью Post</title>
+</head>
+<body>
 
-foreach( $employeeAges as $key => $value){
-  echo "Name: $key, Age: $value <br />";
-}
-?>
+<form method="post" action="index.php">Заполняем поля для передачи информации:<br><br>
+ Укажите Ваше имя: <input name="user_name" type="text" maxlength="20" size="25" value="" />
+<br><br> Укажите Ваш возраст: <input name="age" type="text" maxlength="2" size="3" value="" />
+<br><br> <input type=submit value="Передать информацию"></form>
+</body>
+</html>
