@@ -1,5 +1,13 @@
 <?php
-    $lines = file('testFile.txt');
-    foreach($lines as $single_line)
-        echo $single_line . "<br />\n";
+//Входная строка, которую будем использовать как шаблон
+$rawstring = "На полке лежит X килограмм мандарин.";
+
+//заменяем
+$str_1 = str_replace("X", "10", $rawstring);
+
+//можно и на другое значение заменить, любое
+$str_2 = str_replace("X", "135473", $rawstring);
+
+echo "Первый раз: ". $str_1 . "<br />";
+echo "Второй раз: ". $str_2;
 ?>
