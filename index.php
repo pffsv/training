@@ -1,20 +1,29 @@
 <?php
 //Строка - шаблон
-$rawstring = "На Z лежит X килограмм отборных Y.";
+function get_web_page( $url )
+{
+  $uagent = "Opera/9.80 (Windows NT 6.1; WOW64) Presto/2.12.388 Version/12.14";
 
-//массив ЧТО будем заменять
-$placeholders = array('Z', 'X', 'Y');
-//Массив НА ЧТО будем заменять
-$vals_1 = array('полке', '5', 'апельсинов');
-//Ну или на это
-$vals_2 = array('столе', '189', 'груш');
+  $ch = curl_init( $url );
 
-//заменяем раз
-$str_1 = str_replace($placeholders, $vals_1, $rawstring);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   // возвращает веб-страницу
+  curl_setopt($ch, CURLOPT_HEADER, 0);           // не возвращает заголовки
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);   // переходит по редиректам
+  curl_setopt($ch, CURLOPT_ENCODING, "");        // обрабатывает все кодировки
+  curl_setopt($ch, CURLOPT_USERAGENT, $uagent);  // useragent
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120); // таймаут соединения
+  curl_setopt($ch, CURLOPT_TIMEOUT, 120);        // таймаут ответа
+  curl_setopt($ch, CURLOPT_MAXREDIRS, 10);       // останавливаться после 10-ого редиректа
 
-//заменяем два
-$str_2 = str_replace($placeholders, $vals_2, $rawstring);
+  $content = curl_exec( $ch );
+  $err     = curl_errno( $ch );
+  $errmsg  = curl_error( $ch );
+  $header  = curl_getinfo( $ch );
+  curl_close( $ch );
 
-echo "Один: ". $str_1 . "<br />";
-echo "Два: ". $str_2;
+  $header['errno']   = $err;
+  $header['errmsg']  = $errmsg;
+  $header['content'] = $content;
+  return $header;
+}
 ?>
