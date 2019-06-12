@@ -1,10 +1,13 @@
 <?php
-$limit_login_my_error_shown = false; /* have we shown our stuff? */
-$limit_login_just_lockedout = false; /* started this pageload??? */
-$limit_login_nonempty_credentials = false; /* user and pwd nonempty */
-global $limit_login_my_error_shown;
-$limit_login_my_error_shown = true;
-if (!empty($_COOKIE[LOGGED_IN_COOKIE])) {
-$_COOKIE[LOGGED_IN_COOKIE] = '';
-}
+declare(strict_types=1);  //Задаем режим строгой типизации для скрипта
+ 
+function my_sum(int $a,int $b): string{//Задали тип string возвращаемого значения  
+  $sum=$a+$b; 
+  return  $sum;           //Возвращаемое значение должно быть типа string  
+} 
+echo my_sum(5,2);         //При вызове функции выведет ошибку 
+ 
+                 
+  /* Напомним, что исключение составляет передача значения целочисленного 
+  типа функции, которая ожидает получить значение типа float.    */    
 ?>
