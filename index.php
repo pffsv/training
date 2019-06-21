@@ -1,32 +1,31 @@
 <?php
-class first_name{           //Объявили родительский класс 
-  public $my_first_name;    //Объявили, но неинициализировали свойство класса
+class parent_class{                        //Объявили родительский класс 
+  public $my_var='value ';                 //Объявили свойство класса
+  const parent_const='parent_constant ';   //Объявили константу класса
    
-  function set_first_name($text){    //Метод устанавливает имя 
-    $this->my_first_name=$text;       
+  function my_func(){                      //Определяем метод 
+    echo $this->my_var;                    //Выводим значение свойства
   } 
-}
-  
-$person=new first_name();            //Создаем новый объект 
-$person->set_first_name('Иван');     //Установили значение имени 
-//$person->set_last_name('Кожемяко');//Вызовет ошибку, т.к. метод не существует!!! 
+} 
  
-/* Расширим наш класс, добавив новое свойство и метод для установки фамилии */
- 
-class full_name extends first_name{  //Создаем класс-потомок 
-  public $my_last_name;              //Добавили новое свойство 
+class descendant_class extends parent_class{//Создаем класс-потомок 
+  const self_const='self_constant ';        //Объявили константу класса-потомка
    
-  function set_last_name($text){     //Добавили новый метод, который  
-    $this->my_last_name=$text;       //устанавливает фамилию
-  } 
-}
-  
-$person_2=new full_name();           //Создаем новый объект класса-потомка
-$person_2->set_first_name('Иван');   //Установили значение имени 
-$person_2->set_last_name('Кожемяко');//Установили значение фамилии
+  function my_func(){    //Переопределяем родительский метод  
+    parent::my_func();   //Вызываем родительский метод, и дополняем его выводом
+    echo parent::parent_const.'<br>';//константы (тут можно и $this::my_const;)
+  }
+   
+  function self_func(){  //Определяем новый метод класса-потомка 
+    self::my_func();     //Вызываем метод текущего класса-потомка, 
+                         //хотя можно и привычным способом $this->my_func();
+    echo self::self_const.'<br>';    //Выводим константу класса-потомка 
+                         //Здесь можно использовать и $this::self_const;
+  }
+} 
  
-echo $person_2->my_first_name.' '.$person_2->my_last_name;//Выведет 'Иван Кожемяко' 
- 
-/* Не забываем набирать код в редакторе. Для временного изолирования ненужного 
-кода, например, в строке 11, можно применять его комментирование  */
+$descendant_obj=new descendant_class(); //Создаем новый объект 
+$descendant_obj->my_func();             //Вызываем метод объекта класса-потомка 
+$descendant_obj->self_func();           //Вызываем метод объекта класса-потомка 
+echo $descendant_obj::self_const.'<br>';//Выводим константу класса-потомка 
 ?>
