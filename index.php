@@ -1,35 +1,34 @@
 <?php
 class parent_class{
-   protected $protected_var='protected_var '; //Доступно изнутри самого класса  
-                                              //и всех классов-потомков
-   private $private_var='private_var ';       //Доступно только изнутри класса
-    
-  function all_func(){
-    echo $this->protected_var.'<br>';//Оба свойства доступны, т.к. запрашиваются 
-    echo $this->private_var.'<br>';  //изнутри класса, где были определены
+  protected function protected_func(){//Доступен изнутри самого класса  
+    echo 'Защищенный метод'.'<br>';   //и всех классов-потомков
+  }                            
+   private function private_func(){   //Доступен только изнутри класса
+    echo 'Закрытый метод'.'<br>';
+  }
+   
+  function all_func(){           //Объявляем общедоступный метод
+     $this->protected_func();    //Оба метода доступны, т.к. запрашиваются 
+    $this->private_func();       //изнутри класса, где были определены
   }
 }
- 
 class descendant_class extends parent_class{
-  protected $protected_var='p_var ';//Переопределяем свойство, область видимости
-                                    //при этом можно было изменить на public
-  function all_func(){              //Переопределяем метод 
-    echo $this->protected_var.'<br>';//Это свойство доступно, т.к. оно protected   
-                                     //и запрашивается изнутри класса-потомка
-    echo $this->private_var.'<br>';  //Ошибка, свойство доступно только изнутри 
-                                     //класса parent_class, где было объявлено
+   
+  function all_func(){           //Переопределяем метод 
+      $this->protected_func();   //Этот метод доступен, т.к. он protected и  
+                                 //запрашивается изнутри класса-потомка
+    $this->private_func();       //Ошибка, метод доступен только изнутри 
+                                 //класса parent_class, где он был объявлен
   }
 }
+$obj=new parent_class();         //Создаем экземпляр родительского класса 
+$obj_2=new descendant_class();   //Создаем экземпляр класса-потомка
  
-$obj=new parent_class();      //Создаем экземпляр родительского класса 
-$obj_2=new descendant_class();//Создаем экземпляр класса-потомка
+$obj->all_func();         //Сработает без ошибок 
+//$obj_2->all_func();     //Выдаст ошибку, т.к. метод $this->private_func() 
+                          //неопределен в классе-потомке и доступен только  
+                          //изнутри класса parent_class, где он был объявлен
  
-$obj->all_func();     //Сработает без ошибок 
-//$obj_2->all_func(); //Выдаст ошибку, т.к. свойство $this->private_var
-                      //неопределено в классе-потомке и доступно только изнутри 
-                      //класса parent_class, где оно было объявлено
- 
-//echo $obj->private_var;   //Выдаст ошибку, т.к. свойство вне класса недоступно
-//echo $obj->protected_var; //Выдаст ошибку, т.к. свойство вне классов недоступно 
-//echo $obj_2->private_var; //Выдаст ошибку, т.к. свойство неопределено в descendant_class
+//$obj->protected_func(); //Выдаст ошибку, т.к. метод вне классов недоступен
+//$obj->private_func();   //Выдаст ошибку, т.к. метод вне класса недоступен 
 ?>
