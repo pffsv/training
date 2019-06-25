@@ -1,34 +1,39 @@
 <?php
-class parent_class{
-  protected function protected_func(){//Доступен изнутри самого класса  
-    echo 'Защищенный метод'.'<br>';   //и всех классов-потомков
-  }                            
-   private function private_func(){   //Доступен только изнутри класса
-    echo 'Закрытый метод'.'<br>';
-  }
-   
-  function all_func(){           //Объявляем общедоступный метод
-     $this->protected_func();    //Оба метода доступны, т.к. запрашиваются 
-    $this->private_func();       //изнутри класса, где были определены
-  }
+abstract class abstract_class{                 //Объявили абстрактный класс
+   abstract protected function return_value(); //Абстрактный, т.е. без реализации
+   abstract protected function get_name($name);//Абстрактный, т.е. 'пустой'
+    
+  public function common_method(){        //Обычный общий метод наследуемый
+      return  $this->return_value();      //всеми классами-потомками
+    }
 }
-class descendant_class extends parent_class{
+ 
+class concrete_class_1 extends abstract_class{
+   protected function return_value() {    //Реализуем (заполняем) метод
+      return 'Реализация метода в классе-потомке concrete_class_1'.'<br>';
+   }
    
-  function all_func(){           //Переопределяем метод 
-      $this->protected_func();   //Этот метод доступен, т.к. он protected и  
-                                 //запрашивается изнутри класса-потомка
-    $this->private_func();       //Ошибка, метод доступен только изнутри 
-                                 //класса parent_class, где он был объявлен
-  }
+   public function get_name($first_name){ //Расширяем область видимости метода
+      return "{$first_name}".'<br>';
+   }
 }
-$obj=new parent_class();         //Создаем экземпляр родительского класса 
-$obj_2=new descendant_class();   //Создаем экземпляр класса-потомка
  
-$obj->all_func();         //Сработает без ошибок 
-//$obj_2->all_func();     //Выдаст ошибку, т.к. метод $this->private_func() 
-                          //неопределен в классе-потомке и доступен только  
-                          //изнутри класса parent_class, где он был объявлен
+class concrete_class_2 extends abstract_class{
+   public function return_value(){        //Расширяем область видимости метода
+      return 'Реализация метода в классе-потомке concrete_class_2'.'<br>';
+   }
+//Расширяем область видимости метода и добавляем ему один необязательный параметр 
+  public function get_name($first_name, $last_name=' Иванов '){ 
+      return "{$first_name} {$last_name}".'<br>';   
+   }
+}
  
-//$obj->protected_func(); //Выдаст ошибку, т.к. метод вне классов недоступен
-//$obj->private_func();   //Выдаст ошибку, т.к. метод вне класса недоступен 
+$obj_1 = new concrete_class_1;        //Создаем экземпляр первого класса-потомка
+echo $obj_1->common_method();
+echo $obj_1->get_name(' Иван ');
+ 
+$obj_2 = new concrete_class_2;        //Создаем экземпляр второго класса-потомка
+echo $obj_2->common_method();
+echo $obj_2->get_name(' Петр ');      //Используется значение по умолчанию
+echo $obj_2->get_name(' Петр ', ' Сидоров');
 ?>
