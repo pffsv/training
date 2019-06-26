@@ -1,39 +1,43 @@
 <?php
-abstract class abstract_class{                 //Объявили абстрактный класс
-   abstract protected function return_value(); //Абстрактный, т.е. без реализации
-   abstract protected function get_name($name);//Абстрактный, т.е. 'пустой'
-    
-  public function common_method(){        //Обычный общий метод наследуемый
-      return  $this->return_value();      //всеми классами-потомками
-    }
+interface my_intf_1{                    //Объявляем первый интерфейс
+   const c_1="Константа интерфейса 1";  //Объявляем константу интерфейса
+  public function my_func_1($a, $b);    //Метод должен принимать 2 аргумента
 }
  
-class concrete_class_1 extends abstract_class{
-   protected function return_value() {    //Реализуем (заполняем) метод
-      return 'Реализация метода в классе-потомке concrete_class_1'.'<br>';
-   }
-   
-   public function get_name($first_name){ //Расширяем область видимости метода
-      return "{$first_name}".'<br>';
-   }
+interface my_intf_2{                    //Объявляем второй интерфейс
+   public function my_func_2($d);       //Метод должен принимать 1 аргумент
 }
  
-class concrete_class_2 extends abstract_class{
-   public function return_value(){        //Расширяем область видимости метода
-      return 'Реализация метода в классе-потомке concrete_class_2'.'<br>';
-   }
-//Расширяем область видимости метода и добавляем ему один необязательный параметр 
-  public function get_name($first_name, $last_name=' Иванов '){ 
-      return "{$first_name} {$last_name}".'<br>';   
-   }
+interface my_intf_3 extends my_intf_1, my_intf_2{ //Расширяем интерфейс
+   public function my_func_3();         //Метод без аргументов
 }
  
-$obj_1 = new concrete_class_1;        //Создаем экземпляр первого класса-потомка
-echo $obj_1->common_method();
-echo $obj_1->get_name(' Иван ');
+interface my_intf_4{                    //Объявляем еще один интерфейс
+   const c_4="Константа интерфейса 4";  //Объявляем константу интерфейса
+}
  
-$obj_2 = new concrete_class_2;        //Создаем экземпляр второго класса-потомка
-echo $obj_2->common_method();
-echo $obj_2->get_name(' Петр ');      //Используется значение по умолчанию
-echo $obj_2->get_name(' Петр ', ' Сидоров');
-?>
+ 
+class my_class implements my_intf_3, my_intf_4{//Реализуем расширенный интерфейс
+   const c_2="Константа класса";        //Объявляем константу класса
+  public function my_func_1($a, $b){    //Реализуем первый метод
+         return $a+$b;    
+        }
+         
+  public function my_func_2($d){        //Реализуем второй метод
+        echo $this->my_func_1($d,5).'<br>';  
+       }
+        
+  public function my_func_3(){          //Реализуем третий метод
+        $this->my_func_4();  
+       }
+        
+  private function my_func_4(){         //Объявляем закрытый метод класса
+        echo 'Строка из my_func_4'.'<br>';  
+       }  
+}
+ 
+$obj= new my_class();      
+$obj->my_func_2(5);                      //Выведет '10'
+$obj->my_func_3();                       //Выведет 'Строка из my_func_4'
+echo $obj::c_1.'<br>'.$obj::c_4.'<br>'.$obj::c_2; //Выведет все константы
+?> 
