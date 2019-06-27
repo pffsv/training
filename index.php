@@ -1,43 +1,63 @@
 <?php
-interface my_intf_1{                    //Объявляем первый интерфейс
-   const c_1="Константа интерфейса 1";  //Объявляем константу интерфейса
-  public function my_func_1($a, $b);    //Метод должен принимать 2 аргумента
+trait tr_1{         //Трейты объявляются при помощи служебного слова trait
+  public $var_tr_1='Свойство 1-го трейта';//Объявили свойство трейта
+  public function func_tr_1(){            //Объявили метод трейта
+    echo 'Метод 1-го трейта'.'<br>';
+  }
+}
+trait tr_2{                               //Объявили второй трейт
+  static $var_tr_2='Статическое свойство 2-го трейта '; 
+  public static function func_tr_2(){     //Объявили статический метод трейта
+    echo 'Статический метод 2-го трейта'.'<br>';
+  }
+}
+trait tr_3{                               //Объявили третий трейт
+  use tr_1, tr_2;                         //Подключаем первый и второй трейты
+  public abstract function func_tr_3();   //Объявили абстрактный метод трейта
+}
+trait tr_4{                               //Объявили четвертый трейт
+  public abstract function func_tr_4();   //Объявили абстрактный метод трейта
 }
  
-interface my_intf_2{                    //Объявляем второй интерфейс
-   public function my_func_2($d);       //Метод должен принимать 1 аргумент
+class base_class_1{                       //Объявили первый класс
+  use tr_1;                               //Подключаем первый трейт
+  public function func_bs_cl_1(){         //Объявили метод первого класса
+    echo 'Метод класса base_class_1'.'<br>';
+  }
+}
+class child_class_1 extends base_class_1{//Объявили класс-потомок первого класса
+  use tr_2;                              //Подключаем второй трейт 
+  public function func_cld_cl_1(){       //Объявили метод класса
+    echo 'Метод класса-потомка child_class_1'.'<br>';
+  }
 }
  
-interface my_intf_3 extends my_intf_1, my_intf_2{ //Расширяем интерфейс
-   public function my_func_3();         //Метод без аргументов
+class base_class_2{                       //Объявили второй класс
+  public $var_bs_cl_2='Св-во 2-го класса';//Объявили свойство второго класса
+  use tr_3,tr_4;                          //Подключаем третий и четвертый трейты
+  public function func_tr_3(){            //Абстр. метод должен быть реализован
+    echo 'Реализация абстр. метода func_tr_3'.'<br>';
+  }
+  public function func_tr_4(){            //Абстр. метод должен быть реализован
+    echo 'Реализация абстр. метода func_tr_4'.'<br>';
+  }
 }
  
-interface my_intf_4{                    //Объявляем еще один интерфейс
-   const c_4="Константа интерфейса 4";  //Объявляем константу интерфейса
-}
+$obj_cld_cl_1=new child_class_1();//Создали объект класса-потомка child_class_1
+$obj_cld_cl_1->func_tr_1();       //Выведет 'Метод 1-го трейта'
+$obj_cld_cl_1::func_tr_2();       //Выведет 'Статический метод 2-го трейта'
+$obj_cld_cl_1->func_bs_cl_1();    //Выведет 'Метод класса base_class_1'
+$obj_cld_cl_1->func_cld_cl_1();   //Выведет 'Метод класса-потомка child_class_1'
+echo $obj_cld_cl_1->var_tr_1.'<br>'; //Выведет 'Свойство 1-го трейта'
+echo $obj_cld_cl_1::$var_tr_2.'<br>';//Выведет 'Статическое свойство 2-го трейта'
  
- 
-class my_class implements my_intf_3, my_intf_4{//Реализуем расширенный интерфейс
-   const c_2="Константа класса";        //Объявляем константу класса
-  public function my_func_1($a, $b){    //Реализуем первый метод
-         return $a+$b;    
-        }
-         
-  public function my_func_2($d){        //Реализуем второй метод
-        echo $this->my_func_1($d,5).'<br>';  
-       }
-        
-  public function my_func_3(){          //Реализуем третий метод
-        $this->my_func_4();  
-       }
-        
-  private function my_func_4(){         //Объявляем закрытый метод класса
-        echo 'Строка из my_func_4'.'<br>';  
-       }  
-}
- 
-$obj= new my_class();      
-$obj->my_func_2(5);                      //Выведет '10'
-$obj->my_func_3();                       //Выведет 'Строка из my_func_4'
-echo $obj::c_1.'<br>'.$obj::c_4.'<br>'.$obj::c_2; //Выведет все константы
+$obj_bs_cl_2=new base_class_2();  //Создали объект класса base_class_2
+$obj_bs_cl_2->func_tr_3();        //Выведет 'Реализация абстр. метода func_tr_3'
+$obj_bs_cl_2->func_tr_4();        //Выведет 'Реализация абстр. метода func_tr_4'
+echo $obj_bs_cl_2->var_bs_cl_2.'<br>';//Выведет 'Св-во 2-го класса'
+  /* Плюс свойства и методы всех подключенных ко второму классу трейтов */
+$obj_bs_cl_2->func_tr_1();        //Выведет 'Метод 1-го трейта'
+$obj_bs_cl_2::func_tr_2();        //Выведет 'Статический метод 2-го трейта'
+echo $obj_bs_cl_2->var_tr_1.'<br>';//Выведет 'Свойство 1-го трейта'
+echo $obj_bs_cl_2::$var_tr_2;     //Выведет 'Статическое свойство 2-го трейта'
 ?> 
