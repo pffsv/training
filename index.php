@@ -1,63 +1,58 @@
 <?php
-trait tr_1{         //Трейты объявляются при помощи служебного слова trait
-  public $var_tr_1='Свойство 1-го трейта';//Объявили свойство трейта
-  public function func_tr_1(){            //Объявили метод трейта
-    echo 'Метод 1-го трейта'.'<br>';
+trait tr_1{         
+  public $var_tr_1='Св-во трейта';   //Объявили свойство трейта
+  public function func_a(){          //Объявили метод трейта
+    echo 'Метод func_a 1-го трейта'.'<br>';
+  }
+  public function func_b(){          //Объявили метод трейта
+    echo 'Метод func_b 1-го трейта'.'<br>';
   }
 }
-trait tr_2{                               //Объявили второй трейт
-  static $var_tr_2='Статическое свойство 2-го трейта '; 
-  public static function func_tr_2(){     //Объявили статический метод трейта
-    echo 'Статический метод 2-го трейта'.'<br>';
+trait tr_2{                          //Объявили второй трейт
+  public function func_a(){          //Имя используется и в tr_1
+    echo 'Метод func_a 2-го трейта'.'<br>';
   }
-}
-trait tr_3{                               //Объявили третий трейт
-  use tr_1, tr_2;                         //Подключаем первый и второй трейты
-  public abstract function func_tr_3();   //Объявили абстрактный метод трейта
-}
-trait tr_4{                               //Объявили четвертый трейт
-  public abstract function func_tr_4();   //Объявили абстрактный метод трейта
-}
- 
-class base_class_1{                       //Объявили первый класс
-  use tr_1;                               //Подключаем первый трейт
-  public function func_bs_cl_1(){         //Объявили метод первого класса
-    echo 'Метод класса base_class_1'.'<br>';
+  public function func_b(){          //Имя используется и в tr_1
+    echo 'Метод func_b 2-го трейта'.'<br>';
   }
-}
-class child_class_1 extends base_class_1{//Объявили класс-потомок первого класса
-  use tr_2;                              //Подключаем второй трейт 
-  public function func_cld_cl_1(){       //Объявили метод класса
-    echo 'Метод класса-потомка child_class_1'.'<br>';
+  public function func_c(){          //Еще один метод 2-го трейта
+    echo 'Метод func_c 2-го трейта'.'<br>';
   }
 }
  
-class base_class_2{                       //Объявили второй класс
-  public $var_bs_cl_2='Св-во 2-го класса';//Объявили свойство второго класса
-  use tr_3,tr_4;                          //Подключаем третий и четвертый трейты
-  public function func_tr_3(){            //Абстр. метод должен быть реализован
-    echo 'Реализация абстр. метода func_tr_3'.'<br>';
-  }
-  public function func_tr_4(){            //Абстр. метод должен быть реализован
-    echo 'Реализация абстр. метода func_tr_4'.'<br>';
+class base_class{                     //Объявили класс
+// public $var_tr_1='Свойство класса';//Ошибка, свойство уже определено в трейте
+  use tr_1, tr_2{
+    tr_1::func_a insteadof tr_2;      //Будем использовать метод первого трейта
+    tr_1::func_a as protected;        //Переопределяем его на protected 
+    tr_2::func_b insteadof tr_1;      //Будем использовать метод второго трейта
+    tr_2::func_a as protected func_a_2;//Метод 2-го трейта используем под именем
+  }                                   //func_a_2 с областью видимости protected
+  public function func_c(){           //Объявили собственный метод класса
+                                      //который переопределит метод 2-го трейта
+    echo 'Метод класса base_class'.'<br>';
   }
 }
  
-$obj_cld_cl_1=new child_class_1();//Создали объект класса-потомка child_class_1
-$obj_cld_cl_1->func_tr_1();       //Выведет 'Метод 1-го трейта'
-$obj_cld_cl_1::func_tr_2();       //Выведет 'Статический метод 2-го трейта'
-$obj_cld_cl_1->func_bs_cl_1();    //Выведет 'Метод класса base_class_1'
-$obj_cld_cl_1->func_cld_cl_1();   //Выведет 'Метод класса-потомка child_class_1'
-echo $obj_cld_cl_1->var_tr_1.'<br>'; //Выведет 'Свойство 1-го трейта'
-echo $obj_cld_cl_1::$var_tr_2.'<br>';//Выведет 'Статическое свойство 2-го трейта'
+class child_class extends base_class{ //Объявили класс-потомок
+  public function func_d(){     //Объявили собственный метод класса-потомка
+    parent::func_a();           //Вызываем метод родительского класса
+  }
+  public function func_e(){     //Объявили еще один метод класса-потомка
+    parent::func_a_2();         //Вызываем метод родительского класса
+  }
+  public function func_b(){     //Переопределяем метод родительского класса
+    echo 'Метод класса child_class'.'<br>';  
+  }
+}
  
-$obj_bs_cl_2=new base_class_2();  //Создали объект класса base_class_2
-$obj_bs_cl_2->func_tr_3();        //Выведет 'Реализация абстр. метода func_tr_3'
-$obj_bs_cl_2->func_tr_4();        //Выведет 'Реализация абстр. метода func_tr_4'
-echo $obj_bs_cl_2->var_bs_cl_2.'<br>';//Выведет 'Св-во 2-го класса'
-  /* Плюс свойства и методы всех подключенных ко второму классу трейтов */
-$obj_bs_cl_2->func_tr_1();        //Выведет 'Метод 1-го трейта'
-$obj_bs_cl_2::func_tr_2();        //Выведет 'Статический метод 2-го трейта'
-echo $obj_bs_cl_2->var_tr_1.'<br>';//Выведет 'Свойство 1-го трейта'
-echo $obj_bs_cl_2::$var_tr_2;     //Выведет 'Статическое свойство 2-го трейта'
-?> 
+$obj_bs_cl=new base_class();    //Создали объект класса base_class
+$obj_bs_cl->func_b();           //Выведет 'Метод func_b 2-го трейта '
+$obj_bs_cl->func_c();           //Выведет 'Метод класса base_class '
+ 
+$obj_cld_cl=new child_class();  //Создали объект класса-потомка 
+$obj_cld_cl->func_b();          //Выведет 'Метод класса child_class '
+$obj_cld_cl->func_d();          //Выведет 'Метод func_a 1-го трейта '
+$obj_cld_cl->func_e();          //Выведет 'Метод func_a 2-го трейта '
+$obj_cld_cl->func_c();          //Выведет 'Метод класса base_class '
+?>
