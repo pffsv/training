@@ -1,32 +1,54 @@
 <?php
-trait tr_5_minus{                  //Создаем трейт
-  public function _5_minus($n){    //Определяем один метод
-    echo $this->m-$n.'<br>'; 
+ 
+//Объявили абстрактный класс
+abstract class abstract_class{                 
+  //Абстрактный, т.е. без реализации
+  abstract protected function return_value(); 
+  //Абстрактный, т.е. 'пустой'
+  abstract protected function get_name($name);
+ 
+  //Обычный общий метод наследуемый
+  public function common_method(){        
+    //всеми классами-потомками
+    return  $this->return_value();      
   }
 }
  
-interface int_5_mult{              //Создаем интерфейс
-  public function _5_plus($n);     //Задаем шаблон метода
+class concrete_class_1 extends abstract_class{
+   //Реализуем (заполняем) метод
+   protected function return_value() {    
+       return 'Реализация метода в классе-потомке concrete_class_1'.'<br>';
+   }
+   
+   //Расширяем область видимости метода
+   public function get_name($first_name){ 
+       return "{$first_name}".'<br>';
+   }
 }
  
-$obj_5=new class(5) implements int_5_mult{ //Создаем объект анонимного класса
-  use tr_5_minus;                  //Подключаем интерфейс
-  public $m;                       //Объявляем свойство класса
-   
-  function __construct($arg){      //Объявляем конструктор класса
-    $this->m=$arg;                 //Устанавливает первый член операций 
-  }
-   
-  public function _5_plus($n){     //Реализуем интерфейс
-    echo $this->m+$n.'<br>'; 
-  }
-   
-  public function _5_mult($n){     //Создаем собственный метод
-    echo $this->m*$n.'<br>'; 
-  }
-};                                 //Не забываем про точку с запятой!!!
+class concrete_class_2 extends abstract_class{
+  //Расширяем область видимости метода
+  public function return_value(){       
+       return 'Реализация метода в классе-потомке concrete_class_2'.'<br>';
+   }
  
-$obj_5->_5_minus(6);               //Выведет '-1'
-$obj_5->_5_plus(6);                //Выведет '11'
-$obj_5->_5_mult(6);                //Выведет '30'
-?> 
+  //Расширяем область видимости метода и добавляем 1 необязательный параметр 
+  public function get_name($first_name, $last_name=' Иванов '){ 
+       return "{$first_name} {$last_name}".'<br>';    
+   }
+}
+ 
+//Создаем экземпляр первого класса-потомка
+$obj_1 = new concrete_class_1;        
+echo $obj_1->common_method();
+echo $obj_1->get_name(' Иван ');
+ 
+//Создаем экземпляр второго класса-потомка
+$obj_2 = new concrete_class_2;        
+echo $obj_2->common_method();
+ 
+//Используется значение по умолчанию
+echo $obj_2->get_name(' Петр ');      
+echo $obj_2->get_name(' Петр ', ' Сидоров');
+ 
+?>
