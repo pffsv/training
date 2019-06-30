@@ -1,54 +1,64 @@
 <?php
  
-//Объявили абстрактный класс
-abstract class abstract_class{                 
-  //Абстрактный, т.е. без реализации
-  abstract protected function return_value(); 
-  //Абстрактный, т.е. 'пустой'
-  abstract protected function get_name($name);
+//Объявляем первый интерфейс
+interface my_intf_1{                    
+  //Объявляем константу интерфейса
+  const c_1="Константа интерфейса 1"; 
+  //Метод должен принимать 2 аргумента
+  public function my_func_1($a, $b);    
+}
  
-  //Обычный общий метод наследуемый
-  public function common_method(){        
-    //всеми классами-потомками
-    return  $this->return_value();      
+//Объявляем второй интерфейс
+interface my_intf_2{                    
+   //Метод должен принимать 1 аргумент
+   public function my_func_2($d);       
+}
+ 
+//Расширяем интерфейс
+interface my_intf_3 extends my_intf_1, my_intf_2{ 
+   //Метод без аргументов
+   public function my_func_3();         
+}
+ 
+//Объявляем еще один интерфейс
+interface my_intf_4{                    
+   //Объявляем константу интерфейса
+   const c_4="Константа интерфейса 4";  
+}
+ 
+ 
+//Реализуем расширенный интерфейс
+class my_class implements my_intf_3, my_intf_4{
+  //Объявляем константу класса
+  const c_2="Константа класса";       
+  //Реализуем первый метод
+  public function my_func_1($a, $b){    
+    return $a+$b;   
   }
+ 
+  //Реализуем второй метод
+  public function my_func_2($d){        
+    echo $this->my_func_1($d,5).'<br>';  
+  }
+ 
+  //Реализуем третий метод
+  public function my_func_3(){          
+    $this->my_func_4();  
+  }
+ 
+  //Объявляем закрытый метод класса
+  private function my_func_4(){         
+    echo 'Строка из my_func_4'.'<br>';  
+  } 
 }
  
-class concrete_class_1 extends abstract_class{
-   //Реализуем (заполняем) метод
-   protected function return_value() {    
-       return 'Реализация метода в классе-потомке concrete_class_1'.'<br>';
-   }
-   
-   //Расширяем область видимости метода
-   public function get_name($first_name){ 
-       return "{$first_name}".'<br>';
-   }
-}
+$obj= new my_class();      
  
-class concrete_class_2 extends abstract_class{
-  //Расширяем область видимости метода
-  public function return_value(){       
-       return 'Реализация метода в классе-потомке concrete_class_2'.'<br>';
-   }
+//Выведет '10'
+$obj->my_func_2(5);                      
+//Выведет 'Строка из my_func_4'
+$obj->my_func_3();                       
+//Выведет все константы
+echo $obj::c_1.'<br>'.$obj::c_4.'<br>'.$obj::c_2; 
  
-  //Расширяем область видимости метода и добавляем 1 необязательный параметр 
-  public function get_name($first_name, $last_name=' Иванов '){ 
-       return "{$first_name} {$last_name}".'<br>';    
-   }
-}
- 
-//Создаем экземпляр первого класса-потомка
-$obj_1 = new concrete_class_1;        
-echo $obj_1->common_method();
-echo $obj_1->get_name(' Иван ');
- 
-//Создаем экземпляр второго класса-потомка
-$obj_2 = new concrete_class_2;        
-echo $obj_2->common_method();
- 
-//Используется значение по умолчанию
-echo $obj_2->get_name(' Петр ');      
-echo $obj_2->get_name(' Петр ', ' Сидоров');
- 
-?>
+?> 
