@@ -1,38 +1,49 @@
 <?php
  
-class my_class{
+class A{
+  public static function my_func_1(){
+      echo 'Класс А'.'<br>';
+   }
+    
+   public static function my_func_2(){
+      self::my_func_1();
+   }
+}
  
-  //Определяем частный метод
-  private function my_func(){ 
-    echo 'Получен доступ к частной функции!'.'<br>';
-  }
-   
-  //Определяем статический частный метод
-  private static function static_func(){//
-    echo 'Получен доступ к статической частной функции!'.'<br>';
-  }
-   
-  //Определяем метод перегрузки  
-  public function __call($name, $arguments){
-    $this->my_func(); 
-        
-  }
-   
-  //Определяем метод перегрузки в статическом контексте
-  public static function __callStatic($name, $arguments){
-    self::static_func();  
+class B extends A {
+  //Переопределяем метод
+  public static function my_func_1(){ 
+    echo 'Класс B'.'<br>';
   }
 }
  
-//Создаем объект класса my_class
-$obj_1=new my_class();      
+//Выведет 'Класс А', т.к. функция my_func_2 использует
+//статическую ссылку self::, которая использует область видимости
+//того класса, в котором она была определена, а не используется
+B::my_func_2();   
             
-//Выведет строку функции my_func() благодаря 
-//определению в классе метода перегрузки __call()
-echo $obj_1->my_func();     
  
-//Выведет строку функции my_func() благодаря 
-//наличию метода перегрузки __callStatic()
-echo $obj_1::static_func(); 
+//Используем позднее статическое связывание          
+class C{
+  public static function my_func_1(){
+      echo 'Класс C';
+   }
+    
+   public static function my_func_2(){
+      static::my_func_1();
+   }
+}
+ 
+class D extends C {
+  //Переопределяем метод
+  public static function my_func_1(){ 
+    echo 'Класс D';
+  }
+}
+ 
+//Выведет 'Класс D', т.к. функция my_func_2 использует позднее
+//статическое связывание при помощи ссылки static::, которая использует 
+//область видимости класса, в котором она используется, а не определена
+D::my_func_2();
  
 ?> 
