@@ -1,49 +1,39 @@
 <?php
  
-class A{
-  public static function my_func_1(){
-      echo 'Класс А'.'<br>';
-   }
-    
-   public static function my_func_2(){
-      self::my_func_1();
-   }
-}
+//Здесь объявлять ничего нельзя и перед тегом '<?php' тоже 
+//const my_const = 1;   
  
-class B extends A {
-  //Переопределяем метод
-  public static function my_func_1(){ 
-    echo 'Класс B'.'<br>';
+//Использовать инструкцию declare разрешается
+declare(strict_types=1);
+ 
+//Объявили пространство имен
+namespace myStore{      
+ 
+  //Объявили константу в пространстве имен myStore
+  const my_const = 1;     
+ 
+  //Объявили класс в пространстве имен myStore
+  class my_class{        
+    public $a=2;
   }
-}
  
-//Выведет 'Класс А', т.к. функция my_func_2 использует
-//статическую ссылку self::, которая использует область видимости
-//того класса, в котором она была определена, а не используется
-B::my_func_2();   
-            
- 
-//Используем позднее статическое связывание          
-class C{
-  public static function my_func_1(){
-      echo 'Класс C';
-   }
-    
-   public static function my_func_2(){
-      static::my_func_1();
-   }
-}
- 
-class D extends C {
-  //Переопределяем метод
-  public static function my_func_1(){ 
-    echo 'Класс D';
+  //Объявили функцию в пространстве имен myStore
+  function my_function(){ 
+    echo 3;
   }
-}
  
-//Выведет 'Класс D', т.к. функция my_func_2 использует позднее
-//статическое связывание при помощи ссылки static::, которая использует 
-//область видимости класса, в котором она используется, а не определена
-D::my_func_2();
+  //Выведет 1
+  echo my_const.'<br>';   
  
-?> 
+  $b = new my_class;
+  //Выведет 2
+  echo $b->a.'<br>';      
+  //Выведет 3
+  my_function();          
+ 
+} //Конец области данного пространства имен
+ 
+//Здесь и после тега '?&gt;' тоже нельзя ничего объявлять 
+//$f=5; 
+                 
+?>
