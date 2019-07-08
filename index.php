@@ -1,82 +1,73 @@
 <?php
  
-//Объявили пространство имен
-namespace current_name_space{    
-  //Объявили константу в текущем пространстве имен 
-  const my_const = 1;    
+namespace{
+  //Объявляем константы в глобальном пространстве
+  const my_const = 'global constant';
+  const my_const_2 = 'global constant_2';
    
-  //Обратимся к константе из текущего пространства имен
+  //Объявляем функцию в глобальном пространстве
+  function global_function(){
+    echo 'global function'.'<br>';
+  }
    
-  //PHP дополнит неполное имя до полного current_name_space\my_const 
-  //выведет 1
-  echo my_const.'<br>';  
-   
-  //PHP использует полное имя current_name_space\my_const 
-  //выведет 1
-  echo \current_name_space\my_const.'<br>'; 
-   
-  //PHP преобразует в current_name_space\current_name_space\my_const 
-  //выведет ошибку
-  //echo current_name_space\my_const.'<br>';
-}
- 
-//Объявили подпространство имен
-namespace current_name_space\myStore{ 
-  //Объявили константу в current_name_space\myStore
-  const my_const = 2;    
-   
-  //Объявили класс в current_name_space\myStore
-  class my_class{        
-    function my_method(){
-      echo my_const.'<br>';
+  //Объявляем класс в глобальном пространстве
+  class global_class{
+    static function global_method(){
+      echo 'global method'.'<br>';
     }
   }
    
-  //Создали объект класса
-  $a=new my_class;       
+  //Выведет 'global constant'
+  echo my_const.'<br>';                    
    
-  //Обратимся к константе и методу из текущего пространства имен 
+  //А вот здесь будет ошибка, т.к. константа еще не определена
+  //echo current_name_space\my_const.'<br>'; 
    
-  //PHP дополнит неполное имя до полного current_name_space\myStore\my_const 
-  //выведет 2
-  echo my_const.'<br>';  
-   
-  //PHP преобразует в полное имя current_name_space\myStore\my_const 
-  //выведет 2
-  echo \current_name_space\myStore\my_const.'<br>';
-   
-  //PHP просто вызовет метод, т.к. переменные не зависят от пространства имен 
-  //выведет 2
-  $a->my_method();       
-   
-  //вызовет ошибку, т.к. к переменным пространства имен не применяются
-  //\current_name_space\myStore\a->my_method();
+  //Выведет 'global function'
+  global_function();                       
+  //Выведет 'current function'
+  current_name_space\current_function();    
+  //Выведет 'global method'
+  global_class::global_method();           
 }
  
-namespace{
-  //Выведет ошибку, т.к. в глобальном пространстве my_const не определена
-  //echo my_const.'<br>';
-   
+ 
+//Объявили пространство имен
+namespace current_name_space{              
+  //Объявляем константу в текущем пространстве имен 
+  const my_const = 'current_constant';    
+     
   //PHP обратится к current_name_space\my_const 
-  //выведет 1
-  echo current_name_space\my_const.'<br>';
+  //Выведет 'current_constant'
+  echo my_const.'<br>';                    
    
-  //PHP опять обратится к current_name_space\my_const 
-  //выведет 1
-  echo \current_name_space\my_const.'<br>';
+  //PHP использует абсолютное имя \my_const 
+  //Выведет 'global constant'
+  echo \my_const.'<br>';                   
    
-  //PHP обратится к current_name_space\myStore\my_const 
-  //выведет 2
-  echo current_name_space\myStore\my_const.'<br>';
+  //Здесь PHP не найдет константы, поэтому перейдет к глобальному пространству
+  //Выведет 'global constant_2'
+  echo my_const_2.'<br>';                  
+     
+  function current_function(){
+    echo 'current function'.'<br>';
+  }
+     
+  //Вызываем функцию current_name_space\current_function()
+  //Выведет 'current function'
+  current_function();                       
    
-  //PHP опять обратится к current_name_space\myStore\my_const 
-  //выведет 2
-  echo \current_name_space\myStore\my_const.'<br>';
+  //Вызываем глобальную функцию \global_function()
+  //Выведет 'global function'
+  \global_function();                      
    
-  //PHP просто вызовет метод, т.к. переменные не зависят от пространства имен
-  //А вот если бы метод был объявлен статическим, тогда к нему можно было бы 
-  //обратиться как current_name_space\myStore\my_class::my_method()
-  $a->my_method();//выведет 2
+  //Имена классов всегда преобразуются к текущему имени пространства имен
+  //Выведет ошибку
+  //global_class::global_method();         
+   
+  //А вот здесь все правильно, PHP воспользуется абсолютным адресом
+  //Выведет 'global method'
+  \global_class::global_method();          
 }
  
 ?>
