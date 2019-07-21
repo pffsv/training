@@ -8,9 +8,11 @@ $servername = "localhost";
 $username = "administrator"; 
 //Не забываем про пароль
 $password = "12345";
+//Указываем базу данных, к которой будем  подключаться
+$db_name = "belarusweb_users";
  
 //Создаем объект соединения с MySQL 
-$conn = new mysqli ($servername, $username, $password);
+$conn = new mysqli ($servername, $username, $password, $db_name);
  
 //Если произойдет ошибка соединения, то выведем строку с описанием последней 
 //ошибки подключения, использовав свойство объекта mysqli->connect_error 
@@ -20,28 +22,36 @@ if ($conn->connect_error){
   echo "Ошибка соединения с сервером MySQL: ".$conn->connect_error."<br>";
   //Функция die() выводит сообщение и прекращает выполнение текущего скрипта  
   die("Соединение установлено не было.");
-} 
+}
  
 //Установим кодировку данных для данного соединения с MySQL, чтобы не было 
 //проблем с отображением русских символов.
 $conn->set_charset("utf8");
  
-//Cоздаем основную учебную базу данных (имя в кавычки брать не нужно)
-//Не забываем задать кодировку символов, используемую в ней
-$sql_1 = "create database belarusweb_users CHARACTER SET utf8"; 
+//Cоздаем таблицу our_users (имя в кавычки брать не нужно)
+//В скобках перечисляем имена столбцов, а также через пробел их характеристики
+$sql = "create table our_users(".
+      "ID INT(5) UNSIGNED PRIMARY KEY AUTO_INCREMENT,".
+      "first_name VARCHAR(25) NOT NULL,".
+      "last_name VARCHAR(25) NOT NULL,".
+      "age INT(2) NOT NULL,".
+      "sex VARCHAR(8) NOT NULL,".
+      "reg_mail VARCHAR(40) NOT NULL,".
+      "reg_date TIMESTAMP NOT NULL".
+      ") CHARACTER SET utf8";  
  
 //Выполняем запрос и если он прошел успешно, сообщаем об успехе
-if ($conn->query($sql_1) === true){
-  echo "База данных belarusweb_users создана.<br>";     
+if ($conn->query($sql) === true){
+  echo "Таблица успешно создана.<br>";     
 } else {
-  //Иначе прекращаем выполнение скрипта и выводим строку с описанием ошибки
-  echo "Ошибка создания базы данных: ".$conn->error.".";   
+  //Прекращаем выполнение скрипта и выводим строку с описанием ошибки
+  echo "Ошибка создания таблицы: ".$conn->error.".";   
   //Т.к. соединение нам пока не нужно, закрываем его
   $conn->close();
   //Функция die() прекращает дальнейшее выполнение текущего скрипта 
   die();
 }
  
-//Т.к. соединение нам пока не нужно, закрываем его
+//Т.к. больше соединение нам пока не нужно, закрываем его
 $conn->close();   
 ?>
