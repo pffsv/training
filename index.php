@@ -1,19 +1,17 @@
-<?php
-echo '-------- fileperms()  -------- <br><br>';
- 
-//fileperms()- возвращает информацию о правах доступа в виде 10-го 
-//числа (или false). После перевода в восьмеричное число, последние  
-//4 цифры будут содержать сведения о правах доступа, а также 
-//(на большинстве платформ) инф-цию о типе файла. Например, для файла 
-//test_2.php на рис. 9.1 получим 33188 или в 8-й 100644
-echo substr(decoct(fileperms('test_2.php')), -4); //Выведет 0644
-echo '<br><br>'; 
- 
- 
-echo '-------- chmod()  -------- <br><br>';
- 
-//chmod() - изменяет режим доступа к файлу и возвращает true|false 
-chmod('test_2.php', 0777); //Разрешили всем все права
-chmod('test_2.php', 0744); //Владельцу все, остальным только чтение
-chmod('test_2.php', 0755); //Владельцу все, остальным чтение и запись
-?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">  
+  <title>Отправка простых текстовых данных</title>
+</head>
+<body>
+  <form action="example_10_2.php" method="POST" name="form_10_1"> 
+    Введите имя  &nbsp; <input type="text" name="firstName"><br><br>
+    Введите фамилию  &nbsp; <input type="text" name="lastName"><br><br>
+    Предпочитаете &nbsp; 
+     <input type="radio" name="user_choice" value="овощи" checked>овощи &nbsp; 
+     <input type="radio" name="user_choice" value="фрукты">фрукты<br><br>
+    <button type="submit" name="submit" value="send">Отправить</button>
+  </form>
+</body>
+</html>
