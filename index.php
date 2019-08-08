@@ -1,20 +1,22 @@
 <?php 
  
-//Локальные и глобальные переменные
+//Правила записи имен 
+$a=1;         
+$B=2; 
+$b=3;
+$first.number=4;
+$firstNumberOf=5;       
  
-$a=1;
+function m_func(){           
+  $_local=1;
+  $locAl=2;
+  $local_var=3;
+  $10_local_var=4;
+  $local_Var=5;
+  $local Var=6;
+} 
  
-//Объявили новую пользовательскую функцию m_func()
-function m_func(){              
-  $b=2; 
-  echo $a;
+function 5_func(){           
+  $___a_A=10;
 }            
  
-$c=3;
-    
-echo $a.'<br>'; 
-echo $b.'<br>';                 
-echo $c;
-m_func(); 
- 
-?>
