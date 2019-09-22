@@ -3,25 +3,25 @@
 //Объявили класс
 class my_class{           
   //Создаем числовую константу
-  const baskets=7;       
-  //Объявили, но неинициализировали свойство класса
-  public $mass;          
+  const my_const=10;     
+  //Объявили и сразу инициализировали свойство класса
+  static public $my_var=15;    
  
-  //Метод класса выводит сумму константы и свойства класса
-  function product_mass(){   
-    //Ключевое слово $this ссылается на сам объект
-    return $this::baskets*$this->mass;   
+  //Метод класса
+  function my_method(){        
+    //Выводим строку на экран
+    echo 'Я создал свой класс!'.'<br>';     
   } 
-}
+ }
    
 //Создали экземпляр класса, т.е. объект
-$apples=new my_class();  
-//Выведет 7
-echo 'Количество корзин '.$apples::baskets.'<br>';         
-                
-//Пусть в корзину влазит 10кг яблок
-$apples->mass=10;     
-//70кг
-echo 'Всего вместится '.$apples->product_mass().'кг яблок';   
+$my_object=new my_class();     
+//Выведет 'Я создал свой класс!'
+$my_object->my_method();       
+                 
+//Присваиваем сумму переменной
+$sum=$my_object::$my_var+$my_object::my_const;  
+//Выведет 25
+echo $sum;               
  
 ?>
