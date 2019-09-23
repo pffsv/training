@@ -3,25 +3,37 @@
 //Объявили класс
 class my_class{           
   //Создаем числовую константу
-  const my_const=10;     
-  //Объявили и сразу инициализировали свойство класса
-  static public $my_var=15;    
+  const baskets=7;       
+  //Объявили, но неинициализировали свойство класса
+  public $mass;          
  
-  //Метод класса
-  function my_method(){        
-    //Выводим строку на экран
-    echo 'Я создал свой класс!'.'<br>';     
+  function product_mass(){ 
+    //$this ссылается на сам объект
+    return $this::baskets*$this->mass;  
   } 
- }
+}
+  
+class my_class_2 extends my_class{
+  //Объявили, но неинициализировали свойство класса
+  public $price;          
+ 
+  function product_price(){ 
+    //$this ссылается на сам объект
+    return $this::baskets*$this->price;  
+  }   
+}
    
 //Создали экземпляр класса, т.е. объект
-$my_object=new my_class();     
-//Выведет 'Я создал свой класс!'
-$my_object->my_method();       
+$apples=new my_class_2();  
+//Выведет 7
+echo 'Количество корзин '.$apples::baskets.'<br>';        
                  
-//Присваиваем сумму переменной
-$sum=$my_object::$my_var+$my_object::my_const;  
-//Выведет 25
-echo $sum;               
+//Пусть в корзину влазит 10кг яблок
+$apples->mass=10;       
+echo 'Всего вместится '.$apples->product_mass().'кг яблок'.'<br>'; 
+ 
+//Пусть 1кг яблок стоит 1.5 у.е.
+$apples->price=1.5;     
+echo 'Стоимость составит '.$apples->product_price().' у.е.'; 
  
 ?>
