@@ -1,63 +1,34 @@
 <?php
  
-//Объявили класс
-class my_class{           
-  //Создаем числовую константу
-  const baskets=7;       
-  //Объявили, но неинициализировали свойство класса
-  public $mass;          
- 
-  function product_mass(){ 
-    //$this ссылается на сам объект
-    return $this::baskets*$this->mass;  
-  } 
+class parent_class{
+    
+   protected $p_1='Защищенное свойство ';   
+    
+   private $p_2='Закрытое свойство ';     
+     
+   public function parent_func(){
+    echo $this->p_2.'<br>';   
+    echo $this->p_1.'<br>';  
+   }
 }
   
-class my_class_2 extends my_class{
-  //Объявили, но неинициализировали свойство класса
-  public $price;          
- 
-  function product_price(){ 
-    //$this ссылается на сам объект
-    return $this::baskets*$this->price;  
-  }   
+class descendant_class extends parent_class{
+  private $p_1='p_var ';   
+  private $p_2='p_var ';     
+                               
+  function child_func(){     
+    echo $this->p_1.'<br>';   
+    echo $this->p_2.'<br>';  
+  }
 }
- 
-class my_class_3 extends my_class_2{
-  //Скидка в 20%
-  const sale=0.8;   
- 
-  function product_sale(){ 
-    //вычисляем общую стоимость
-    $start_price=parent::product_price();  
- 
-    //Если общая масса яблок больше 50кг,
-    if($this->product_mass()>50){    
-      //возвращаем цену со скидкой в 20%.
-      return $start_price*self::sale;    
-    //Иначе
-    }else{              
-      //без скидки
-      return $start_price;    
-    }
-  }   
-}
-   
-//Создали экземпляр класса, т.е. объект
-$apples=new my_class_3();  
-//Выведет 7
-echo 'Количество корзин '.$apples::baskets.'<br>';        
-                 
-//Пусть в корзину влазит 12кг яблок
-$apples->mass=12;          
-echo 'Всего вместится '.$apples->product_mass().'кг яблок'.'<br>'; 
- 
-//Пусть 1кг яблок стоит 1.6 у.е.
-$apples->price=1.6;        
-echo 'Стоимость без скидки составит '.$apples->product_price().' у.е.'.'<br>'; 
-echo 'Стоимость со скидкой составит '.$apples->product_sale().' у.е.';
- 
-/* Отметим, что в данном примере вместо parent и self 
-можно было использовать и $this */
+  
+$obj=new parent_class();         
+$obj_2=new descendant_class();   
+  
+$obj->parent_func();  
+echo $obj->p_2;     
+echo $obj_2->p_2;   
+$obj_2->child_func(); 
+echo $obj->p_1;     
  
 ?>
