@@ -1,34 +1,56 @@
 <?php
  
-class parent_class{
-    
-   protected $p_1='Защищенное свойство ';   
-    
-   private $p_2='Закрытое свойство ';     
-     
-   public function parent_func(){
-    echo $this->p_2.'<br>';   
-    echo $this->p_1.'<br>';  
-   }
-}
-  
-class descendant_class extends parent_class{
-  private $p_1='p_var ';   
-  private $p_2='p_var ';     
-                               
-  function child_func(){     
-    echo $this->p_1.'<br>';   
-    echo $this->p_2.'<br>';  
+//Объявили абстрактный класс
+abstract class abstract_class{                     
+  //Будет возвращать марку авто
+  abstract protected function return_car_name();  
+  //Будет возвращать цену авто
+  abstract protected function return_car_price(); 
+ 
+  //Обычный общий метод 
+  public function return_year($year){          
+    return "Год выпуска авто: {$year}";
   }
 }
   
-$obj=new parent_class();         
-$obj_2=new descendant_class();   
   
-$obj->parent_func();  
-echo $obj->p_2;     
-echo $obj_2->p_2;   
-$obj_2->child_func(); 
-echo $obj->p_1;     
+class bmw_car extends abstract_class{
+    
+  //Реализуем (заполняем) метод
+  public function return_car_name(){ 
+    return 'BMW';
+  }
+ 
+  //Расширяем область видимости метода
+  public function return_car_price(){ 
+    return 30000;
+  }
+}
+  
+  
+class ford_car extends abstract_class{
+    
+  //Реализуем (заполняем) метод
+  public function return_car_name() { 
+    return 'Ford';
+  }
+ 
+  //Расширяем область видимости метода
+  public function return_car_price(){  
+    return 20000;
+  }
+}
+  
+//Создаем экземпляр первого класса-потомка
+$bmw = new bmw_car;            
+echo $bmw->return_car_name().'<br>';
+echo $bmw->return_year(2003).'<br>';
+echo $bmw->return_car_price().'<br><br>';
+  
+//Создаем экземпляр второго класса-потомка
+$ford = new ford_car;          
+echo $ford->return_car_name().'<br>';
+echo $ford->return_year(2005).'<br>';
+echo $ford->return_car_price().'<br>';
  
 ?>
