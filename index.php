@@ -1,56 +1,33 @@
 <?php
  
-//Объявили абстрактный класс
-abstract class abstract_class{                     
-  //Будет возвращать марку авто
-  abstract protected function return_car_name();  
-  //Будет возвращать цену авто
-  abstract protected function return_car_price(); 
+//Объявляем первый интерфейс
+interface my_intf_1{                  
+  //Метод должен принимать 1 аргумент
+  public function my_func_1($a);     
+}
+  
+//Объявляем второй интерфейс
+interface my_intf_2{                  
+  //Метод должен принимать 1 аргумент
+  public function my_func_2($b);    
+}
+  
+//Реализуем интерфейсы в классе
+class my_class implements my_intf_1, my_intf_2{ 
+                      
+  //Реализуем первый метод
+  public function my_func_1($a){               
+    return $a;    
+  }
  
-  //Обычный общий метод 
-  public function return_year($year){          
-    return "Год выпуска авто: {$year}";
+  //Реализуем второй метод
+  public function my_func_2($b){               
+    return $b;
   }
 }
   
-  
-class bmw_car extends abstract_class{
-    
-  //Реализуем (заполняем) метод
-  public function return_car_name(){ 
-    return 'BMW';
-  }
+$obj= new my_class();          
+//Выведет '1'
+echo $obj->my_func_1(11)%$obj->my_func_2(10);   
  
-  //Расширяем область видимости метода
-  public function return_car_price(){ 
-    return 30000;
-  }
-}
-  
-  
-class ford_car extends abstract_class{
-    
-  //Реализуем (заполняем) метод
-  public function return_car_name() { 
-    return 'Ford';
-  }
- 
-  //Расширяем область видимости метода
-  public function return_car_price(){  
-    return 20000;
-  }
-}
-  
-//Создаем экземпляр первого класса-потомка
-$bmw = new bmw_car;            
-echo $bmw->return_car_name().'<br>';
-echo $bmw->return_year(2003).'<br>';
-echo $bmw->return_car_price().'<br><br>';
-  
-//Создаем экземпляр второго класса-потомка
-$ford = new ford_car;          
-echo $ford->return_car_name().'<br>';
-echo $ford->return_year(2005).'<br>';
-echo $ford->return_car_price().'<br>';
- 
-?>
+?> 
