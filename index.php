@@ -1,18 +1,27 @@
 <?php
  
-//Стартуем сессию
-session_start();  
- 
-//Проверяем, запущен ли счетчик
-if(isset($_SESSION['times'])){  
-  //увеличиваем его значение на единицу
-  $_SESSION['times']+=1; 
+//Проверяем существование файла .htaccess
+if(file_exists('.htaccess')){
+  echo 'Файл .htaccess уже существует!<br>';
 }else{
-  //иначе присваиваем счетчику начальное значение
-  $_SESSION['times']=1; 
+  //Пытаемся создать файл
+  if(touch('.htaccess')){
+    echo 'Файл .htaccess успешно создан!<br>';
+  }else{
+    echo 'Ошибка создания файла .htaccess!<br>';
+  }
 }
  
-//Выводим информацию на экран
-echo 'Количество посещений страницы: '.$_SESSION['times'];
+//Проверяем существование файла index.html
+if(file_exists('index.html')){
+  echo 'Файл index.html уже существует!';
+}else{
+  //Пытаемся создать файл
+  if(touch('index.html')){
+    echo 'Файл index.html успешно создан!';
+  }else{
+    echo 'Ошибка создания файла index.html!';
+  }
+}
  
-?>
+?> 
