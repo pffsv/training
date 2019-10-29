@@ -1,27 +1,26 @@
 <?php
  
-//Проверяем существование файла .htaccess
-if(file_exists('.htaccess')){
-  echo 'Файл .htaccess уже существует!<br>';
+//Записываем требуемое содержимое в переменную
+//Теперь php-код будет искаться и в таких файлах
+//А ошибки скриптов выводиться на экран
+$str=<<<HD
+AddType application/x-httpd-php .html .htm .js
+php_flag display_errors on
+HD;
+       
+//Добавляем строку в файл в режиме перезаписи
+//а если файл не существует, то сперва создаем его
+if(file_put_contents('.htaccess',$str)){ 
+  //Узнаем новый размер файла
+  $size=filesize('.htaccess');
+    
+  //Выведем обновленное содержимое на экран
+  echo 'Файл был успешно записан содержимым: '.'<br><br>';
+  //nl2br() вставляет <br> перед символами переноса строк
+  echo nl2br(file_get_contents('.htaccess')).'<br><br>';
+  echo 'Размер записанного файла: '.$size.' байт.<br>';
 }else{
-  //Пытаемся создать файл
-  if(touch('.htaccess')){
-    echo 'Файл .htaccess успешно создан!<br>';
-  }else{
-    echo 'Ошибка создания файла .htaccess!<br>';
-  }
-}
- 
-//Проверяем существование файла index.html
-if(file_exists('index.html')){
-  echo 'Файл index.html уже существует!';
-}else{
-  //Пытаемся создать файл
-  if(touch('index.html')){
-    echo 'Файл index.html успешно создан!';
-  }else{
-    echo 'Ошибка создания файла index.html!';
-  }
+  echo 'Какая-то ошибка, файл записан не был!'; 
 }
  
 ?> 
