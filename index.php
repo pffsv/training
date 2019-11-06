@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-   <meta charset="utf-8">  
-   <title>Загрузка файлов на сервер</title>
-</head>
-<body>
-   <form action="php/example_90.php" method="POST" enctype="multipart/form-data"> 
-    Введите имя  &nbsp; <input type="text" name="first_name"><br><br>
-    Введите фамилию  &nbsp; <input type="text" name="last_name"><br><br>
- 
-    Загрузите аватарку:<br><br>
-    <input type="file" name="avatar"><br><br>
+  <head>
+    <meta charset="utf-8">  
+    <title>Синтаксис CSS</title>
      
-    <button type="submit" name="submit" value="send">Отправить</button>
-    <button type="reset" name="reset" value="send">Сброс</button>
-   </form>
-</body>
+    <!-- Для записи правила CSS воспользуемся элементом 'style' -->
+     
+    <style>
+      /*-- Правило указывает браузеру, что он должен использовать для */
+      /* всех абзацев шрифт красного цвета полужирного начертания */
+      p{
+      color: red;
+      font-weight: bold;
+      }
+    </style>
+     
+  </head>
+  <body>
+    <p>
+      Мой текст имеет красный цвет и полужирное начертание.
+    </p>
+         
+    <p>
+      Текст всех абзацев, а не только твой!
+    </p>
+     
+    <div>
+      Ко мне это правило не относится, ведь я же не абзац.
+    </div>
+  </body>
 </html>
