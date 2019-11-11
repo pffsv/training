@@ -1,53 +1,10 @@
 <?php
-/*
-108.Магический метод __get
-
-1.Переделайте код этого класса так, чтобы
-вместо геттеров использовался магический метод __get.
-*/
-class User
-{
-private $name;
-private $age;
-
-public function __construct($name, $age)
-{
-$this->name = $name;
-$this->age = $age;
-}
-public function __get($property)
-{
-return $this->$property;
-}
-}
-$u = new User('Вася', 28);
-echo $u->name.' '.$u->age;// Вася 28
-/*
-2.Сделайте класс Date с публичными свойствами
-year (год), month (месяц) и day (день).
-С помощью магии сделайте свойство weekDay,
-которое будет возвращать день недели,
-соответствующий дате.
-*/
-class Date
-{
-public $year;
-public $month;
-public $day;
-
-public function __construct($year, $month, $day)
-{
-$this->year = $year;
-$this->month = $month;
-$this->day = $day;
-}
-public function __get($prop)
-{
-if ($prop == 'weekday') {
-return (new DateTime("$this->year-$this->month-$this->day"))->format('l');
-}
-}
-}
-echo (new Date(2019, 02, 03))->weekday;// Sunday
-
-?>	
+	//Укажем ключи в явном виде:
+	$a = [1=>'пн', 2=>'вт', 3=>'ср', 4=>'чт', 5=>'пт', 6=>'сб', 7=>'вс'];
+	echo $a[1]; //выведет 'пн'
+	//Можно не писать [], а просто присвоить значения его элементам:
+	$a[0] = 1;
+	$a[1] = 2;
+ 	$a[2] = 3;
+	var_dump($a); //с помощью var_dump убеждаемся в том, что $a – это массив
+?>
