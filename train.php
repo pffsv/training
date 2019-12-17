@@ -1,66 +1,44 @@
 <?php
 
 	/*
-60. Создайте абстрактный класс, который будет содержать два абстрактных защищенных метода 
-return_car_name() и return_car_price(), а также один обычный общедоступный метод return_year($year), 
-принимающий год выпуска автомобиля, а возвращающий строку "Год выпуска авто: {$year}". После оформления 
-абстрактного класса, создайте два класса-потомка bmw_car и ford_car. Абстрактный метод return_car_name() 
-после реализации должен возвращать строку с маркой автомобиля, а return_car_price(), соответственно, 
-его цену в виде числа. Создайте экземпляр первого класса и вызовите его методы, а затем повторите 
-тоже самое со вторым классом.
+61. Объявите два интерфейса, а в каждом из них по дному общедоступному методу. 
+Реализуйте оба интерфейса в классе. Методы после реализации должны принимать 
+по одному аргументу, а затем просто возвращать их. Создайте объект класса и 
+выведите на экран остаток от деления результата вызова первого метода на результат 
+вызова второго метода. Методам в качестве аргументов передайте целые числа. Не забывайте, 
+что при реализации интерфейсов в классе используется служебное слово implements, 
+а служебное слово extends используется при наследовании интерфейсов друг от друга. 
+При этом разрешается наследовать сразу несколько интерфейсов, разделяя их запятыми
 	*/
 
-//Объявили абстрактный класс
-abstract class abstract_class{                     
-  //Будет возвращать марку авто
-  abstract protected function return_car_name();  
-  //Будет возвращать цену авто
-  abstract protected function return_car_price(); 
+//Объявляем первый интерфейс
+interface my_intf_1{                  
+  //Метод должен принимать 1 аргумент
+  public function my_func_1($a);     
+}
+  
+//Объявляем второй интерфейс
+interface my_intf_2{                  
+  //Метод должен принимать 1 аргумент
+  public function my_func_2($b);    
+}
+  
+//Реализуем интерфейсы в классе
+class my_class implements my_intf_1, my_intf_2{ 
+                      
+  //Реализуем первый метод
+  public function my_func_1($a){               
+    return $a;    
+  }
  
-  //Обычный общий метод 
-  public function return_year($year){          
-    return "Год выпуска авто: {$year}";
+  //Реализуем второй метод
+  public function my_func_2($b){               
+    return $b;
   }
 }
   
-  
-class bmw_car extends abstract_class{
-    
-  //Реализуем (заполняем) метод
-  public function return_car_name(){ 
-    return 'BMW';
-  }
- 
-  //Расширяем область видимости метода
-  public function return_car_price(){ 
-    return 30000;
-  }
-}
-  
-  
-class ford_car extends abstract_class{
-    
-  //Реализуем (заполняем) метод
-  public function return_car_name() { 
-    return 'Ford';
-  }
- 
-  //Расширяем область видимости метода
-  public function return_car_price(){  
-    return 20000;
-  }
-}
-  
-//Создаем экземпляр первого класса-потомка
-$bmw = new bmw_car;            
-echo $bmw->return_car_name().'<br>';
-echo $bmw->return_year(2003).'<br>';
-echo $bmw->return_car_price().'<br><br>';
-  
-//Создаем экземпляр второго класса-потомка
-$ford = new ford_car;          
-echo $ford->return_car_name().'<br>';
-echo $ford->return_year(2005).'<br>';
-echo $ford->return_car_price().'<br>';
+$obj= new my_class();          
+//Выведет '1'
+echo $obj->my_func_1(11)%$obj->my_func_2(10);   
  
 ?>
